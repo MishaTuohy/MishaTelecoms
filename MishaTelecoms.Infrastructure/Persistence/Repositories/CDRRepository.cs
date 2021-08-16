@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MishaTelecoms.Application.Dtos;
+using MishaTelecoms.Application.Interfaces.Dao;
 using MishaTelecoms.Application.Interfaces.Repositories;
 using MishaTelecoms.Domain.Data;
 using MishaTelecoms.Domain.Settings;
@@ -15,23 +16,24 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
     public class CDRRepository : DatabaseUtilities, ICDRRepository
     {
         private readonly string Connection;
-        public CDRRepository(DbConnectionConfig config) : base(config)
+        private readonly ICDRDao dao;
+        public CDRRepository(DbConnectionConfig config, ICDRDao dao) 
+            : base(config)
         {
             Connection = config.ConnectionString;
+            this.dao = dao;
         }
 
         public bool Create(CDRDataDto entity)
         {
             using (IDbConnection _connection = CreateConnection(Connection))
             {
-                string sqlQuery = "INSERT INTO dbo.CDRData (id, callingNumber, calledNumber, country, callType, duration, cost) " +
-                   "VALUES (@id, @callingNumber, @calledNumber, @country, @callType, @duration, @cost)";
                 _connection.Open();
                 using (var transaction = _connection.BeginTransaction())
                 {
                     try
                     {
-                        _connection.Execute(sqlQuery, entity, transaction: transaction);
+                        _connection.Execute(dao.InsertSql(), entity, transaction: transaction);
                         transaction.Commit();
                         return true;
                     }
