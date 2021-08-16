@@ -6,8 +6,10 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MishaTelecoms.Domain\MishaTelecoms.Domain.csproj" />
   </ItemGroup>
 
 </Project>

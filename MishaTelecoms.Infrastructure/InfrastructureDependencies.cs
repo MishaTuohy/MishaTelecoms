@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MishaTelecoms.Infrastructure
 {
-    class InfrastructureDependencies
+    public class InfrastructureDependencies
     {
     }
 }

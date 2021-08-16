@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MishaTelecoms.Application\MishaTelecoms.Application.csproj" />
+    <ProjectReference Include="..\MishaTelecoms.Infrastructure\MishaTelecoms.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
