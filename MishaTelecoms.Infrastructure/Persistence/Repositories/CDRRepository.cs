@@ -57,7 +57,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     try
                     {
-                        var result = await _connection.QueryAsync<CDRDataDto>(dao.GetById(), new { id }, transaction);
+                        var result = await _connection.QueryAsync<CDRDataDto>(dao.GetByIdSql(), new { id }, transaction);
                         transaction.Commit();
                         return result.FirstOrDefault();
                     }
