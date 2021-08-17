@@ -14,4 +14,8 @@
     <ProjectReference Include="..\MishaTelecoms.Application\MishaTelecoms.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>
