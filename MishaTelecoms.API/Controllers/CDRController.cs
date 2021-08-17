@@ -27,30 +27,30 @@ namespace MishaTelecoms.API.Controllers
         // api/CDRData/
         [Authorize]
         [HttpPost]
-        public Task<bool> Post([FromBody] CDRDataDto entity)
+        public async Task<bool> Post([FromBody] CDRDataDto entity)
         {
             try
             {
                 if (ModelState.IsValid)
-                    return _cdrRepository.AddAsync(entity);
+                    return await _cdrRepository.AddAsync(entity);
                 else
-                    return null;
+                    return false;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                return false;
             }
         }
 
         // api/CDRData/
         [Authorize]
         [HttpGet]
-        public Task<IReadOnlyList<CDRDataDto>> GetAll()
+        public async Task<IReadOnlyList<CDRDataDto>> GetAll()
         {
             try
             {
-                return _cdrRepository.GetAllAsync();
+                return await _cdrRepository.GetAllAsync();
             }
             catch (Exception ex)
             {
@@ -62,11 +62,11 @@ namespace MishaTelecoms.API.Controllers
         // api/CDRData/id/{id}
         [Authorize]
         [HttpGet("id/{id}")]
-        public Task<CDRDataDto> GetById(Guid id)
+        public async Task<CDRDataDto> GetById(Guid id)
         {
             try
             {
-                return _cdrRepository.GetByIdAsync(id);
+                return await _cdrRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
@@ -78,15 +78,16 @@ namespace MishaTelecoms.API.Controllers
         // api/CDRData/delete/{id}
         [Authorize]
         [HttpDelete("delete/{id}")]
-        public void Delete(CDRDataDto entity)
+        public async Task<bool> Delete(CDRDataDto entity)
         {
             try
             {
-                _cdrRepository.DeleteAsync(entity);
+                return await _cdrRepository.DeleteAsync(entity);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
+                return false;
             }
         }
     }

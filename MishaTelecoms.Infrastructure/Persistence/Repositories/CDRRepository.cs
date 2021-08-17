@@ -99,7 +99,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task DeleteAsync(CDRDataDto entity)
+        public async Task<bool> DeleteAsync(CDRDataDto entity)
         {
             using (IDbConnection _connection = CreateConnection(Connection))
             {
@@ -110,11 +110,13 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                     {
                         await _connection.ExecuteAsync(dao.DeleteSql(), new { entity.Id }, transaction);
                         transaction.Commit();
+                        return true;
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"Error: {ex.Message}");
                         transaction.Rollback();
+                        return false;
                     }
                 }
             }
