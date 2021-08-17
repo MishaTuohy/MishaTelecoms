@@ -7,10 +7,10 @@ namespace MishaTelecoms.Application.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        bool Create(T entity);
-        T GetById(Guid id);
-        List<T> GetAll();
-        T Update(T entity);
-        void Delete(Guid id);
+        Task<bool> AddAsync(T entity);
+        Task<T> GetByIdAsync(Guid id);
+        Task<IReadOnlyList<T>> GetAllAsync();
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(T entity);
     }
 }

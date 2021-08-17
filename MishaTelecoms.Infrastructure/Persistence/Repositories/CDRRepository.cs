@@ -24,8 +24,9 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             this.dao = dao;
         }
 
-        public bool Create(CDRDataDto entity)
+        public async Task<bool> AddAsync(CDRDataDto entity)
         {
+            bool result = false;
             using (IDbConnection _connection = CreateConnection(Connection))
             {
                 _connection.Open();
@@ -33,40 +34,21 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     try
                     {
-                        _connection.Execute(dao.InsertSql(), entity, transaction: transaction);
+                        result = await _connection.ExecuteAsync(dao.InsertSql(), entity, transaction: transaction) > 0;
                         transaction.Commit();
-                        return true;
+                        return result;
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"Error: {ex.Message}");
                         transaction.Rollback();
-                        return false;
+                        return result;
                     }
                 }
             }
         }
 
-        public List<CDRDataDto> GetAll()
-        {
-            using(IDbConnection _connection = CreateConnection(Connection))
-            {
-                using (var transaction = _connection.BeginTransaction())
-                {
-                    try
-                    {
-                        return _connection.Query<CDRDataDto>("Select * From dbo.CDRData").ToList();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error: {ex.Message}");
-                        transaction.Rollback();
-                        return null;
-                    }
-                }
-            }
-        }
-        public CDRDataDto GetById(Guid id)
+        public async Task<CDRDataDto> GetByIdAsync(Guid id)
         {
             using (IDbConnection _connection = CreateConnection(Connection))
             {
@@ -76,9 +58,9 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     try
                     {
-                        CDRDataDto result = _connection.Query<CDRDataDto>(sqlQuery, new { id }, transaction).FirstOrDefault();
+                        var result = await _connection.QueryAsync<CDRDataDto>(sqlQuery, new { id }, transaction);
                         transaction.Commit();
-                        return result;
+                        return result.FirstOrDefault();
                     }
                     catch (Exception ex)
                     {
@@ -90,12 +72,35 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             }
         }
 
-        public CDRDataDto Update(CDRDataDto entity)
+        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
+        {
+            using (IDbConnection _connection = CreateConnection(Connection))
+            {
+                _connection.Open();
+                using (var transaction = _connection.BeginTransaction())
+                {
+                    try
+                    {
+                        var result = await _connection.QueryAsync<CDRDataDto>("Select * From dbo.CDRData");
+                        transaction.Commit();
+                        return result.ToList();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                        transaction.Rollback();
+                        return null;
+                    }
+                }
+            }
+        }
+
+        public Task UpdateAsync(CDRDataDto entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(CDRDataDto entity)
         {
             using (IDbConnection _connection = CreateConnection(Connection))
             {
@@ -105,7 +110,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     try
                     {
-                        _connection.Execute(sqlQuery, new { id }, transaction);
+                        await _connection.ExecuteAsync(sqlQuery, new { entity.Id }, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
