@@ -8,6 +8,8 @@ namespace MishaTelecoms.Application.Interfaces.Dao
     {
         string InsertSql();
         string GetAllSql();
-        string GetAllWhere();
+        string GetAllWhereSql();
+        string GetByIdSql();
+        string DeleteSql();
     }
 }

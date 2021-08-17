@@ -52,13 +52,12 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
         {
             using (IDbConnection _connection = CreateConnection(Connection))
             {
-                string sqlQuery = @"SELECT * FROM dbo.CDRData WHERE id = @guid";
                 _connection.Open();
                 using (var transaction = _connection.BeginTransaction())
                 {
                     try
                     {
-                        var result = await _connection.QueryAsync<CDRDataDto>(sqlQuery, new { id }, transaction);
+                        var result = await _connection.QueryAsync<CDRDataDto>(dao.GetById(), new { id }, transaction);
                         transaction.Commit();
                         return result.FirstOrDefault();
                     }
@@ -81,7 +80,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     try
                     {
-                        var result = await _connection.QueryAsync<CDRDataDto>("Select * From dbo.CDRData");
+                        var result = await _connection.QueryAsync<CDRDataDto>(dao.GetAllSql());
                         transaction.Commit();
                         return result.ToList();
                     }
@@ -104,13 +103,12 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
         {
             using (IDbConnection _connection = CreateConnection(Connection))
             {
-                string sqlQuery = @"DELETE FROM dbo.CDRData WHERE id = @id";
                 _connection.Open();
                 using (var transaction = _connection.BeginTransaction())
                 {
                     try
                     {
-                        await _connection.ExecuteAsync(sqlQuery, new { entity.Id }, transaction);
+                        await _connection.ExecuteAsync(dao.DeleteSql(), new { entity.Id }, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
