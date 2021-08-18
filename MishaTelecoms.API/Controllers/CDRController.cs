@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
+using MishaTelecoms.Application.Interfaces.Data;
 using MishaTelecoms.Application.Interfaces.Repositories;
 using MishaTelecoms.Domain.Entities;
 using System;
@@ -17,9 +18,11 @@ namespace MishaTelecoms.API.Controllers
     {
         private readonly ICDRRepository _cdrRepository;
         private readonly ILogger<CDRController> _logger;
+        private readonly ITransaction _transaction;
 
-        public CDRController(ILogger<CDRController> logger, ICDRRepository cdrRepository)
+        public CDRController(ILogger<CDRController> logger, ICDRRepository cdrRepository, ITransaction transaction)
         {
+            _transaction = transaction;
             _logger = logger;
             _cdrRepository = cdrRepository;
         }
@@ -32,14 +35,13 @@ namespace MishaTelecoms.API.Controllers
             try
             {
                 if (ModelState.IsValid)
-                    return await _cdrRepository.AddAsync(entity);
-                else
-                    return false;
+                    return await _cdrRepository.AddAsync(_transaction, entity);
+                throw new ArgumentNullException("CDR Data cannot be null");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
-                return false;
+                _logger.LogError(ex, "Api Failure");
+                throw;
             }
         }
 
@@ -54,40 +56,44 @@ namespace MishaTelecoms.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, "Api Failure");
+                throw;
             }
-            return null;
         }
 
         // api/CDRData/id/{id}
         [Authorize]
         [HttpGet("id/{id}")]
-        public async Task<CDRDataDto> GetById(Guid id)
+        public async Task<CDRDataDto> GetById(Guid Id)
         {
             try
             {
-                return await _cdrRepository.GetByIdAsync(id);
+                if(Id == null)
+                    throw new ArgumentNullException("CDR Data cannot be null");
+                return await _cdrRepository.GetByIdAsync(Id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, "Api Failure");
+                throw;
             }
-            return null;
         }
 
         // api/CDRData/delete/{id}
         [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<bool> Delete(CDRDataDto entity)
-        {
+        {       
             try
             {
-                return await _cdrRepository.DeleteAsync(entity);
+                if (ModelState.IsValid)
+                    return await _cdrRepository.DeleteAsync(entity);
+                throw new ArgumentNullException("CDR Data cannot be null");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
-                return false;
+                _logger.LogError(ex, "Api Failure");
+                throw;
             }
         }
     }
