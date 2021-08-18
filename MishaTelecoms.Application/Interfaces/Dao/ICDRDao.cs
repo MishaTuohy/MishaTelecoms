@@ -8,8 +8,12 @@ namespace MishaTelecoms.Application.Interfaces.Dao
     {
         string InsertSql();
         string GetAllSql();
-        string GetAllWhereSql();
         string GetByIdSql();
+        string GetByCountry();
+        string GetByCallType();
+        string GetByDuration();
+        string GetFilteredCdrDataSql();
+        string UpdateSql();
         string DeleteSql();
     }
 }

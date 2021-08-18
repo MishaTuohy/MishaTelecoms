@@ -1,104 +1,100 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Dao;
+using MishaTelecoms.Application.Interfaces.Data;
 using MishaTelecoms.Application.Interfaces.Repositories;
 using MishaTelecoms.Domain.Data;
 using MishaTelecoms.Domain.Settings;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MishaTelecoms.Infrastructure.Persistence.Repositories
 {
     public class CDRRepository : DatabaseUtilities, ICDRRepository
     {
+        private readonly ISqlHelper _sqlHelper;
         private readonly string Connection;
+        private readonly ILogger<CDRRepository> _logger;
         private readonly ICDRDao dao;
-        public CDRRepository(DbConnectionConfig config, ICDRDao dao) 
+        public CDRRepository(DbConnectionConfig config, ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelper sqlHelper) 
             : base(config)
         {
-            Connection = config.ConnectionString;
+            _sqlHelper = sqlHelper;
+            _logger = logger;
             this.dao = dao;
         }
 
-        public async Task<bool> AddAsync(CDRDataDto entity)
+        public async Task<bool> AddAsync(ITransaction trans, CDRDataDto dto)
         {
-            bool result = false;
-            using (IDbConnection _connection = CreateConnection(Connection))
+            if (dto == null)
+                throw new ArgumentNullException("CDR Data cannot be null");
+
+            bool result;
+            try
             {
-                _connection.Open();
-                using (var transaction = _connection.BeginTransaction())
+                List<ParameterInfo> _params = new List<ParameterInfo>
                 {
-                    try
-                    {
-                        result = await _connection.ExecuteAsync(dao.InsertSql(), entity, transaction: transaction) > 0;
-                        transaction.Commit();
-                        return result;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error: {ex.Message}");
-                        transaction.Rollback();
-                        return result;
-                    }
-                }
+                    new ParameterInfo { Name = "Id", Value = dto.Id },
+                    new ParameterInfo { Name = "CallingNumber", Value = dto.CallingNumber } ,
+                    new ParameterInfo { Name = "CalledNumber", Value =  dto.CalledNumber },
+                    new ParameterInfo { Name = "Country", Value =dto.Country },
+                    new ParameterInfo { Name = "CallType", Value = dto.CallType },
+                    new ParameterInfo { Name = "Duration", Value = dto.Duration },
+                    new ParameterInfo { Name = "DateCreated", Value = dto.DateCreated },
+                    new ParameterInfo { Name = "Cost", Value =  dto.Cost },
+                };
+                result = await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.StoredProcedure) > 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create CDR Data");
+                throw;
+            }
+            return result;
+        }
+        public Task<CDRDataDto> GetByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
+        {
+            if (Country == null | CallType == null | Duration < 0)
+                throw new ArgumentNullException("Filter values can't be empty");
+            try
+            {
+                List<ParameterInfo> _params = new List<ParameterInfo>
+                {
+                    new ParameterInfo { Name = "Country", Value = Country },
+                    new ParameterInfo { Name = "CallType", Value = CallType },
+                    new ParameterInfo { Name = "Duration", Value = Duration }
+                };
+                return await _sqlHelper.GetRecordsParamAsync<CDRDataDto>(dao.GetFilteredCdrDataSql(), _params, CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create CDR Data");
+                throw;
             }
         }
-
-        public async Task<CDRDataDto> GetByIdAsync(Guid id)
-        {
-            using (IDbConnection _connection = CreateConnection(Connection))
-            {
-                _connection.Open();
-                using (var transaction = _connection.BeginTransaction())
-                {
-                    try
-                    {
-                        var result = await _connection.QueryAsync<CDRDataDto>(dao.GetByIdSql(), new { id }, transaction);
-                        transaction.Commit();
-                        return result.FirstOrDefault();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error: {ex.Message}");
-                        transaction.Rollback();
-                        return null;
-                    }
-                }
-            }
-        }
-
         public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
         {
-            using (IDbConnection _connection = CreateConnection(Connection))
+            try
             {
-                _connection.Open();
-                using (var transaction = _connection.BeginTransaction())
-                {
-                    try
-                    {
-                        var result = await _connection.QueryAsync<CDRDataDto>(dao.GetAllSql());
-                        transaction.Commit();
-                        return result.ToList();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error: {ex.Message}");
-                        transaction.Rollback();
-                        return null;
-                    }
-                }
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetAllSql(), CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retreive CDR Data");
+                throw;
             }
         }
-
         public Task UpdateAsync(CDRDataDto entity)
         {
             throw new NotImplementedException();
         }
-
         public async Task<bool> DeleteAsync(CDRDataDto entity)
         {
             using (IDbConnection _connection = CreateConnection(Connection))
