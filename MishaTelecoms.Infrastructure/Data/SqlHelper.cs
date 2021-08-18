@@ -81,9 +81,22 @@ namespace MishaTelecoms.Infrastructure.Data
             }
             return _record;
         }
-        public Task<T> GetRecordAsync<T>(string spName, List<ParameterInfo> parameters, CommandType _commandType)
+        public async Task<T> GetRecordAsync<T>(string sql, List<ParameterInfo> parameters, CommandType _commandType)
         {
-            throw new System.NotImplementedException();
+            T _record = default;
+            using (IDbConnection _connection = CreateConnection(Connection))
+            {
+                DynamicParameters p = new DynamicParameters();
+
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                        p.Add("@" + param.Name, param.Value);
+                }
+
+                _record = (T)await SqlMapper.QueryAsync<T>(_connection, sql, p, commandType: _commandType);
+            }
+            return _record;
         }
         public List<T> GetRecords<T>(string sql, List<ParameterInfo> parameters, CommandType _commandType)
         {

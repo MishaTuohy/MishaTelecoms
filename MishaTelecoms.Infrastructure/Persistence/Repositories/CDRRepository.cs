@@ -55,9 +55,23 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             }
             return result;
         }
-        public Task<CDRDataDto> GetByIdAsync(Guid id)
+        public async Task<CDRDataDto> GetByIdAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            if(Id == null)
+                throw new ArgumentNullException("Id value can't be empty");
+            try
+            {
+                List<ParameterInfo> _params = new List<ParameterInfo>
+                {
+                    new ParameterInfo { Name = "Country", Value = Id }
+                };
+                return await _sqlHelper.GetRecordAsync<CDRDataDto>(dao.GetByIdSql(), _params, CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve CDR Data");
+                throw;
+            }
         }
         public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
         {
