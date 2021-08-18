@@ -33,6 +33,20 @@ namespace MishaTelecoms.Infrastructure.Data
 
             return iRetVal;
         }
+        public async Task<int> ExecuteQueryAsync(IDbConnection _connection, IDbTransaction _transaction, string sql, List<ParameterInfo> parameters, CommandType _commandType)
+        {
+            DynamicParameters _params = new DynamicParameters();
+
+            if (parameters != null)
+            {
+                foreach (var param in parameters)
+                    _params.Add("@" + param.Name, param.Value);
+            }
+
+            int iRetVal = await SqlMapper.ExecuteAsync(_connection, sql, _params, transaction: _transaction, commandType: _commandType);
+
+            return iRetVal;
+        }
         public int ExecuteQuery(string sql, List<ParameterInfo> parameters, CommandType _commandType, int CommandTimeout)
         {
             int iRetVal = 0;

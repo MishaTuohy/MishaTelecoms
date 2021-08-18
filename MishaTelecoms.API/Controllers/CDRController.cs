@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MishaTelecoms.API.Models;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Repositories;
+using MishaTelecoms.Application.Interfaces.Services;
 using MishaTelecoms.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,26 +18,36 @@ namespace MishaTelecoms.API.Controllers
     [ApiController]
     public class CDRController : Controller
     {
-        private readonly ICDRRepository _cdrRepository;
+        private readonly ICDRService _service;
         private readonly ILogger<CDRController> _logger;
+        private readonly IMapper _mapper;
 
-        public CDRController(ILogger<CDRController> logger, ICDRRepository cdrRepository)
+        public CDRController(
+            ILogger<CDRController> logger,
+            ICDRService cdrService, 
+            IMapper mapper)
         {
             _logger = logger;
-            _cdrRepository = cdrRepository;
+            _service = cdrService;
+            _mapper = mapper;
         }
 
         // api/CDRData/
         [Authorize]
         [HttpPost]
-        public async Task<bool> Post([FromBody] CDRDataDto entity)
+        public async Task<bool> Post([FromBody] CDRDataModel entity)
         {
             try
             {
                 if (ModelState.IsValid)
-                    return await _cdrRepository.AddAsync(entity);
+                {
+                    return await _service.AddAsync(
+                        _mapper.Map<CDRDataModel, CDRDataDto>(entity));
+                }                
                 else
+                {
                     return false;
+                }                
             }
             catch (Exception ex)
             {
@@ -46,11 +59,11 @@ namespace MishaTelecoms.API.Controllers
         // api/CDRData/
         [Authorize]
         [HttpGet]
-        public async Task<IReadOnlyList<CDRDataDto>> GetAll()
+        public async Task<IReadOnlyList<CDRDataModel>> GetAll()
         {
             try
             {
-                return await _cdrRepository.GetAllAsync();
+                var result = await _service.GetAllAsync();
             }
             catch (Exception ex)
             {
@@ -62,11 +75,12 @@ namespace MishaTelecoms.API.Controllers
         // api/CDRData/id/{id}
         [Authorize]
         [HttpGet("id/{id}")]
-        public async Task<CDRDataDto> GetById(Guid id)
+        public async Task<CDRDataModel> GetById([FromBody] Guid id)
         {
             try
             {
-                return await _cdrRepository.GetByIdAsync(id);
+                return _mapper.Map<CDRDataDto, CDRDataModel>(
+                    await _service.GetByIdAsync(id));
             }
             catch (Exception ex)
             {
@@ -78,11 +92,12 @@ namespace MishaTelecoms.API.Controllers
         // api/CDRData/delete/{id}
         [Authorize]
         [HttpDelete("delete/{id}")]
-        public async Task<bool> Delete(CDRDataDto entity)
+        public async Task<bool> Delete([FromBody] CDRDataModel entity)
         {
             try
             {
-                return await _cdrRepository.DeleteAsync(entity);
+                return  await _service.DeleteAsync(
+                    _mapper.Map<CDRDataModel, CDRDataDto>(entity));
             }
             catch (Exception ex)
             {
