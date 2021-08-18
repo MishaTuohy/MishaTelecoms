@@ -16,7 +16,6 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
     public class CDRRepository : DatabaseUtilities, ICDRRepository
     {
         private readonly ISqlHelper _sqlHelper;
-        private readonly string Connection;
         private readonly ILogger<CDRRepository> _logger;
         private readonly ICDRDao dao;
         public CDRRepository(DbConnectionConfig config, ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelper sqlHelper) 
@@ -111,25 +110,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
         }
         public async Task<bool> DeleteAsync(CDRDataDto entity)
         {
-            using (IDbConnection _connection = CreateConnection(Connection))
-            {
-                _connection.Open();
-                using (var transaction = _connection.BeginTransaction())
-                {
-                    try
-                    {
-                        await _connection.ExecuteAsync(dao.DeleteSql(), new { entity.Id }, transaction);
-                        transaction.Commit();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error: {ex.Message}");
-                        transaction.Rollback();
-                        return false;
-                    }
-                }
-            }
+            throw new NotImplementedException();
         }
     }
 }
