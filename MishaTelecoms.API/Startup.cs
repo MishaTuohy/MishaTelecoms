@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MishaTelecoms.API.Services;
 using MishaTelecoms.Application.Interfaces.Repositories;
+using MishaTelecoms.Application.Interfaces.Services;
 using MishaTelecoms.Infrastructure.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,9 @@ namespace MishaTelecoms.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<ICDRRepository, CDRRepository>();
+            services.AddScoped<ICDRService, CDRService>();
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
