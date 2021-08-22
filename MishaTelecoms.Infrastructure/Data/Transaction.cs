@@ -22,23 +22,19 @@ namespace MishaTelecoms.Infrastructure.Data
             _connection = CreateConnection();
             _transaction = _connection.BeginTransaction();
         }
-
         public Transaction() : base(null)
         {
             _connection = CreateConnection();
             _transaction = _connection.BeginTransaction();
         }
-
         public DbConnection GetConnection()
         {
             return _connection;
         }
-
         public DbTransaction GetTransaction()
         {
             return _transaction;
         }
-
         public bool HasTransaction()
         {
             if (_connection == null || _transaction == null)
@@ -47,7 +43,6 @@ namespace MishaTelecoms.Infrastructure.Data
                 return false;
             return true;
         }
-
         public void Commit()
         {
             if (HasTransaction())
@@ -58,7 +53,6 @@ namespace MishaTelecoms.Infrastructure.Data
                 _connection.Dispose();
             }
         }
-
         public void Rollback()
         {
             if (HasTransaction())
@@ -69,7 +63,6 @@ namespace MishaTelecoms.Infrastructure.Data
                 _connection.Dispose();
             }
         }
-
         public void Dispose()
         {
             if (_connection.State == ConnectionState.Open)

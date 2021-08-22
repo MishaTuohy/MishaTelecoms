@@ -132,9 +132,8 @@ namespace MishaTelecoms.API.Services
                     result = await _repository.DeleteAsync(_trans, entity);
 
                     if (result)
-                    {
                         _trans.Commit();
-                    }
+                    
                 }
                 catch (Exception ex)
                 {
