@@ -5,13 +5,15 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MishaTelecoms.API", "MishaTelecoms.API\MishaTelecoms.API.csproj", "{78593F96-CB95-4B0A-897E-CB11C1C767D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MishaTelecoms.Application", "MishaTelecoms.Application\MishaTelecoms.Application.csproj", "{2662E83C-7B4D-4A7C-921C-CA9FAD031AF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MishaTelecoms.Application", "MishaTelecoms.Application\MishaTelecoms.Application.csproj", "{2662E83C-7B4D-4A7C-921C-CA9FAD031AF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MishaTelecoms.Infrastructure", "MishaTelecoms.Infrastructure\MishaTelecoms.Infrastructure.csproj", "{8B6A99F3-F4F3-4B0A-8988-3066E3EB7BD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MishaTelecoms.Infrastructure", "MishaTelecoms.Infrastructure\MishaTelecoms.Infrastructure.csproj", "{8B6A99F3-F4F3-4B0A-8988-3066E3EB7BD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MishaTelecoms.Domain", "MishaTelecoms.Domain\MishaTelecoms.Domain.csproj", "{36A135E0-F8C8-47C8-912F-65E86A7E6E03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MishaTelecoms.Domain", "MishaTelecoms.Domain\MishaTelecoms.Domain.csproj", "{36A135E0-F8C8-47C8-912F-65E86A7E6E03}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MishaTelecoms.DB", "MishaTelecoms.DB\MishaTelecoms.DB.sqlproj", "{4FCB9F3C-6D6A-4E69-91F2-D1090A531F27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MishaTelecoms.CDRGenerator", "MishaTelecoms.CDRGenerator\MishaTelecoms.CDRGenerator.csproj", "{FD411E91-C390-4FD0-B58E-02518F9AF7A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{4FCB9F3C-6D6A-4E69-91F2-D1090A531F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FCB9F3C-6D6A-4E69-91F2-D1090A531F27}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FCB9F3C-6D6A-4E69-91F2-D1090A531F27}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{FD411E91-C390-4FD0-B58E-02518F9AF7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD411E91-C390-4FD0-B58E-02518F9AF7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD411E91-C390-4FD0-B58E-02518F9AF7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD411E91-C390-4FD0-B58E-02518F9AF7A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

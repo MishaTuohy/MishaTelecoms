@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>dotnet-MishaTelecoms.CDRGenerator-A9E604D2-985F-4E5F-A4A1-CCCD7F93D25E</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MishaTelecoms.Application\MishaTelecoms.Application.csproj" />
+  </ItemGroup>
+</Project>
