@@ -11,7 +11,7 @@ namespace MishaTelecoms.Application.Interfaces.Repositories
         Task<T> GetByIdAsync(Guid Id);
         Task<IReadOnlyList<T>> GetAllAsync();
         Task<bool> AddAsync(ITransaction _trans, T entity);
-        Task UpdateAsync(ITransaction trans, T entity);
+        Task<bool> UpdateAsync(ITransaction trans, T entity);
         Task<bool> DeleteAsync(ITransaction _trans, T entity);
     }
 }
