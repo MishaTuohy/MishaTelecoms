@@ -28,13 +28,108 @@ namespace MishaTelecoms.API.Services
             bool result;
 
             if (entity == null)
-                throw new ArgumentNullException("CDR Data cannot be null");
+                throw new ArgumentNullException("CDR Data can not be null");
 
             using (Transaction _trans = new Transaction())
             {
                 try
                 {
                     result = await _repository.AddAsync(_trans, entity);
+
+                    if (result)
+                        _trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _trans.Rollback();
+                    _logger.LogError(ex.Message);
+                    throw;
+                }
+            }
+            return result;
+        }
+
+        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
+        {
+            IReadOnlyList<CDRDataDto> result;
+            using (Transaction _trans = new Transaction())
+            {
+                try
+                {
+                    result = await _repository.GetAllAsync();
+                    if (result.Count() > 0)
+                        _trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _trans.Rollback();
+                    _logger.LogError(ex.Message);
+                    throw;
+                }
+            }
+            return result;
+        }
+
+        public async Task<CDRDataDto> GetByIdAsync(Guid Id)
+        {
+            if (Id == null)
+                throw new ArgumentNullException("Id can not be null");
+            CDRDataDto result;
+            using (Transaction _trans = new Transaction())
+            {
+                try
+                {
+                    result = await _repository.GetByIdAsync(Id);
+                    if (result != null)
+                        _trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _trans.Rollback();
+                    _logger.LogError(ex.Message);
+                    throw;
+                }
+            }
+            return result;
+        }
+
+        public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
+        {
+            if(Country == null || CallType == null)
+                throw new ArgumentNullException("Filter Types cannot be null");
+            if (Duration <= 0)
+                throw new ArgumentException("Duration can not be a 0 or a negative number");
+
+            IEnumerable<CDRDataDto> result;
+            using (Transaction _trans = new Transaction())
+            {
+                try
+                {
+                    result = await _repository.GetFilteredCDRDataAsync(Country, CallType, Duration);
+                    if (result.Count() > 0)
+                        _trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _trans.Rollback();
+                    _logger.LogError(ex.Message);
+                    throw;
+                }
+            }
+            return result;
+        }
+
+        public async Task<bool> DeleteAsync(CDRDataDto entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException("CDR Data can not be null");
+
+            bool result;
+            using (Transaction _trans = new Transaction())
+            {
+                try
+                {
+                    result = await _repository.DeleteAsync(_trans, entity);
 
                     if (result)
                     {
@@ -49,26 +144,6 @@ namespace MishaTelecoms.API.Services
                 }
             }
             return result;
-        }
-
-        public Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<CDRDataDto> GetByIdAsync(Guid Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
-        {
-            throw new NotImplementedException();
-            }
-
-        public Task<bool> DeleteAsync(CDRDataDto entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

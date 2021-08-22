@@ -1,26 +1,26 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MishaTelecoms.API.Services;
-using MishaTelecoms.Application.Interfaces.Repositories;
 using MishaTelecoms.Application.Interfaces.Services;
-using MishaTelecoms.Infrastructure.Persistence.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MishaTelecoms.Infrastructure;
 
 namespace MishaTelecoms.API
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddInfrastructure(Configuration);
             services.AddScoped<ICDRService, CDRService>();
-
             services.AddAutoMapper(typeof(Startup));
         }
 
