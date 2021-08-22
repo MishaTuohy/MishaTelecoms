@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace MishaTelecoms.CDRGenerator.Generators
 {
-    public class DataGenerator : ICDRGeneratorService
+    public class DataGenerator : ICDRGenerator
     {
         private readonly ILogger<DataGenerator> _logger;
         private readonly List<string> _countries;
@@ -40,6 +40,7 @@ namespace MishaTelecoms.CDRGenerator.Generators
                 cdr.CallType = GenerateCallType();
                 cdr.Duration = GenerateDuration();
                 cdr.DateCreated = GenerateDateCreated();
+                cdr.Cost = cdr.calculateCost(cdr.Country, cdr.Duration);
             }
             catch (Exception ex)
             {

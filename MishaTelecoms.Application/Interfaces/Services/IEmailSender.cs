@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.Application.Interfaces.Services
 {
-    public interface ICDRFileGeneratorService
+    public interface IEmailSender
     {
-        Task AppendData(string data);
+        Task SendEmailAsync(string email, string subject, string message);
     }
 }

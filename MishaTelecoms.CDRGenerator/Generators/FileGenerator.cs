@@ -7,7 +7,7 @@ using MishaTelecoms.Application.Interfaces.Services;
 
 namespace MishaTelecoms.CDRGenerator.Generators
 {
-    public class FileGenerator : ICDRFileGeneratorService
+    public class FileGenerator : ICDRFileGenerator
     {
         private readonly ILogger<FileGenerator> _logger;
         private readonly string _filepath;

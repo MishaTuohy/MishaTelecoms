@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MishaTelecoms.Application.Interfaces.Services
 {
-    public interface ICDRGeneratorService
+    public interface ICDRGenerator
     {
         CDRDataDto GetCDRData();
         string GenerateCallNumber();

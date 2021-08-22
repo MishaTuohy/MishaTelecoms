@@ -12,10 +12,10 @@ namespace MishaTelecoms.CDRGenerator
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly ICDRGeneratorService _dataGenerator;
-        private readonly ICDRFileGeneratorService _fileGenerator;
+        private readonly ICDRGenerator _dataGenerator;
+        private readonly ICDRFileGenerator _fileGenerator;
 
-        public Worker(ILogger<Worker> logger, ICDRGeneratorService dataGenerator, ICDRFileGeneratorService fileGenerator)
+        public Worker(ILogger<Worker> logger, ICDRGenerator dataGenerator, ICDRFileGenerator fileGenerator)
         {
             _logger = logger;
             _dataGenerator = dataGenerator;
