@@ -35,8 +35,11 @@ namespace MishaTelecoms.API.Services
                 try
                 {
                     result = await _repository.AddAsync(_trans, entity);
+
                     if (result)
+                    {
                         _trans.Commit();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -61,7 +64,7 @@ namespace MishaTelecoms.API.Services
         public Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
         {
             throw new NotImplementedException();
-        }
+            }
 
         public Task<bool> DeleteAsync(CDRDataDto entity)
         {
