@@ -1,9 +1,11 @@
+using AutoMapper;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Services;
 using MishaTelecoms.CDRGenerator.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,28 +14,36 @@ namespace MishaTelecoms.CDRGenerator
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly ICDRGenerator _dataGenerator;
-        private readonly ICDRFileGenerator _fileGenerator;
+        private readonly ICDRImporter<CDRDataDto> _importer;
+        private readonly ICDRGenerator<CDRDataModel> _dataGenerator;
+        private readonly IMapper _mapper;
 
-        public Worker(ILogger<Worker> logger, ICDRGenerator dataGenerator, ICDRFileGenerator fileGenerator)
+        public Worker(ILogger<Worker> logger, ICDRGenerator<CDRDataModel> dataGenerator, ICDRImporter<CDRDataDto> importer,
+            IMapper mapper)
         {
             _logger = logger;
             _dataGenerator = dataGenerator;
-            _fileGenerator = fileGenerator;
+            _importer = importer;
+            _mapper = mapper;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                List<CDRDataDto> CDRDataList = new List<CDRDataDto>();
                 try
                 {
                     for (int i = 0; i < 1000; i++)
                     {
-                        CDRDataDto data = _dataGenerator.GetCDRData();
-                        await _fileGenerator.AppendData(data.ToString());
+                        var data = _mapper.Map<CDRDataModel, CDRDataDto>(_dataGenerator.GetCDRData());
+                        CDRDataList.Add(data);
                     }
-                    _logger.LogInformation("Generated new csv file at: {time}", DateTimeOffset.Now);
+
+                    int rowsAffected = _importer.SendToDB(CDRDataList);
+
+                    _logger.LogInformation("Generated new CDR Data at: {time}", DateTimeOffset.Now);
+                    _logger.LogInformation("Number of rows affected: {rows}", rowsAffected);
                 }
                 catch (Exception ex)
                 {

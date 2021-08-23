@@ -8,6 +8,6 @@ namespace MishaTelecoms.Application.Interfaces.Services
 {
     public interface ICDRImporter<T> where T : class
     {
-        Task SendToDB(T entity);
+        int SendToDB(List<T> entity);
     }
 }

@@ -96,8 +96,12 @@ namespace MishaTelecoms.API.Controllers
         {
             try
             {
-                return  await _service.DeleteAsync(
-                    _mapper.Map<CDRDataModel, CDRDataDto>(entity));
+                if (ModelState.IsValid)
+                {
+                    return await _service.DeleteAsync(
+                        _mapper.Map<CDRDataModel, CDRDataDto>(entity));
+                }
+                return false;
             }
             catch (Exception ex)
             {

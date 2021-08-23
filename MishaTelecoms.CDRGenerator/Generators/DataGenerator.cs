@@ -5,29 +5,24 @@ using MishaTelecoms.Domain.Settings;
 using System.Collections.Generic;
 using System.Linq;
 using MishaTelecoms.CDRGenerator.Models;
-using MishaTelecoms.Application.Dtos;
-using AutoMapper;
 
 namespace MishaTelecoms.CDRGenerator.Generators
 {
-    public class DataGenerator : ICDRGenerator
+    public class DataGenerator : ICDRGenerator<CDRDataModel>
     {
         private readonly ILogger<DataGenerator> _logger;
         private readonly List<string> _countries;
         private readonly List<string> _callTypes;
-        private readonly IMapper _mapper;
         private readonly Random rnd = new Random();
 
-        public DataGenerator(ILogger<DataGenerator> logger, CDRGeneratorConfig config,
-            IMapper mapper)
+        public DataGenerator(ILogger<DataGenerator> logger, CDRGeneratorConfig config)
         {
             _logger = logger;
             _countries = config.Countries;
             _callTypes = config.CallType;
-            _mapper = mapper;
         }
 
-        public CDRDataDto GetCDRData()
+        public CDRDataModel GetCDRData()
         {
             CDRDataModel cdr = new CDRDataModel();
 
@@ -47,8 +42,7 @@ namespace MishaTelecoms.CDRGenerator.Generators
                 _logger.LogError(ex.Message);
                 throw;
             }
-            CDRDataDto data = _mapper.Map<CDRDataModel, CDRDataDto>(cdr);
-            return data;
+            return cdr;
         }
 
         public string GenerateCallNumber()
