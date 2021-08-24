@@ -2,20 +2,26 @@
 using MishaTelecoms.Application.Interfaces.Data;
 using MishaTelecoms.Domain.Data;
 using MishaTelecoms.Domain.Settings;
+using MishaTelecoms.Infrastructure.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MishaTelecoms.Infrastructure.Data
 {
-    public class SqlHelper : DatabaseUtilities, ISqlHelper
+    public class SqlHelper : DatabaseUtils, ISqlHelper
     {
+        [NonSerialized]
+        DbConnection _connection;
         private readonly string Connection;
 
         public SqlHelper(DbConnectionConfig config) :
           base(config)
         {
+            _connection = CreateConnection();
             Connection = config.ConnectionString;
         }
 
@@ -49,21 +55,15 @@ namespace MishaTelecoms.Infrastructure.Data
         }
         public int ExecuteQuery(string sql, List<ParameterInfo> parameters, CommandType _commandType, int CommandTimeout)
         {
-            int iRetVal = 0;
-            using (IDbConnection _connection = CreateConnection(Connection))
+            DynamicParameters _params = new DynamicParameters();
+
+            if (parameters != null)
             {
-                DynamicParameters _params = new DynamicParameters();
-
-                if (parameters != null)
-                {
-                    foreach (var param in parameters)
-                        _params.Add("@" + param.Name, param.Value);
-                }
-
-                iRetVal = SqlMapper.Execute(_connection, sql, _params, commandType: _commandType);
+                foreach (var param in parameters)
+                    _params.Add("@" + param.Name, param.Value);
             }
 
-            return iRetVal;
+            return SqlMapper.Execute(_connection, sql, _params, commandType: _commandType); ;
         }
         public async Task<int> ExecuteScalarAsync(IDbConnection _connection, IDbTransaction _transaction, string sql, List<ParameterInfo> parameters, CommandType _commandType)
         {

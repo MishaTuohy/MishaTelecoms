@@ -1,8 +1,5 @@
 ﻿using MishaTelecoms.Domain.Settings;
-using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 
 namespace MishaTelecoms.Infrastructure.Utils
 {

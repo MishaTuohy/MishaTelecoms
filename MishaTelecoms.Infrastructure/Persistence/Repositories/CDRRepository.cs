@@ -1,11 +1,9 @@
-﻿using Dapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Dao;
 using MishaTelecoms.Application.Interfaces.Data;
 using MishaTelecoms.Application.Interfaces.Repositories;
 using MishaTelecoms.Domain.Data;
-using MishaTelecoms.Domain.Settings;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,13 +11,12 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.Infrastructure.Persistence.Repositories
 {
-    public class CDRRepository : DatabaseUtilities, ICDRRepository
+    public class CDRRepository : ICDRRepository
     {
         private readonly ISqlHelper _sqlHelper;
         private readonly ILogger<CDRRepository> _logger;
         private readonly ICDRDao dao;
-        public CDRRepository(DbConnectionConfig config, ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelper sqlHelper) 
-            : base(config)
+        public CDRRepository(ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelper sqlHelper)
         {
             _sqlHelper = sqlHelper;
             _logger = logger;
