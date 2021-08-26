@@ -13,10 +13,10 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
 {
     public class CDRRepository : ICDRRepository
     {
-        private readonly ISqlHelper _sqlHelper;
+        private readonly ISqlHelperAsync _sqlHelper;
         private readonly ILogger<CDRRepository> _logger;
         private readonly ICDRDao dao;
-        public CDRRepository(ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelper sqlHelper)
+        public CDRRepository(ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelperAsync sqlHelper)
         {
             _sqlHelper = sqlHelper;
             _logger = logger;

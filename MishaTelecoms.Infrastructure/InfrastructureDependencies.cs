@@ -18,6 +18,7 @@ namespace MishaTelecoms.Infrastructure
             /// Helpers
             /// 
             services.AddScoped<ISqlHelper, SqlHelper>();
+            services.AddScoped<ISqlHelperAsync, SqlHelperAsync>();
             services.AddScoped<ITransaction, Transaction>();
 
             return services;

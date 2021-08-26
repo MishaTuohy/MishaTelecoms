@@ -4,8 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MishaTelecoms.API.Services;
+using MishaTelecoms.Application.Interfaces.Repositories;
 using MishaTelecoms.Application.Interfaces.Services;
-using MishaTelecoms.Infrastructure;
+using MishaTelecoms.Infrastructure.Persistence.Repositories;
 
 namespace MishaTelecoms.API
 {
@@ -19,7 +20,7 @@ namespace MishaTelecoms.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddInfrastructure(Configuration);
+            services.AddScoped<ICDRRepository, CDRRepository>();
             services.AddScoped<ICDRService, CDRService>();
             services.AddAutoMapper(typeof(Startup));
         }

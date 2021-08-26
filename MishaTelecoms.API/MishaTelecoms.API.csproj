@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MishaTelecoms.Application\MishaTelecoms.Application.csproj" />
     <ProjectReference Include="..\MishaTelecoms.Infrastructure\MishaTelecoms.Infrastructure.csproj" />
   </ItemGroup>
 
