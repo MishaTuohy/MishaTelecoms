@@ -50,14 +50,15 @@ namespace MishaTelecoms.API.Services
 
         public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
         {
-            IReadOnlyList<CDRDataDto> result;
+            
             using (Transaction _trans = new Transaction())
             {
                 try
                 {
-                    result = await _repository.GetAllAsync(_trans);
+                    IReadOnlyList<CDRDataDto> result = await _repository.GetAllAsync(_trans);
                     if (result.Count() > 0)
                         _trans.Commit();
+                    return result;
                 }
                 catch (Exception ex)
                 {
@@ -66,7 +67,6 @@ namespace MishaTelecoms.API.Services
                     throw;
                 }
             }
-            return result;
         }
 
         public async Task<CDRDataDto> GetByIdAsync(Guid Id)

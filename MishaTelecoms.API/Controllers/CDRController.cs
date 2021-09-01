@@ -51,7 +51,7 @@ namespace MishaTelecoms.API.Controllers
         {
             try
             {
-                var result = await _service.GetAllAsync();
+                return _mapper.Map<IReadOnlyList<CDRDataDto>, IReadOnlyList<CDRDataModel>>(await _service.GetAllAsync());
             }
             catch (Exception ex)
             {

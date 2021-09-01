@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MishaTelecoms.API.Services;
 using MishaTelecoms.Application.Interfaces.Services;
-using MishaTelecoms.Domain.Settings;
 using MishaTelecoms.Infrastructure;
 
 namespace MishaTelecoms.API
