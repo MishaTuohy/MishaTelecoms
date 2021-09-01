@@ -35,7 +35,6 @@ namespace MishaTelecoms.API.Services
                 try
                 {
                     result = await _repository.AddAsync(_trans, entity);
-
                     if (result)
                         _trans.Commit();
                 }
@@ -56,7 +55,7 @@ namespace MishaTelecoms.API.Services
             {
                 try
                 {
-                    result = await _repository.GetAllAsync();
+                    result = await _repository.GetAllAsync(_trans);
                     if (result.Count() > 0)
                         _trans.Commit();
                 }
@@ -79,7 +78,7 @@ namespace MishaTelecoms.API.Services
             {
                 try
                 {
-                    result = await _repository.GetByIdAsync(Id);
+                    result = await _repository.GetByIdAsync(_trans, Id);
                     if (result != null)
                         _trans.Commit();
                 }
@@ -105,7 +104,7 @@ namespace MishaTelecoms.API.Services
             {
                 try
                 {
-                    result = await _repository.GetFilteredCDRDataAsync(Country, CallType, Duration);
+                    result = await _repository.GetFilteredCDRDataAsync(_trans, Country, CallType, Duration);
                     if (result.Count() > 0)
                         _trans.Commit();
                 }

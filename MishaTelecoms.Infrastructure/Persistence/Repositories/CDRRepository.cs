@@ -51,7 +51,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             }
             return result;
         }
-        public async Task<CDRDataDto> GetByIdAsync(Guid Id)
+        public async Task<CDRDataDto> GetByIdAsync(ITransaction trans, Guid Id)
         {
             if(Id == null)
                 throw new ArgumentNullException("Id value can't be empty");
@@ -61,7 +61,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     new ParameterInfo { Name = "Id", Value = Id }
                 };
-                return await _sqlHelper.GetRecordAsync<CDRDataDto>(dao.GetByIdSql(), _params, CommandType.StoredProcedure);
+                return await _sqlHelper.GetRecordAsync<CDRDataDto>(trans.GetConnection(), trans.GetTransaction(), dao.GetByIdSql(), _params, CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
+        public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(ITransaction trans, string Country, string CallType, int Duration)
         {
             if (Country == null | CallType == null | Duration < 0)
                 throw new ArgumentNullException("Filter values can't be empty");
@@ -81,7 +81,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                     new ParameterInfo { Name = "CallType", Value = CallType },
                     new ParameterInfo { Name = "Duration", Value = Duration }
                 };
-                return await _sqlHelper.GetRecordsParamAsync<CDRDataDto>(dao.GetFilteredCdrDataSql(), _params, CommandType.StoredProcedure);
+                return await _sqlHelper.GetRecordsParamAsync<CDRDataDto>(trans.GetConnection(), trans.GetTransaction(), dao.GetFilteredCdrDataSql(), _params, CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {
@@ -89,11 +89,11 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
+        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync(ITransaction trans)
         {
             try
             {
-                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetAllSql(), CommandType.StoredProcedure);
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(trans.GetConnection(), trans.GetTransaction(), dao.GetAllSql(), CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MishaTelecoms.Application
 {
-    class ApplicationDependcies
+    public class ApplicationDependcies
     {
     }
 }

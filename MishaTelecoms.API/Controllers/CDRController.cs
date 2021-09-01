@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.API.Models;
 using MishaTelecoms.Application.Dtos;
-using MishaTelecoms.Application.Interfaces.Repositories;
 using MishaTelecoms.Application.Interfaces.Services;
-using MishaTelecoms.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MishaTelecoms.API.Controllers
@@ -33,21 +29,14 @@ namespace MishaTelecoms.API.Controllers
         }
 
         // api/CDRData/
-        [Authorize]
         [HttpPost]
         public async Task<bool> Post([FromBody] CDRDataModel entity)
         {
             try
             {
                 if (ModelState.IsValid)
-                {
-                    return await _service.AddAsync(
-                        _mapper.Map<CDRDataModel, CDRDataDto>(entity));
-                }                
-                else
-                {
-                    return false;
-                }                
+                    return await _service.AddAsync(_mapper.Map<CDRDataModel, CDRDataDto>(entity));
+                return false;      
             }
             catch (Exception ex)
             {
@@ -57,7 +46,6 @@ namespace MishaTelecoms.API.Controllers
         }
 
         // api/CDRData/
-        [Authorize]
         [HttpGet]
         public async Task<IReadOnlyList<CDRDataModel>> GetAll()
         {
@@ -73,14 +61,12 @@ namespace MishaTelecoms.API.Controllers
         }
 
         // api/CDRData/id/{id}
-        [Authorize]
         [HttpGet("id/{id}")]
         public async Task<CDRDataModel> GetById([FromBody] Guid id)
         {
             try
             {
-                return _mapper.Map<CDRDataDto, CDRDataModel>(
-                    await _service.GetByIdAsync(id));
+                return _mapper.Map<CDRDataDto, CDRDataModel>(await _service.GetByIdAsync(id));
             }
             catch (Exception ex)
             {
@@ -90,17 +76,13 @@ namespace MishaTelecoms.API.Controllers
         }
 
         // api/CDRData/delete/{id}
-        [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<bool> Delete([FromBody] CDRDataModel entity)
         {
             try
             {
                 if (ModelState.IsValid)
-                {
-                    return await _service.DeleteAsync(
-                        _mapper.Map<CDRDataModel, CDRDataDto>(entity));
-                }
+                    return await _service.DeleteAsync(_mapper.Map<CDRDataModel, CDRDataDto>(entity));
                 return false;
             }
             catch (Exception ex)
