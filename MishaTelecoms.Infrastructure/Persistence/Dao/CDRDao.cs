@@ -26,19 +26,23 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
                         @duration, 
                         @cost)";
         }
+
         public string GetAllSql()
         {
-            return "Select * From dbo.CDRData";
+            return @"Select * From dbo.CDRData 
+                     WHERE (id = @guid OR @guid IS NULL) ";
         }
+
         public string GetByIdSql()
         {
             return @"SELECT * FROM dbo.CDRData 
                     WHERE id = @guid";
         }
+
         public string GetByCountry()
         {
             return @"SELECT * FROM dbo.CDRData
-                   WHERE Country = @Country";
+                   WHERE (Country = @Country OR @CountryId = '')";
         }
         public string GetByCallType()
         {
