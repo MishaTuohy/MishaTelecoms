@@ -5,7 +5,7 @@ namespace MishaTelecoms.Domain.Settings
 {
     public class DbConnectionConfig
     {
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
         public string ConnectionString(string DatabaseReference)
         {
             if (DatabaseReference is null)
