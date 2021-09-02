@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MishaTelecoms.API.Models;
 using MishaTelecoms.Application.Dtos;
+using MishaTelecoms.CDRGenerator.Models;
 
 namespace MishaTelecoms.API.Mappings
 {

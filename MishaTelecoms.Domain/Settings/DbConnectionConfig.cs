@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 
 namespace MishaTelecoms.Domain.Settings
 {
     public class DbConnectionConfig
     {
-        public string ConnectionString { get; set; }
+        public IConfiguration Configuration { get; set; }
+        public string ConnectionString(string DatabaseReference)
+        {
+            if (DatabaseReference is null)
+                throw new ArgumentNullException(nameof(DatabaseReference));
+            return Configuration.GetConnectionString(DatabaseReference);
+        }
     }
 }

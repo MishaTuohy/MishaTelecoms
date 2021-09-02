@@ -1,7 +1,4 @@
 ﻿using MishaTelecoms.Application.Interfaces.Dao;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MishaTelecoms.Infrastructure.Persistence.Dao
 {
@@ -10,21 +7,21 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
         public string InsertSql()
         {
             return @"INSERT INTO dbo.CDRData 
-                        (id, 
-                        callingNumber, 
-                        calledNumber, 
-                        country, 
-                        callType, 
-                        duration, 
-                        cost)
+                        (Id, 
+                        CallingNumber, 
+                        CalledNumber, 
+                        Cuntry, 
+                        CallType, 
+                        Duration, 
+                        Cost)
                    VALUES 
-                        (@id, 
-                        @callingNumber, 
-                        @calledNumber, 
-                        @country, 
-                        @callType, 
-                        @duration, 
-                        @cost)";
+                        (@Id, 
+                        @CallingNumber, 
+                        @CalledNumber, 
+                        @Country, 
+                        @CallType, 
+                        @Duration, 
+                        @Cost)";
         }
 
         public string GetAllSql()
@@ -36,7 +33,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
         public string GetByIdSql()
         {
             return @"SELECT * FROM dbo.CDRData 
-                    WHERE id = @guid";
+                    WHERE Id = @Id";
         }
 
         public string GetByCountry()
@@ -65,19 +62,19 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
         public string DeleteSql()
         {
             return @"DELETE FROM dbo.CDRData 
-                   WHERE id = @id";
+                   WHERE Id = @id";
         }
         public string UpdateSql()
         {
             return @"UPDATE FROM dbo.CDRData
                    SET 
-                        (id = @id, 
-                        callingNumber = @callingNumber, 
-                        calledNumber = @calledNumber, 
-                        country = @country, 
-                        callType = @callType, 
-                        duration = @duration, 
-                        cost = @cost)";
+                        (Id = @Id, 
+                        CallingNumber = @CallingNumber, 
+                        CalledNumber = @CalledNumber, 
+                        Country = @Country, 
+                        CallType = @CallType, 
+                        Duration = @Duration, 
+                        Cost = @Cost)";
         }
     }
 }

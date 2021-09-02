@@ -8,10 +8,10 @@ namespace MishaTelecoms.Application.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        Task<T> GetByIdAsync(Guid Id);
-        Task<IReadOnlyList<T>> GetAllAsync();
+        Task<T> GetByIdAsync(ITransaction _trans, Guid Id);
+        Task<IReadOnlyList<T>> GetAllAsync(ITransaction _trans);
         Task<bool> AddAsync(ITransaction _trans, T entity);
-        Task UpdateAsync(T entity);
-        Task<bool> DeleteAsync(T entity);
+        Task<bool> UpdateAsync(ITransaction trans, T entity);
+        Task<bool> DeleteAsync(ITransaction _trans, T entity);
     }
 }

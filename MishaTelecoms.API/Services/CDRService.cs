@@ -28,18 +28,15 @@ namespace MishaTelecoms.API.Services
             bool result;
 
             if (entity == null)
-                throw new ArgumentNullException("CDR Data cannot be null");
+                throw new ArgumentNullException("CDR Data can not be null");
 
             using (Transaction _trans = new Transaction())
             {
                 try
                 {
                     result = await _repository.AddAsync(_trans, entity);
-
                     if (result)
-                    {
                         _trans.Commit();
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -48,7 +45,102 @@ namespace MishaTelecoms.API.Services
                     throw;
                 }
             }
+            return result;
+        }
 
+        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
+        {
+            
+            using (Transaction _trans = new Transaction())
+            {
+                try
+                {
+                    IReadOnlyList<CDRDataDto> result = await _repository.GetAllAsync(_trans);
+                    if (result.Count() > 0)
+                        _trans.Commit();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    _trans.Rollback();
+                    _logger.LogError(ex.Message);
+                    throw;
+                }
+            }
+        }
+
+        public async Task<CDRDataDto> GetByIdAsync(Guid Id)
+        {
+            if (Id == null)
+                throw new ArgumentNullException("Id can not be null");
+            CDRDataDto result;
+            using (Transaction _trans = new Transaction())
+            {
+                try
+                {
+                    result = await _repository.GetByIdAsync(_trans, Id);
+                    if (result != null)
+                        _trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _trans.Rollback();
+                    _logger.LogError(ex.Message);
+                    throw;
+                }
+            }
+            return result;
+        }
+
+        public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
+        {
+            if(Country == null || CallType == null)
+                throw new ArgumentNullException("Filter Types cannot be null");
+            if (Duration <= 0)
+                throw new ArgumentException("Duration can not be a 0 or a negative number");
+
+            IEnumerable<CDRDataDto> result;
+            using (Transaction _trans = new Transaction())
+            {
+                try
+                {
+                    result = await _repository.GetFilteredCDRDataAsync(_trans, Country, CallType, Duration);
+                    if (result.Count() > 0)
+                        _trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _trans.Rollback();
+                    _logger.LogError(ex.Message);
+                    throw;
+                }
+            }
+            return result;
+        }
+
+        public async Task<bool> DeleteAsync(CDRDataDto entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException("CDR Data can not be null");
+
+            bool result;
+            using (Transaction _trans = new Transaction())
+            {
+                try
+                {
+                    result = await _repository.DeleteAsync(_trans, entity);
+
+                    if (result)
+                        _trans.Commit();
+                    
+                }
+                catch (Exception ex)
+                {
+                    _trans.Rollback();
+                    _logger.LogError(ex.Message);
+                    throw;
+                }
+            }
             return result;
         }
     }
