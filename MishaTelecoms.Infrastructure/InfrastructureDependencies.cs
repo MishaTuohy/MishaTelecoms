@@ -24,15 +24,10 @@ namespace MishaTelecoms.Infrastructure
             /// Repository
             /// 
             services.AddScoped<ICDRRepository, CDRRepository>();
-<<<<<<< HEAD
             /// Dao
             /// 
             services.AddScoped<ICDRDao, CDRDao>();
-=======
-            services.AddScoped<ICDRDao, CDRDao>();
-            services.AddTransient<DbConnectionConfig>();
 
->>>>>>> 0e4c3d8e3361532a4d5afb82a3343d6c040f99a7
             /// Helpers
             /// 
             services.AddScoped<ISqlHelper, SqlHelper>();
