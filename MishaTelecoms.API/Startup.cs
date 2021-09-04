@@ -24,8 +24,11 @@ namespace MishaTelecoms.API
             services.AddAutoMapper(typeof(Startup));
 
             // Assign your config so you can reuse it in Data layer
-            var dbConnectionConfig = new DbConnectionConfig();
-            Configuration.GetSection("ConnectionConfig").Bind(dbConnectionConfig);
+            var dbConnectionConfig = new DbConnectionConfig
+            {
+                Configuration = Configuration
+            };
+            Configuration.GetSection("ConnectionStrings").Bind(dbConnectionConfig);
             services.AddSingleton(dbConnectionConfig);
 
             // Hook up infrastructure dependancies

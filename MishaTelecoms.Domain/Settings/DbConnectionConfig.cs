@@ -6,11 +6,9 @@ namespace MishaTelecoms.Domain.Settings
     public class DbConnectionConfig
     {
         public IConfiguration Configuration { get; set; }
-        public string ConnectionString(string DatabaseReference)
+        public string ConnectionString()
         {
-            if (DatabaseReference is null)
-                throw new ArgumentNullException(nameof(DatabaseReference));
-            return Configuration.GetConnectionString(DatabaseReference);
+            return Configuration.GetConnectionString("DefaultConnection");
         }
     }
 }

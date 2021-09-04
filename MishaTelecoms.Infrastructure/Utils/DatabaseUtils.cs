@@ -1,5 +1,8 @@
 ﻿using MishaTelecoms.Domain.Settings;
+using System;
 using System.Data.Common;
+using System.Data.SqlClient;
+
 
 namespace MishaTelecoms.Infrastructure.Utils
 {
@@ -14,7 +17,7 @@ namespace MishaTelecoms.Infrastructure.Utils
 
         public string ConnectionString()
         {
-            return _config.ConnectionString("ConnectionString");
+            return _config.ConnectionString();
         }
 
         public DbConnection CreateConnection()
@@ -24,8 +27,13 @@ namespace MishaTelecoms.Infrastructure.Utils
 
         public DbConnection CreateConnection(string _connection)
         {
+            if (_connection is null)
+                throw new ArgumentNullException(nameof(_connection));
+
             // ** Factory pattern in action
-            DbProviderFactory factory = DbProviderFactories.GetFactory("System.Data.SqlClient");
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
+            DbProviderFactory factory = DbProviderFactories.GetFactory("Microsoft.Data.SqlClient");
+
 
             var connection = factory.CreateConnection();
             connection.ConnectionString = _connection;

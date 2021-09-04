@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MishaTelecoms.Application.Interfaces.Dao;
 using MishaTelecoms.Application.Interfaces.Data;
 using MishaTelecoms.Application.Interfaces.Repositories;
-using MishaTelecoms.Domain.Settings;
 using MishaTelecoms.Infrastructure.Data;
 using MishaTelecoms.Infrastructure.Persistence.Dao;
 using MishaTelecoms.Infrastructure.Persistence.Repositories;
@@ -30,7 +29,6 @@ namespace MishaTelecoms.Infrastructure
 
             /// Helpers
             /// 
-            services.AddScoped<ISqlHelper, SqlHelper>();
             services.AddScoped<ISqlHelperAsync, SqlHelperAsync>();
             services.AddScoped<ITransaction, Transaction>();
 
