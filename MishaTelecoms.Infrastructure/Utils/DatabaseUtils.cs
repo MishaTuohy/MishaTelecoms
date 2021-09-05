@@ -30,10 +30,7 @@ namespace MishaTelecoms.Infrastructure.Utils
             if (_connection is null)
                 throw new ArgumentNullException(nameof(_connection));
 
-            // ** Factory pattern in action
-            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
             DbProviderFactory factory = DbProviderFactories.GetFactory("Microsoft.Data.SqlClient");
-
 
             var connection = factory.CreateConnection();
             connection.ConnectionString = _connection;

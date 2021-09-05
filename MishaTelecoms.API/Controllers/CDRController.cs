@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cdrdata")]
     [ApiController]
     public class CDRController : Controller
     {

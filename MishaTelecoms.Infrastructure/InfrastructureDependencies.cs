@@ -7,6 +7,8 @@ using MishaTelecoms.Infrastructure.Data;
 using MishaTelecoms.Infrastructure.Persistence.Dao;
 using MishaTelecoms.Infrastructure.Persistence.Repositories;
 using System;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace MishaTelecoms.Infrastructure
 {
@@ -31,6 +33,9 @@ namespace MishaTelecoms.Infrastructure
             /// 
             services.AddScoped<ISqlHelperAsync, SqlHelperAsync>();
             services.AddScoped<ITransaction, Transaction>();
+
+            // ** Register this once at startup
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
 
             return services;
         }
