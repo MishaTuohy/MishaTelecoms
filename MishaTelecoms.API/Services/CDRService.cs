@@ -54,22 +54,15 @@ namespace MishaTelecoms.API.Services
 
         public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
         {
-            
-            using (Transaction _trans = new Transaction(_config))
+            try
             {
-                try
-                {
-                    IReadOnlyList<CDRDataDto> result = await _repository.GetAllAsync(_trans);
-                    if (result.Count() > 0)
-                        _trans.Commit();
-                    return result;
-                }
-                catch (Exception ex)
-                {
-                    _trans.Rollback();
-                    _logger.LogError(ex.Message);
-                    throw;
-                }
+                IReadOnlyList<CDRDataDto> result = await _repository.GetAllAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
             }
         }
 
@@ -97,7 +90,7 @@ namespace MishaTelecoms.API.Services
 
         public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
         {
-            if(Country == null || CallType == null)
+            if (Country == null || CallType == null)
                 throw new ArgumentNullException("Country can not be null");
             if (CallType == null)
                 throw new ArgumentNullException("Call Type can not be null");

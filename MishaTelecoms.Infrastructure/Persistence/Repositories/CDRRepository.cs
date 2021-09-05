@@ -89,11 +89,16 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync(ITransaction trans)
+        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
         {
             try
             {
-                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(trans.GetConnection(), trans.GetTransaction(), dao.GetAllSql(), CommandType.StoredProcedure);
+                List<ParameterInfo> _params = new List<ParameterInfo>
+                {
+                    new ParameterInfo{ Name = "guid", Value = null }
+                };
+
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetAllSql(), _params, CommandType.Text);
             }
             catch (Exception ex)
             {
