@@ -17,7 +17,7 @@ namespace MishaTelecoms.Infrastructure.Utils
 
         public string ConnectionString()
         {
-            return _config.ConnectionString();
+            return _config.ConnectionString;
         }
 
         public DbConnection CreateConnection()
