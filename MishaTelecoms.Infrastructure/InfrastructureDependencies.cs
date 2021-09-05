@@ -25,6 +25,7 @@ namespace MishaTelecoms.Infrastructure
             /// Repository
             /// 
             services.AddScoped<ICDRRepository, CDRRepository>();
+
             /// Dao
             /// 
             services.AddScoped<ICDRDao, CDRDao>();

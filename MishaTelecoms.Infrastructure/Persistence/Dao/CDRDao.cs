@@ -10,7 +10,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
                         (Id, 
                         CallingNumber, 
                         CalledNumber, 
-                        Cuntry, 
+                        Country, 
                         CallType, 
                         Duration, 
                         Cost)
@@ -26,14 +26,13 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
 
         public string GetAllSql()
         {
-            return @"Select * From dbo.CDRData 
-                     WHERE (id = @guid OR @guid IS NULL) ";
+            return @"Select * From dbo.CDRData";
         }
 
         public string GetByIdSql()
         {
             return @"SELECT * FROM dbo.CDRData 
-                    WHERE Id = @Id";
+                    WHERE (id = @guid OR @guid IS NULL)";
         }
 
         public string GetByCountry()

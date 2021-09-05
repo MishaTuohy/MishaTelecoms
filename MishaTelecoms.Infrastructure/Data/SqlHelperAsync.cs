@@ -6,6 +6,7 @@ using MishaTelecoms.Infrastructure.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,7 +38,6 @@ namespace MishaTelecoms.Infrastructure.Data
                 foreach (var param in parameters)
                     _params.Add("@" + param.Name, param.Value);
             }
-
             return await _connection.ExecuteScalarAsync<int>(sql, _params, transaction: _transaction, commandType: _commandType);
         }
 
