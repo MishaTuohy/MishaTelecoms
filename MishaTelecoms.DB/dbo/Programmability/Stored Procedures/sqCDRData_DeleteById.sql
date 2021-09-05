@@ -1,0 +1,8 @@
+﻿CREATE PROCEDURE [dbo].[spCDRData_DeleteById]
+	@Id UNIQUEIDENTIFIER
+AS
+BEGIN
+	DELETE 
+	FROM dbo.CDRData
+	WHERE Id = @Id
+END

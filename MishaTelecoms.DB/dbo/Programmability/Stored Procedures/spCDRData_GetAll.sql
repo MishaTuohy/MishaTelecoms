@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[spCDRData_GetAll]
+AS
+BEGIN
+SET NOCOUNT ON;
+	SELECT *
+	FROM dbo.CDRData
+END

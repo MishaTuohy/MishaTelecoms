@@ -1,0 +1,8 @@
+﻿CREATE PROCEDURE [dbo].[spCDRData_GetById]
+	@Id UNIQUEIDENTIFIER
+AS
+BEGIN
+	SELECT *
+	FROM dbo.CDRData
+	WHERE (Id = @Id OR @Id IS NULL)
+END

@@ -57,13 +57,23 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="dbo" />
-    <Folder Include="dbo\Stored Procedures" />
     <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Programmability" />
+    <Folder Include="dbo\Programmability\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\CDRData.sql" />
     <Build Include="dbo\Tables\ApplicationUserRole.sql" />
     <Build Include="dbo\Tables\ApplicationUser.sql" />
     <Build Include="dbo\Tables\ApplicationRole.sql" />
+    <Build Include="dbo\Programmability\Stored Procedures\spCDRData_GetAll.sql" />
+    <None Include="dbo\Programmability\Stored Procedures\spCDRData_GetByCallType.sql" />
+    <None Include="dbo\Programmability\Stored Procedures\spCDRData_GetByCountry.sql" />
+    <None Include="dbo\Programmability\Stored Procedures\spCDRData_GetByDuration.sql" />
+    <None Include="dbo\Programmability\Stored Procedures\spCDRData_GetByFiltered.sql" />
+    <None Include="dbo\Programmability\Stored Procedures\spCDRData_GetById.sql" />
+    <None Include="dbo\Programmability\Stored Procedures\spCDRData_Insert.sql" />
+    <None Include="dbo\Programmability\Stored Procedures\spCDRData_UpdateAll.sql" />
+    <Build Include="dbo\Programmability\Stored Procedures\sqCDRData_DeleteById.sql" />
   </ItemGroup>
 </Project>

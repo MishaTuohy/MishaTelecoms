@@ -34,7 +34,6 @@ namespace MishaTelecoms.Infrastructure.Utils
             DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
             DbProviderFactory factory = DbProviderFactories.GetFactory("Microsoft.Data.SqlClient");
 
-
             var connection = factory.CreateConnection();
             connection.ConnectionString = _connection;
             connection.Open();
