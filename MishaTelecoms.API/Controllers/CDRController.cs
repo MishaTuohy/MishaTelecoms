@@ -31,8 +31,8 @@ namespace MishaTelecoms.API.Controllers
             _mapper = mapper;
         }
 
-        /// <summary>
         /// url = /api/CDRData
+        /// <summary>
         /// Create a CDRData entry in the database
         /// </summary>
         /// <returns>Boolean</returns>
@@ -52,8 +52,8 @@ namespace MishaTelecoms.API.Controllers
             }
         }
 
-        /// <summary>
         /// url = /api/cdrdata
+        /// <summary>
         /// Returns all CDRData entries in database
         /// </summary>
         /// <returns>ReadOnlyList of CDRData Objects</returns>
@@ -71,8 +71,8 @@ namespace MishaTelecoms.API.Controllers
             return null;
         }
 
-        /// <summary>
         /// url = api/CDRData/id={id}
+        /// <summary>
         /// Returns CDRData with matching id
         /// </summary>
         /// <returns>CDRData Object</returns>
@@ -90,8 +90,8 @@ namespace MishaTelecoms.API.Controllers
             return null;
         }
 
-        /// <summary>
         /// url = api/CDRData/delete/{id}
+        /// <summary>
         /// Deletes CDRData with matching id
         /// </summary>
         /// <returns>Boolean</returns>

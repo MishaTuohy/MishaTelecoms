@@ -11,12 +11,21 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.API.Services
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CDRService : ICDRService
     {
         private readonly ILogger<CDRService> _logger;
         private readonly ICDRRepository _repository;
         private readonly DbConnectionConfig _config;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="repository"></param>
+        /// <param name="config"></param>
         public CDRService(
             ILogger<CDRService> logger,
             ICDRRepository repository,
@@ -26,7 +35,11 @@ namespace MishaTelecoms.API.Services
             _repository = repository;
             _config = config;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<bool> AddAsync(CDRDataDto entity)
         {
             bool result;
@@ -51,7 +64,10 @@ namespace MishaTelecoms.API.Services
             }
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
         {
             try
@@ -64,7 +80,11 @@ namespace MishaTelecoms.API.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public async Task<CDRDataDto> GetByIdAsync(Guid Id)
         {
             if (Id == null)
@@ -86,7 +106,13 @@ namespace MishaTelecoms.API.Services
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Country"></param>
+        /// <param name="CallType"></param>
+        /// <param name="Duration"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
         {
             if (Country == null || CallType == null)
@@ -113,7 +139,11 @@ namespace MishaTelecoms.API.Services
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(CDRDataDto entity)
         {
             if (entity == null)

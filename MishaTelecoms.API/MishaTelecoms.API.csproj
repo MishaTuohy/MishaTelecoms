@@ -15,4 +15,8 @@
     <ProjectReference Include="..\MishaTelecoms.Infrastructure\MishaTelecoms.Infrastructure.csproj" />
   </ItemGroup>
 
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
 </Project>
