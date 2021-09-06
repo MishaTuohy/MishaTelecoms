@@ -32,7 +32,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
         public string GetByIdSql()
         {
             return @"SELECT * FROM dbo.CDRData 
-                    WHERE (id = @guid OR @guid IS NULL)";
+                    WHERE Id = @Id";
         }
 
         public string GetByCountry()
@@ -61,7 +61,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
         public string DeleteSql()
         {
             return @"DELETE FROM dbo.CDRData 
-                   WHERE Id = @id";
+                   WHERE Id = @Id";
         }
         public string UpdateSql()
         {

@@ -25,12 +25,21 @@ namespace MishaTelecoms.API
 
             // Assign your config so you can reuse it in Data layer
             var dbConnectionConfig = new DbConnectionConfig();
-           
             Configuration.GetSection("DbConnectionConfig").Bind(dbConnectionConfig);
             services.AddSingleton(dbConnectionConfig);
 
             // Hook up infrastructure dependancies
             services.AddInfrastructure(Configuration);
+            services.AddSwaggerGen(options => 
+            {
+                options.SwaggerDoc("v1",
+                    new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Title = "Swagger Demo API",
+                        Description = "Demo API for showing Swagger",
+                        Version = "v1"
+                    });
+            });
         }
 
 
@@ -50,6 +59,12 @@ namespace MishaTelecoms.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options => 
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Demo API");
             });
         }
     }

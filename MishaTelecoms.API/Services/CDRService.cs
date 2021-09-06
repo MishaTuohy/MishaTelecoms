@@ -56,8 +56,7 @@ namespace MishaTelecoms.API.Services
         {
             try
             {
-                IReadOnlyList<CDRDataDto> result = await _repository.GetAllAsync();
-                return result;
+                return await _repository.GetAllAsync();
             }
             catch (Exception ex)
             {
@@ -74,7 +73,7 @@ namespace MishaTelecoms.API.Services
             {
                 try
                 {
-                    var result = await _repository.GetByIdAsync(_trans, Id);
+                    var result = await _repository.GetByIdAsync(Id);
                     if (result != null)
                         _trans.Commit();
                     return result;
@@ -101,7 +100,7 @@ namespace MishaTelecoms.API.Services
             {
                 try
                 {
-                    var result = await _repository.GetFilteredCDRDataAsync(_trans, Country, CallType, Duration);
+                    var result = await _repository.GetFilteredCDRDataAsync(Country, CallType, Duration);
                     if (result.Count() > 0)
                         _trans.Commit();
                     return result;

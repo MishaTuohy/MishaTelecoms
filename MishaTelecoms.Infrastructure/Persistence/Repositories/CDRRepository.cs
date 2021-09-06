@@ -42,7 +42,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                     new ParameterInfo { Name = "DateCreated", Value = dto.DateCreated },
                     new ParameterInfo { Name = "Cost", Value =  dto.Cost },
                 };
-                result = await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.StoredProcedure) > 0;
+                result = await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.Text) > 0;
             }
             catch (Exception ex)
             {
@@ -51,7 +51,23 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             }
             return result;
         }
-        public async Task<CDRDataDto> GetByIdAsync(ITransaction trans, Guid Id)
+        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
+        {
+            try
+            {
+                List<ParameterInfo> _params = new List<ParameterInfo>
+                {
+                    new ParameterInfo{ Name = "guid", Value = null }
+                };
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetAllSql(), _params, CommandType.Text);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retreive CDR Data");
+                throw;
+            }
+        }
+        public async Task<CDRDataDto> GetByIdAsync(Guid Id)
         {
             if(Id == null)
                 throw new ArgumentNullException("Id value can't be empty");
@@ -61,7 +77,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     new ParameterInfo { Name = "Id", Value = Id }
                 };
-                return await _sqlHelper.GetRecordAsync<CDRDataDto>(trans.GetConnection(), trans.GetTransaction(), dao.GetByIdSql(), _params, CommandType.StoredProcedure);
+                return await _sqlHelper.GetRecordAsync<CDRDataDto>(dao.GetByIdSql(), _params, CommandType.Text);
             }
             catch (Exception ex)
             {
@@ -69,7 +85,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(ITransaction trans, string Country, string CallType, int Duration)
+        public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
         {
             if (Country == null | CallType == null | Duration < 0)
                 throw new ArgumentNullException("Filter values can't be empty");
@@ -81,7 +97,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                     new ParameterInfo { Name = "CallType", Value = CallType },
                     new ParameterInfo { Name = "Duration", Value = Duration }
                 };
-                return await _sqlHelper.GetRecordsParamAsync<CDRDataDto>(trans.GetConnection(), trans.GetTransaction(), dao.GetFilteredCdrDataSql(), _params, CommandType.StoredProcedure);
+                return await _sqlHelper.GetRecordsParamAsync<CDRDataDto>(dao.GetFilteredCdrDataSql(), _params, CommandType.Text);
             }
             catch (Exception ex)
             {
@@ -89,23 +105,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        public async Task<IReadOnlyList<CDRDataDto>> GetAllAsync()
-        {
-            try
-            {
-                List<ParameterInfo> _params = new List<ParameterInfo>
-                {
-                    new ParameterInfo{ Name = "guid", Value = null }
-                };
-
-                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetAllSql(), _params, CommandType.Text);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to retreive CDR Data");
-                throw;
-            }
-        }
+        
         public async Task<bool> UpdateAsync(ITransaction trans ,CDRDataDto dto)
         {
             if (dto == null)
@@ -124,7 +124,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                     new ParameterInfo { Name = "Cost", Value =  dto.Cost },
                 };
 
-                return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateSql(), _params, CommandType.StoredProcedure) > 0;
+                return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateSql(), _params, CommandType.Text) > 0;
             }
             catch (Exception ex)
             {
@@ -142,11 +142,12 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     new ParameterInfo { Name = "Id", Value = dto.Id }
                 };
-                return await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.StoredProcedure) > 0;
+                return await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to create CDR Data");
+                return false;
                 throw;
             }
         }

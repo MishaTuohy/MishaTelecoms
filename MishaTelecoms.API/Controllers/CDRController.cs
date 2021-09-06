@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.API.Controllers
 {
-    [Route("api/cdrdata")]
+    /// <summary>
+    /// CDRData Controller responsible for GET/POST/DELETE requests for managing CDRData
+    /// </summary>
+    [Route("api/CDRData")]
     [ApiController]
     public class CDRController : Controller
     {
@@ -28,7 +31,11 @@ namespace MishaTelecoms.API.Controllers
             _mapper = mapper;
         }
 
-        // api/CDRData/
+        /// <summary>
+        /// url = /api/CDRData
+        /// Create a CDRData entry in the database
+        /// </summary>
+        /// <returns>Boolean</returns>
         [HttpPost]
         public async Task<bool> Post([FromBody] CDRDataModel entity)
         {
@@ -45,7 +52,11 @@ namespace MishaTelecoms.API.Controllers
             }
         }
 
-        // api/CDRData/
+        /// <summary>
+        /// url = /api/cdrdata
+        /// Returns all CDRData entries in database
+        /// </summary>
+        /// <returns>ReadOnlyList of CDRData Objects</returns>
         [HttpGet]
         public async Task<IReadOnlyList<CDRDataModel>> GetAll()
         {
@@ -60,9 +71,13 @@ namespace MishaTelecoms.API.Controllers
             return null;
         }
 
-        // api/CDRData/id/{id}
-        [HttpGet("id/{id}")]
-        public async Task<CDRDataModel> GetById([FromBody] Guid id)
+        /// <summary>
+        /// url = api/CDRData/id={id}
+        /// Returns CDRData with matching id
+        /// </summary>
+        /// <returns>CDRData Object</returns>
+        [HttpGet("id={id}")]
+        public async Task<CDRDataModel> GetById([FromRoute] Guid id)
         {
             try
             {
@@ -75,9 +90,13 @@ namespace MishaTelecoms.API.Controllers
             return null;
         }
 
-        // api/CDRData/delete/{id}
-        [HttpDelete("delete/{id}")]
-        public async Task<bool> Delete([FromBody] CDRDataModel entity)
+        /// <summary>
+        /// url = api/CDRData/delete/{id}
+        /// Deletes CDRData with matching id
+        /// </summary>
+        /// <returns>Boolean</returns>
+        [HttpDelete("delete/id={id}")]
+        public async Task<bool> Delete([FromRoute] CDRDataModel entity)
         {
             try
             {

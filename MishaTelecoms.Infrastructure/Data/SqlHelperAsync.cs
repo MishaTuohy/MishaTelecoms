@@ -41,28 +41,41 @@ namespace MishaTelecoms.Infrastructure.Data
             return await _connection.ExecuteScalarAsync<int>(sql, _params, transaction: _transaction, commandType: _commandType);
         }
 
-        public async Task<T> GetRecordAsync<T>(IDbConnection _connection, IDbTransaction _transaction, string sql, List<ParameterInfo> parameters, CommandType _commandType)
+        //  public async Task<T> GetRecordAsync<T>(IDbConnection _connection, IDbTransaction _transaction, string sql, List<ParameterInfo> parameters, CommandType _commandType)
+        //  {
+        //      DynamicParameters _params = new DynamicParameters();
+        //      if (parameters != null)
+        //      {
+        //          foreach (var param in parameters)
+        //              _params.Add("@" + param.Name, param.Value);
+        //      }
+        //     return (await SqlMapper.QueryAsync<T>(_connection, sql, _params, _transaction, commandType: _commandType)).FirstOrDefault();
+        //  }
+
+        public async Task<T> GetRecordAsync<T>(string sql, List<ParameterInfo> parameters, CommandType _commandType)
         {
-            DynamicParameters _params = new DynamicParameters();
-            if (parameters != null)
+            using (IDbConnection _connection = CreateConnection())
             {
-                foreach (var param in parameters)
-                    _params.Add("@" + param.Name, param.Value);
+                DynamicParameters _params = new DynamicParameters();
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                        _params.Add("@" + param.Name, param.Value);
+                }
+                return (await SqlMapper.QueryAsync<T>(_connection, sql, param: _params, commandType: _commandType, commandTimeout: 180)).FirstOrDefault();
             }
-            return (await SqlMapper.QueryAsync<T>(_connection, sql, _params, _transaction, commandType: _commandType)).FirstOrDefault();
         }
 
-        public async Task<List<T>> GetRecordsAsync<T>(IDbConnection _connection, IDbTransaction _transaction,  string sql, List<ParameterInfo> parameters, CommandType _commandType)
-        {
-            DynamicParameters _params = new DynamicParameters();
-            if (parameters != null)
-            {
-                foreach (var param in parameters)
-                    _params.Add("@" + param.Name, param.Value);
-            }
-
-            return (await SqlMapper.QueryAsync<T>(_connection, sql, transaction: _transaction, param: _params, commandType: _commandType, commandTimeout: 180)).ToList();
-        }
+        //  public async Task<List<T>> GetRecordsAsync<T>(IDbConnection _connection, IDbTransaction _transaction,  string sql, List<ParameterInfo> parameters, CommandType _commandType)
+        //  {
+        //      DynamicParameters _params = new DynamicParameters();
+        //      if (parameters != null)
+        //      {
+        //      foreach (var param in parameters)
+        //          _params.Add("@" + param.Name, param.Value);
+        //      }
+        //      return (await SqlMapper.QueryAsync<T>(_connection, sql, transaction: _transaction, param: _params, commandType: _commandType, commandTimeout: 180)).ToList();
+        //  }
 
         public async Task<List<T>> GetRecordsAsync<T>(string sql, List<ParameterInfo> parameters, CommandType _commandType)
         {
@@ -74,22 +87,23 @@ namespace MishaTelecoms.Infrastructure.Data
                     foreach (var param in parameters)
                         _params.Add("@" + param.Name, param.Value);
                 }
+                return (await SqlMapper.QueryAsync<T>(_connection, sql, param: _params, commandType: _commandType, commandTimeout: 180)).ToList();
+            }
+        }
+
+        public async Task<List<T>> GetRecordsParamAsync<T>(string sql, List<ParameterInfo> parameters, CommandType _commandType)
+        {
+            using (IDbConnection _connection = CreateConnection())
+            {
+                DynamicParameters _params = new DynamicParameters();
+                if (parameters == null)
+                    throw new ArgumentNullException("Parameters cannot be null");
+
+                foreach (var param in parameters)
+                    _params.Add("@" + param.Name, param.Value);
 
                 return (await SqlMapper.QueryAsync<T>(_connection, sql, param: _params, commandType: _commandType, commandTimeout: 180)).ToList();
             }
-           
-        }
-
-        public async Task<List<T>> GetRecordsParamAsync<T>(IDbConnection _connection, IDbTransaction _transaction, string sql, List<ParameterInfo> parameters, CommandType _commandType)
-        {
-            DynamicParameters _params = new DynamicParameters();
-            if (parameters == null)
-                throw new ArgumentNullException("Parameters cannot be null");
-
-            foreach (var param in parameters)
-                    _params.Add("@" + param.Name, param.Value);
-            
-            return (await SqlMapper.QueryAsync<T>(_connection, sql, _params, _transaction, commandType: _commandType, commandTimeout: 180)).ToList();
         }
     }
 }
