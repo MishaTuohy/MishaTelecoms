@@ -22,10 +22,12 @@ namespace MishaTelecoms.API.Services.CDRServices.Handlers.CommandHandlers
         /// <param name="logger"></param>
         /// <param name="repository"></param>
         /// <param name="config"></param>
-        public CreateCDRHandler(ILogger<CreateCDRHandler> logger, ICDRRepository repository)
+        public CreateCDRHandler(
+            ILogger<CreateCDRHandler> logger, 
+            ICDRRepository repository)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger;
+            _repository = repository;
         }
 
         /// <summary>

@@ -24,10 +24,12 @@ namespace MishaTelecoms.Application.Features.CDRData.Handlers.QueryHandlers
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="repository"></param>
-        public GetAllCDRQueryHandler(ILogger<GetAllCDRQueryHandler> logger, ICDRRepository repository)
+        public GetAllCDRQueryHandler(
+            ILogger<GetAllCDRQueryHandler> logger, 
+            ICDRRepository repository)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger;
+            _repository = repository;
         }
         /// <summary>
         /// 
