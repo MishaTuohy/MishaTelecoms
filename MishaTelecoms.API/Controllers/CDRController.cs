@@ -17,7 +17,7 @@ namespace MishaTelecoms.API.Controllers
     /// </summary>
     [Route("api/cdrdata")]
     [ApiController]
-    public class CDRController : BController
+    public class CDRController : BaseController
     {
         /// <summary>
         /// 

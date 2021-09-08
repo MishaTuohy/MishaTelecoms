@@ -8,7 +8,7 @@ namespace MishaTelecoms.API.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class BController : Controller
+    public class BaseController : Controller
     {
         /// <summary>
         /// 
@@ -24,7 +24,7 @@ namespace MishaTelecoms.API.Controllers
         /// </summary>
         /// <param name="mediator"></param>
         /// <param name="mapper"></param>
-        public BController(IMediator mediator, IMapper mapper)
+        public BaseController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
