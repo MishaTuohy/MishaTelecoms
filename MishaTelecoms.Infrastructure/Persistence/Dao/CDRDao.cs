@@ -38,17 +38,17 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
         public string GetByCountry()
         {
             return @"SELECT * FROM dbo.CDRData
-                   WHERE (Country = @Country OR @CountryId = '')";
+                   WHERE (Country = @Country OR @Country = '')";
         }
         public string GetByCallType()
         {
             return @"SELECT * FROM dbo.CDRData
-                   WHERE Country = @Country";
+                   WHERE CallType = @CallType";
         }
         public string GetByDuration()
         {
             return @"SELECT * FROM dbo.CDRData
-                   WHERE Country = @Country";
+                   WHERE Duration = @Duration";
         }
         public string GetFilteredCdrDataSql()
         {

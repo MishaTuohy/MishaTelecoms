@@ -11,9 +11,9 @@ namespace MishaTelecoms.API.Controllers
     /// <summary>
     /// CDRData Controller responsible for GET/POST/DELETE requests for managing CDRData
     /// </summary>
-    [Route("api/CDRDataV2")]
+    [Route("api/cdrdataV2")]
     [ApiController]
-    public class CDRControllerV2 : Controller
+    public class CDRV2Controller : Controller
     {
         private readonly IMediator _mediator;
 
@@ -21,7 +21,7 @@ namespace MishaTelecoms.API.Controllers
         /// 
         /// </summary>
         /// <param name="mediator"></param>
-        public CDRControllerV2(IMediator mediator)
+        public CDRV2Controller(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -63,6 +63,32 @@ namespace MishaTelecoms.API.Controllers
             var query = new GetCDRByIdQuery(id);
             var result = await _mediator.Send(query);
             return result != null ? (IActionResult) Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
+        [HttpGet("country={country}")]
+        public async Task<IActionResult> GetByCountry([FromRoute] string country)
+        {
+            var query = new GetCDRByCountryQuery(country);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="callType"></param>
+        /// <returns></returns>
+        [HttpGet("calltype={callType}")]
+        public async Task<IActionResult> GetByCallType([FromRoute] string callType)
+        {
+            var query = new GetCDRByCallTypeQuery(callType);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 
         /// url = api/CDRData/delete/{id}

@@ -97,7 +97,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     new ParameterInfo { Name = "Country", Value = Country }
                 };
-                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetByIdSql(), _params, CommandType.Text);
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetByCountry(), _params, CommandType.Text);
             }
             catch (Exception ex)
             {
@@ -117,7 +117,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     new ParameterInfo { Name = "CallType", Value = CallType }
                 };
-                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetByIdSql(), _params, CommandType.Text);
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetByCallType(), _params, CommandType.Text);
             }
             catch (Exception ex)
             {

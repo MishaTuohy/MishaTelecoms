@@ -162,7 +162,7 @@ namespace MishaTelecoms.API.Services
 
             try
             {
-                return await _repository.GetByCountryCallTypeDuration(Country, CallType, Duration);
+                return await _repository.GetByCountryCallTypeDurationAsync(Country, CallType, Duration);
             }
             catch (Exception ex)
             {
