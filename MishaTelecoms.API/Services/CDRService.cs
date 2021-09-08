@@ -107,7 +107,7 @@ namespace MishaTelecoms.API.Services
         /// </summary>
         /// <param name="Country"></param>
         /// <returns></returns>
-        public Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string Country)
+        public async Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string Country)
         {
             if (Country is null)
                 throw new ArgumentNullException(nameof(Country));
@@ -128,7 +128,7 @@ namespace MishaTelecoms.API.Services
         /// </summary>
         /// <param name="CallType"></param>
         /// <returns></returns>
-        public Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string CallType)
+        public async Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string CallType)
         {
             if (CallType is null)
                 throw new ArgumentNullException(nameof(CallType));
@@ -153,28 +153,21 @@ namespace MishaTelecoms.API.Services
         /// <returns></returns>
         public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
         {
-            if (Country == null || CallType == null)
+            if (Country == null)
                 throw new ArgumentNullException("Country can not be null");
             if (CallType == null)
                 throw new ArgumentNullException("Call Type can not be null");
             if (Duration <= 0)
                 throw new ArgumentException("Duration can not be a 0 or a negative number");
 
-            using (Transaction _trans = new Transaction(_config))
+            try
             {
-                try
-                {
-                    var result = await _repository.GetFilteredCDRDataAsync(Country, CallType, Duration);
-                    if (result.Count() > 0)
-                        _trans.Commit();
-                    return result;
-                }
-                catch (Exception ex)
-                {
-                    _trans.Rollback();
-                    _logger.LogError(ex.Message);
-                    throw;
-                }
+                return await _repository.GetByCountryCallTypeDuration(Country, CallType, Duration);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
             }
         }
 

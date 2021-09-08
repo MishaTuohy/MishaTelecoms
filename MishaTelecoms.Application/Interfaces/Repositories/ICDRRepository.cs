@@ -6,7 +6,7 @@ namespace MishaTelecoms.Application.Interfaces.Repositories
 {
     public interface ICDRRepository : IRepository<CDRDataDto>
     {
-        Task<IReadOnlyList<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration);
+        Task<IReadOnlyList<CDRDataDto>> GetByCountryCallTypeDurationAsync(string Country, string CallType, int Duration);
         Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string country);
         Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string callType);
     }

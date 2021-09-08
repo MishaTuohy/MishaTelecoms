@@ -57,7 +57,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             {
                 List<ParameterInfo> _params = new List<ParameterInfo>
                 {
-                    new ParameterInfo{ Name = "guid", Value = null }
+                    new ParameterInfo{ Name = "Id", Value = null }
                 };
                 return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetAllSql(), _params, CommandType.Text);
             }
@@ -71,6 +71,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
         {
             if(Id == null)
                 throw new ArgumentNullException("Id value can't be empty");
+
             try
             {
                 List<ParameterInfo> _params = new List<ParameterInfo>
@@ -85,10 +86,51 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        public async Task<IReadOnlyList<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
+        public async Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string Country)
+        {
+            if (Country == null)
+                throw new ArgumentNullException("Country value can't be empty");
+
+            try
+            {
+                List<ParameterInfo> _params = new List<ParameterInfo>
+                {
+                    new ParameterInfo { Name = "Country", Value = Country }
+                };
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetByIdSql(), _params, CommandType.Text);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve CDR Data");
+                throw;
+            }
+        }
+
+        public async Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string CallType)
+        {
+            if (CallType == null)
+                throw new ArgumentNullException("CallType value can't be empty");
+
+            try
+            {
+                List<ParameterInfo> _params = new List<ParameterInfo>
+                {
+                    new ParameterInfo { Name = "CallType", Value = CallType }
+                };
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetByIdSql(), _params, CommandType.Text);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve CDR Data");
+                throw;
+            }
+        }
+
+        public async Task<IReadOnlyList<CDRDataDto>> GetByCountryCallTypeDurationAsync(string Country, string CallType, int Duration)
         {
             if (Country == null | CallType == null | Duration < 0)
                 throw new ArgumentNullException("Filter values can't be empty");
+
             try
             {
                 List<ParameterInfo> _params = new List<ParameterInfo>
@@ -150,16 +192,6 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 return false;
                 throw;
             }
-        }
-
-        public Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string country)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string callType)
-        {
-            throw new NotImplementedException();
         }
     }
 }
