@@ -19,3 +19,12 @@ as the application evoles along with my skills as a programmer.
 - [AutoMapper](http://automapper.org/) - Mapping objects between layers
 - [MediatR](https://github.com/jbogard/MediatR) - Application of Mediator Pattern
 - [SwashBuckle](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-5.0) - API Documentation
+
+# Services
+
+## MishaTelecoms.Domain
+## MishaTelecoms.Application
+## MishaTelecoms.Infrastructure
+## MishaTelecoms.API
+## MishaTelecoms.CDRGenerator
+## MishaTelecoms.
