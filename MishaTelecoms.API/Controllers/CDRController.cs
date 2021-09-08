@@ -21,6 +21,12 @@ namespace MishaTelecoms.API.Controllers
         private readonly ILogger<CDRController> _logger;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="cdrService"></param>
+        /// <param name="mapper"></param>
         public CDRController(
             ILogger<CDRController> logger,
             ICDRService cdrService, 
@@ -67,8 +73,8 @@ namespace MishaTelecoms.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
+                throw;
             }
-            return null;
         }
 
         /// url = api/CDRData/id={id}

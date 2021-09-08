@@ -85,7 +85,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        public async Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
+        public async Task<IReadOnlyList<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration)
         {
             if (Country == null | CallType == null | Duration < 0)
                 throw new ArgumentNullException("Filter values can't be empty");
@@ -150,6 +150,16 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 return false;
                 throw;
             }
+        }
+
+        public Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string country)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string callType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

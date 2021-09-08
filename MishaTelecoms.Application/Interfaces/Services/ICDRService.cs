@@ -8,10 +8,12 @@ namespace MishaTelecoms.Application.Interfaces.Services
 {
     public interface ICDRService
     {
-        Task<bool> AddAsync(CDRDataDto entity);
+        Task<bool> AddAsync(CDRDataDto Entity);
         Task<CDRDataDto> GetByIdAsync(Guid Id);
         Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration);
         Task<IReadOnlyList<CDRDataDto>> GetAllAsync();
-        Task<bool> DeleteAsync(CDRDataDto entity);
+        Task<bool> DeleteAsync(CDRDataDto Entity);
+        Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string Country);
+        Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string CallType);
     }
 }

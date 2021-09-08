@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +40,7 @@ namespace MishaTelecoms.API
             services.AddControllers();
             services.AddScoped<ICDRService, CDRService>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddMediatR(typeof(Startup));
 
             // Assign your config so you can reuse it in Data layer
             var dbConnectionConfig = new DbConnectionConfig();

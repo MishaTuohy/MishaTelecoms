@@ -35,6 +35,7 @@ namespace MishaTelecoms.API.Services
             _repository = repository;
             _config = config;
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -64,6 +65,7 @@ namespace MishaTelecoms.API.Services
             }
             return result;
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -89,23 +91,59 @@ namespace MishaTelecoms.API.Services
         {
             if (Id == null)
                 throw new ArgumentNullException("Id can not be null");
-            using (Transaction _trans = new Transaction(_config))
+            try
             {
-                try
-                {
-                    var result = await _repository.GetByIdAsync(Id);
-                    if (result != null)
-                        _trans.Commit();
-                    return result;
-                }
-                catch (Exception ex)
-                {
-                    _trans.Rollback();
-                    _logger.LogError(ex.Message);
-                    throw;
-                }
+                return await _repository.GetByIdAsync(Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Country"></param>
+        /// <returns></returns>
+        public Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string Country)
+        {
+            if (Country is null)
+                throw new ArgumentNullException(nameof(Country));
+
+            try
+            {
+                return await _repository.GetByCountryAsync(Country); ;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CallType"></param>
+        /// <returns></returns>
+        public Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string CallType)
+        {
+            if (CallType is null)
+                throw new ArgumentNullException(nameof(CallType));
+
+            try
+            {
+                return await _repository.GetByCallTypeAsync(CallType); ;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -139,6 +177,7 @@ namespace MishaTelecoms.API.Services
                 }
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
