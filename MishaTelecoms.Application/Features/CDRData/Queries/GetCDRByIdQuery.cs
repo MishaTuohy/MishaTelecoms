@@ -1,12 +1,13 @@
 ﻿using MediatR;
+using MishaTelecoms.Application.Dtos;
 using System;
 
-namespace MishaTelecoms.API.Services.CDRServices.Commands
+namespace MishaTelecoms.Application.Features.CDRData.Queries
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DeleteCDRCommand : IRequest<bool>
+    public class GetCDRByIdQuery : IRequest<CDRDataDto>
     {
         /// <summary>
         /// 
@@ -17,7 +18,7 @@ namespace MishaTelecoms.API.Services.CDRServices.Commands
         /// 
         /// </summary>
         /// <param name="id"></param>
-        public DeleteCDRCommand(Guid id)
+        public GetCDRByIdQuery(Guid id)
         {
             Id = id;
         }

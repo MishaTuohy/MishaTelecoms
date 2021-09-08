@@ -1,10 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace MishaTelecoms.Application
 {
-    public class ApplicationDependcies
+    public static class ApplicationDependcies
     {
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            if (services is null)
+                throw new ArgumentNullException(nameof(services));
+
+            if (configuration is null)
+                throw new ArgumentNullException(nameof(configuration));
+
+            return services;
+        }
     }
 }

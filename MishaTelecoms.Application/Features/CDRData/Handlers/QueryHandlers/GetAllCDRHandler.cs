@@ -1,53 +1,47 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MishaTelecoms.API.Models.Responses;
-using MishaTelecoms.API.Services.CDRServices.Queries;
 using MishaTelecoms.Application.Dtos;
+using MishaTelecoms.Application.Features.CDRData.Queries;
 using MishaTelecoms.Application.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.API.Services.CDRServices.Handlers.QueryHandlers
+namespace MishaTelecoms.Application.Features.CDRData.Handlers.QueryHandlers
 {
     /// <summary>
     /// 
     /// </summary>
-    public class GetCDRByCountryHandler : IRequestHandler<GetCDRByCountryQuery, IReadOnlyList<CDRDataResponse>>
+    public class GetAllCDRHandler : IRequestHandler<GetAllCDRQuery, IReadOnlyList<CDRDataDto>>
     {
         private readonly ILogger<GetAllCDRHandler> _logger;
-        private readonly IMapper _mapper;
         private readonly ICDRRepository _repository;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="logger"></param>
-        /// <param name="mapper"></param>
         /// <param name="repository"></param>
-        public GetCDRByCountryHandler(ILogger<GetAllCDRHandler> logger, IMapper mapper, ICDRRepository repository)
+        public GetAllCDRHandler(ILogger<GetAllCDRHandler> logger, ICDRRepository repository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<CDRDataResponse>> Handle(GetCDRByCountryQuery request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<CDRDataDto>> Handle(GetAllCDRQuery request, CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
             try
             {
-                var result = _mapper.Map<IReadOnlyList<CDRDataDto>, IReadOnlyList<CDRDataResponse>>(await _repository.GetByCountryAsync(request.Country));
+                var result = await _repository.GetAllAsync();
                 if (result == null)
                     return null;
                 return result;

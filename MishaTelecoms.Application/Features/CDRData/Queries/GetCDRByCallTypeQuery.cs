@@ -1,13 +1,13 @@
 ﻿using MediatR;
-using MishaTelecoms.API.Models.Responses;
+using MishaTelecoms.Application.Dtos;
 using System.Collections.Generic;
 
-namespace MishaTelecoms.API.Services.CDRServices.Queries
+namespace MishaTelecoms.Application.Features.CDRData.Queries
 {
     /// <summary>
     /// 
     /// </summary>
-    public class GetCDRByCallTypeQuery : IRequest<IReadOnlyList<CDRDataResponse>>
+    public class GetCDRByCallTypeQuery : IRequest<IReadOnlyList<CDRDataDto>>
     {
         /// <summary>
         /// 

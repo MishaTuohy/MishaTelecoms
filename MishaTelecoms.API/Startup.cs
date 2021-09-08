@@ -38,7 +38,6 @@ namespace MishaTelecoms.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ICDRService, CDRService>();
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
 

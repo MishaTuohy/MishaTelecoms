@@ -4,6 +4,8 @@ using MishaTelecoms.Application.Interfaces.Dao;
 using MishaTelecoms.Application.Interfaces.Data;
 using MishaTelecoms.Application.Interfaces.Repositories;
 using MishaTelecoms.Domain.Data;
+using MishaTelecoms.Domain.Settings;
+using MishaTelecoms.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,22 +18,27 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
         private readonly ISqlHelperAsync _sqlHelper;
         private readonly ILogger<CDRRepository> _logger;
         private readonly ICDRDao dao;
-        public CDRRepository(ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelperAsync sqlHelper)
+        private DbConnectionConfig _config;
+
+        public CDRRepository(ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelperAsync sqlHelper, DbConnectionConfig config)
         {
             _sqlHelper = sqlHelper;
             _logger = logger;
             this.dao = dao;
-        }
+            _config = config;
+    }
 
-        public async Task<bool> AddAsync(ITransaction trans, CDRDataDto dto)
+        public async Task<bool> AddAsync(CDRDataDto dto)
         {
             if (dto == null)
                 throw new ArgumentNullException("CDR Data cannot be null");
 
             bool result;
-            try
+            using (Transaction trans = new Transaction(_config))
             {
-                List<ParameterInfo> _params = new List<ParameterInfo>
+                try
+                {
+                    List<ParameterInfo> _params = new List<ParameterInfo>
                 {
                     new ParameterInfo { Name = "Id", Value = dto.Id },
                     new ParameterInfo { Name = "CallingNumber", Value = dto.CallingNumber } ,
@@ -42,12 +49,13 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                     new ParameterInfo { Name = "DateCreated", Value = dto.DateCreated },
                     new ParameterInfo { Name = "Cost", Value =  dto.Cost },
                 };
-                result = await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.Text) > 0;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to create CDR Data");
-                throw;
+                    result = await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.Text) > 0;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to create CDR Data");
+                    throw;
+                }
             }
             return result;
         }
@@ -148,13 +156,16 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             }
         }
         
-        public async Task<bool> UpdateAsync(ITransaction trans ,CDRDataDto dto)
+        public async Task<bool> UpdateAsync(CDRDataDto dto)
         {
             if (dto == null)
                 throw new ArgumentNullException("CDR Data cannot be null");
-            try
+
+            using (Transaction trans = new Transaction(_config))
             {
-                List<ParameterInfo> _params = new List<ParameterInfo>
+                try
+                {
+                    List<ParameterInfo> _params = new List<ParameterInfo>
                 {
                     new ParameterInfo { Name = "Id", Value = dto.Id },
                     new ParameterInfo { Name = "CallingNumber", Value = dto.CallingNumber } ,
@@ -166,31 +177,37 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                     new ParameterInfo { Name = "Cost", Value =  dto.Cost },
                 };
 
-                return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateSql(), _params, CommandType.Text) > 0;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to update CDR Data");
-                throw;
+                    return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateSql(), _params, CommandType.Text) > 0;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to update CDR Data");
+                    throw;
+                }
             }
         }
-        public async Task<bool> DeleteAsync(ITransaction trans, Guid Id)
+
+        public async Task<bool> DeleteAsync(Guid Id)
         {
             if (Id == null)
                 throw new ArgumentNullException("Id cannot be null");
-            try
+
+            using (Transaction trans = new Transaction(_config))
             {
-                List<ParameterInfo> _params = new List<ParameterInfo>
+                try
+                {
+                    List<ParameterInfo> _params = new List<ParameterInfo>
                 {
                     new ParameterInfo { Name = "Id", Value = Id }
                 };
-                return await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to create CDR Data");
-                return false;
-                throw;
+                    return await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to create CDR Data");
+                    return false;
+                    throw;
+                }
             }
         }
     }

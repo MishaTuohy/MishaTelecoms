@@ -1,7 +1,6 @@
 ﻿using MishaTelecoms.Domain.Settings;
 using System;
 using System.Data.Common;
-using System.Data.SqlClient;
 
 
 namespace MishaTelecoms.Infrastructure.Utils

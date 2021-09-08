@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MishaTelecoms.API.Models.Responses
 {
     /// <summary>
-    /// 
+    /// CDR Data Model for Query responses
     /// </summary>
     public class CDRDataResponse
     {

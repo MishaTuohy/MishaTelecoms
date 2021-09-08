@@ -7,12 +7,12 @@ using MishaTelecoms.Application.Dtos;
 namespace MishaTelecoms.API.Mappings
 {
     /// <summary>
-    /// 
+    /// Stores Mapping profiles for data transfer between layers
     /// </summary>
     public class MappingProfiles : Profile
     {
         /// <summary>
-        /// 
+        /// Used for passing objects between application layer and external services
         /// </summary>
         public MappingProfiles()
         {
