@@ -13,7 +13,7 @@ as the application evoles along with my skills as a programmer.
 - Create a scalable and modular application
 - Cultivate and build upon good practices and habits
 
-## Technology
+## Technologies
 - [Asp.Net](https://dotnet.microsoft.com/apps/aspnet) -  Web Application Framework used
 - [Dapper](https://github.com/DapperLib/Dapper) - ORM used for Data Access
 - [AutoMapper](http://automapper.org/) - Mapping objects between layers
