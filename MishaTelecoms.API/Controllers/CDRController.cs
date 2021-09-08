@@ -102,12 +102,12 @@ namespace MishaTelecoms.API.Controllers
         /// </summary>
         /// <returns>Boolean</returns>
         [HttpDelete("delete/id={id}")]
-        public async Task<bool> Delete([FromRoute] CDRDataModel entity)
+        public async Task<bool> Delete([FromRoute] Guid Id)
         {
             try
             {
                 if (ModelState.IsValid)
-                    return await _service.DeleteAsync(_mapper.Map<CDRDataModel, CDRDataDto>(entity));
+                    return await _service.DeleteAsync(Id);
                 return false;
             }
             catch (Exception ex)

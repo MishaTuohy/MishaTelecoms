@@ -17,10 +17,6 @@
     <ProjectReference Include="..\MishaTelecoms.Infrastructure\MishaTelecoms.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\CDRServices\Handlers\CommandHandlers\" />
-  </ItemGroup>
-
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>

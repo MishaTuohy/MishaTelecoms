@@ -12,7 +12,7 @@ namespace MishaTelecoms.Application.Interfaces.Services
         Task<CDRDataDto> GetByIdAsync(Guid Id);
         Task<IEnumerable<CDRDataDto>> GetFilteredCDRDataAsync(string Country, string CallType, int Duration);
         Task<IReadOnlyList<CDRDataDto>> GetAllAsync();
-        Task<bool> DeleteAsync(CDRDataDto Entity);
+        Task<bool> DeleteAsync(Guid Id);
         Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string Country);
         Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string CallType);
     }

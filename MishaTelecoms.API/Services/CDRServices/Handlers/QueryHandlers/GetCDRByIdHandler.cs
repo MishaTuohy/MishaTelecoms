@@ -5,8 +5,6 @@ using MishaTelecoms.API.Models.Responses;
 using MishaTelecoms.API.Services.CDRServices.Queries;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Repositories;
-using MishaTelecoms.Application.Interfaces.Services;
-using MishaTelecoms.Domain.Settings;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

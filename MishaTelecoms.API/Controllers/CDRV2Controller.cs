@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MishaTelecoms.API.Models;
+using MishaTelecoms.API.Models.Requests;
 using MishaTelecoms.API.Services.CDRServices.Commands;
 using MishaTelecoms.API.Services.CDRServices.Queries;
 using System;
@@ -32,9 +33,9 @@ namespace MishaTelecoms.API.Controllers
         /// </summary>
         /// <returns>Boolean</returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CDRDataModel entity)
+        public async Task<IActionResult> Post([FromBody] CDRDataRequest entity)
         {
-            var query = new CreateCDRCommand();
+            var query = new CreateCDRCommand(entity);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -96,10 +97,10 @@ namespace MishaTelecoms.API.Controllers
         /// Deletes CDRData with matching id
         /// </summary>
         /// <returns>Boolean</returns>
-        [HttpDelete("delete/id={id}")]
-        public async Task<IActionResult> Delete([FromRoute] CDRDataModel entity)
+        [HttpDelete("delete/id={Id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid Id)
         {
-            var query = new DeleteCDRCommand();
+            var query = new DeleteCDRCommand(Id);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

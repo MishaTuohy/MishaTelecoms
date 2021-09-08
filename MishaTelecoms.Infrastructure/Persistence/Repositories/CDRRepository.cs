@@ -174,15 +174,15 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        public async Task<bool> DeleteAsync(ITransaction trans, CDRDataDto dto)
+        public async Task<bool> DeleteAsync(ITransaction trans, Guid Id)
         {
-            if (dto == null)
-                throw new ArgumentNullException("CDR Data cannot be null");
+            if (Id == null)
+                throw new ArgumentNullException("Id cannot be null");
             try
             {
                 List<ParameterInfo> _params = new List<ParameterInfo>
                 {
-                    new ParameterInfo { Name = "Id", Value = dto.Id }
+                    new ParameterInfo { Name = "Id", Value = Id }
                 };
                 return await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
             }

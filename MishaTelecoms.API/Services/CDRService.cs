@@ -174,18 +174,18 @@ namespace MishaTelecoms.API.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteAsync(CDRDataDto entity)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            if (entity == null)
-                throw new ArgumentNullException("CDR Data can not be null");
+            if (Id == null)
+                throw new ArgumentNullException("Id can not be null");
 
             using (Transaction _trans = new Transaction(_config))
             {
                 try
                 {
-                    var result = await _repository.DeleteAsync(_trans, entity);
+                    var result = await _repository.DeleteAsync(_trans, Id);
                     if (result)
                         _trans.Commit();
                     return result;
