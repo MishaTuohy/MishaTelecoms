@@ -47,8 +47,8 @@ namespace MishaTelecoms.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var query = new GetAllCDRQuery();
-            var result = _mapper.Map<IReadOnlyList<CDRDataDto>, IReadOnlyList<CDRDataResponse>>(await _mediator.Send(query));
+            var result = await _mediator.Send(new GetAllCDRQuery());
+
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 

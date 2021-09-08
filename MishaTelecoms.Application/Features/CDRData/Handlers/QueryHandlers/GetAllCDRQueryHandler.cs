@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Features.CDRData.Queries;
 using MishaTelecoms.Application.Interfaces.Repositories;
+using MishaTelecoms.Application.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -13,9 +14,9 @@ namespace MishaTelecoms.Application.Features.CDRData.Handlers.QueryHandlers
     /// <summary>
     /// 
     /// </summary>
-    public class GetAllCDRHandler : IRequestHandler<GetAllCDRQuery, IReadOnlyList<CDRDataDto>>
+    public class GetAllCDRQueryHandler : IRequestHandler<GetAllCDRQuery, Response<IReadOnlyList<CDRDataDto>>>
     {
-        private readonly ILogger<GetAllCDRHandler> _logger;
+        private readonly ILogger<GetAllCDRQueryHandler> _logger;
         private readonly ICDRRepository _repository;
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Handlers.QueryHandlers
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="repository"></param>
-        public GetAllCDRHandler(ILogger<GetAllCDRHandler> logger, ICDRRepository repository)
+        public GetAllCDRQueryHandler(ILogger<GetAllCDRQueryHandler> logger, ICDRRepository repository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -34,7 +35,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Handlers.QueryHandlers
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<CDRDataDto>> Handle(GetAllCDRQuery request, CancellationToken cancellationToken)
+        public async Task<Response<IReadOnlyList<CDRDataDto>>> Handle(GetAllCDRQuery request, CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
@@ -44,7 +45,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Handlers.QueryHandlers
                 var result = await _repository.GetAllAsync();
                 if (result == null)
                     return null;
-                return result;
+                return new Response<IReadOnlyList<CDRDataDto>>(result);
             }
             catch (Exception ex)
             {

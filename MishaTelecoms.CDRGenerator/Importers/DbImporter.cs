@@ -19,7 +19,7 @@ namespace MishaTelecoms.CDRGenerator.Importers
 
         public DbImporter(ILogger<DbImporter> logger, DbConnectionConfig DbConfig, ICDRDao dao)
         {
-            _connection = DbConfig.ConnectionString();
+            _connection = DbConfig.ConnectionString;
             this.dao = dao;
             _logger = logger;
         }

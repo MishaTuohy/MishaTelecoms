@@ -36,10 +36,10 @@ namespace MishaTelecoms.API
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
-        {
+       {
             services.AddControllers();
-            services.AddAutoMapper(typeof(Startup));
-            services.AddMediatR(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));            
+            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
             // Assign your config so you can reuse it in Data layer
             var dbConnectionConfig = new DbConnectionConfig();
