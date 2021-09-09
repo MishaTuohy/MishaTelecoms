@@ -46,6 +46,7 @@ Provides support for higher layers in the application. Eg. Data Access
 - **Persistence**: Data Access
 - **Utils**:       Utility class that support other classes
 ## MishaTelecoms.API
+This API allows for the access and managing of the database for this application
 ### Folders
 - **Controllers**: Contains controllers for receiving incoming request and defines URL routes
 - **Mappings**:    Mappers for the transfer of data between layers
