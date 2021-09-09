@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-
-namespace MishaTelecoms.Domain.Settings
+﻿namespace MishaTelecoms.Domain.Settings
 {
     public class DbConnectionConfig
     {

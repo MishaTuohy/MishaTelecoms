@@ -1,22 +1,18 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MishaTelecoms.Application.Dtos;
-using MishaTelecoms.Application.Features.CDRData.Queries;
 using MishaTelecoms.Application.Interfaces.Repositories;
-using MishaTelecoms.Application.Wrappers;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.Application.Features.CDRData.Handlers.QueryHandlers
+namespace MishaTelecoms.Application.Features.CDRData.Commands.CommandHandlers
 {
     /// <summary>
     /// 
     /// </summary>
-    public class GetAllCDRQueryHandler : IRequestHandler<GetAllCDRQuery, Response<IReadOnlyList<CDRDataDto>>>
+    public class CreateCDRHandler : IRequestHandler<CreateCDRCommand, bool>
     {
-        private readonly ILogger<GetAllCDRQueryHandler> _logger;
+        private readonly ILogger<CreateCDRHandler> _logger;
         private readonly ICDRRepository _repository;
 
         /// <summary>
@@ -24,30 +20,26 @@ namespace MishaTelecoms.Application.Features.CDRData.Handlers.QueryHandlers
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="repository"></param>
-        public GetAllCDRQueryHandler(
-            ILogger<GetAllCDRQueryHandler> logger, 
+        /// <param name="config"></param>
+        public CreateCDRHandler(
+            ILogger<CreateCDRHandler> logger,
             ICDRRepository repository)
         {
             _logger = logger;
             _repository = repository;
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<Response<IReadOnlyList<CDRDataDto>>> Handle(GetAllCDRQuery request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateCDRCommand request, CancellationToken cancellationToken)
         {
-            if (request is null)
-                throw new ArgumentNullException(nameof(request));
-
             try
             {
-                var result = await _repository.GetAllAsync();
-                if (result == null)
-                    return null;
-                return new Response<IReadOnlyList<CDRDataDto>>(result);
+                return await _repository.AddAsync(request.CDR);
             }
             catch (Exception ex)
             {

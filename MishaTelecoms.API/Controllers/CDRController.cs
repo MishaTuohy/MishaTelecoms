@@ -20,16 +20,19 @@ namespace MishaTelecoms.API.Controllers
     public class CDRController : BaseController
     {
         /// <summary>
-        /// 
+        /// Inherits from BaseController Class
+        ///     - Contains IMediator and IMapper Intefaces using Dependency Injection
         /// </summary>
         public CDRController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
         {
         }
 
-        /// url = /api/CDRData
         /// <summary>
-        /// Create a CDRData entry in the database
+        /// Action: Creates CDR Data entry in the database
         /// </summary>
+        /// <param name="entity">CDR Data Object</param>
+        /// <response code="200">Creates CDR Data entry in the database</response>
+        /// <response code="400">Unable to create the tag due to validation error</response>
         /// <returns>Boolean</returns>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CDRDataRequest entity)
@@ -39,10 +42,10 @@ namespace MishaTelecoms.API.Controllers
             return Ok(result);
         }
 
-        /// url = /api/cdrdata
         /// <summary>
-        /// Returns all CDRData entries in database
+        /// Action: Returns all CDRData entries in database
         /// </summary>
+        /// <response code="200">Returns all the CDR Data  entries in the database</response>
         /// <returns>ReadOnlyList of CDRData Objects</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()

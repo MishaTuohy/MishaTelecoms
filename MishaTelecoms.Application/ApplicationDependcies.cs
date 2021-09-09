@@ -6,7 +6,7 @@ namespace MishaTelecoms.Application
 {
     public static class ApplicationDependcies
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             if (services is null)
                 throw new ArgumentNullException(nameof(services));

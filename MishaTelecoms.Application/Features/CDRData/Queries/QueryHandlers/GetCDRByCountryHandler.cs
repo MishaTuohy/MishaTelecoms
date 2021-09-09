@@ -1,19 +1,20 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MishaTelecoms.Application.Features.CDRData.Commands;
+using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.API.Services.CDRServices.Handlers.CommandHandlers
+namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DeleteCDRHandler : IRequestHandler<DeleteCDRCommand, bool>
+    public class GetCDRByCountryHandler : IRequestHandler<GetCDRByCountryQuery, IReadOnlyList<CDRDataDto>>
     {
-        private readonly ILogger<DeleteCDRHandler> _logger;
+        private readonly ILogger<GetCDRByCountryHandler> _logger;
         private readonly ICDRRepository _repository;
 
         /// <summary>
@@ -21,7 +22,7 @@ namespace MishaTelecoms.API.Services.CDRServices.Handlers.CommandHandlers
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="repository"></param>
-        public DeleteCDRHandler(ILogger<DeleteCDRHandler> logger, ICDRRepository repository)
+        public GetCDRByCountryHandler(ILogger<GetCDRByCountryHandler> logger, ICDRRepository repository)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -33,14 +34,17 @@ namespace MishaTelecoms.API.Services.CDRServices.Handlers.CommandHandlers
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<bool> Handle(DeleteCDRCommand request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<CDRDataDto>> Handle(GetCDRByCountryQuery request, CancellationToken cancellationToken)
         {
-            if (request.Id == null)
-                throw new ArgumentNullException("Id can not be null");
+            if (request is null)
+                throw new ArgumentNullException(nameof(request));
 
             try
             {
-                return await _repository.DeleteAsync(request.Id);
+                var result = await _repository.GetByCountryAsync(request.Country);
+                if (result == null)
+                    return null;
+                return result;
             }
             catch (Exception ex)
             {
