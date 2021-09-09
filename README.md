@@ -33,7 +33,7 @@ The **Domain** of the application contains the entities and value objects classe
 - **Settings**: Contains Value Objects for configurations of services.
 
 ## MishaTelecoms.Application
-The **Application** layer of the program defines jobs/problems its meant to solve.
+The **Application** layer of the program defines the jobs/problems its meant to solve.
 ### Folders
 - **Dtos**:       Contains Data transfer objects
 - **Features**:   Contains Features for the services in the application
