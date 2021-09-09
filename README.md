@@ -25,10 +25,10 @@ as the application evoles along with my skills as a programmer.
 - SOLID
 - Patterns
   - Repository
-  - Mediator | MediatR
-  - CQRS | MediatR
+  - Mediator ~ Uses MediatR
+  - CQRS ~ Uses MediatR
   - Decorator(Wrapper)
-  - Mapping | AutoMapper
+  - Mapping ~ Uses AutoMapper
 
 # Project Overview
 
