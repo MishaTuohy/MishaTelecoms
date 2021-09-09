@@ -4,6 +4,9 @@ using System.Text;
 
 namespace MishaTelecoms.Application.Dtos
 {
+    /// <summary>
+    /// asdasd
+    /// </summary>
     public class CDRDataDto
     {
         public Guid Id { get; set; }

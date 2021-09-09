@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
-using MishaTelecoms.Application.Features.CDRData.Queries;
 using MishaTelecoms.Application.Interfaces.Repositories;
+using MishaTelecoms.Application.Wrappers;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
     /// <summary>
     /// 
     /// </summary>
-    public class GetCDRByIdHandler : IRequestHandler<GetCDRByIdQuery, CDRDataDto>
+    public class GetCDRByIdHandler : IRequestHandler<GetCDRByIdQuery, Response<CDRDataDto>>
     {
         private readonly ILogger<GetCDRByIdHandler> _logger;
         private readonly ICDRRepository _repository;
@@ -36,7 +36,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<CDRDataDto> Handle(GetCDRByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Response<CDRDataDto>> Handle(GetCDRByIdQuery request, CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
@@ -44,9 +44,9 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
             try
             {
                 var result = await _repository.GetByIdAsync(request.Id);
-                if (result == null)
-                    return null;
-                return result;
+                if (result is null)
+                    return new Response<CDRDataDto>("Failed to retrieve Data");
+                return new Response<CDRDataDto>(result, "Data retrieved successfully");
             }
             catch (Exception ex)
             {

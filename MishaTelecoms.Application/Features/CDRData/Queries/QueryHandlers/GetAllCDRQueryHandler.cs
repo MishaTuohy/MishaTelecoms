@@ -44,9 +44,9 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
             try
             {
                 var result = await _repository.GetAllAsync();
-                if (result == null)
-                    return null;
-                return new Response<IReadOnlyList<CDRDataDto>>(result);
+                if (result.Count < 1)
+                    return new Response<IReadOnlyList<CDRDataDto>>("Failed to retrieve Data");
+                return new Response<IReadOnlyList<CDRDataDto>>(result, "Data retrieved successfully");
             }
             catch (Exception ex)
             {

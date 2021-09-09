@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MishaTelecoms.Application.Dtos;
+using MishaTelecoms.Application.Wrappers;
 using System;
 
 namespace MishaTelecoms.Application.Features.CDRData.Queries
@@ -7,7 +8,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries
     /// <summary>
     /// 
     /// </summary>
-    public class GetCDRByIdQuery : IRequest<CDRDataDto>
+    public class GetCDRByIdQuery : IRequest<Response<CDRDataDto>>
     {
         /// <summary>
         /// 

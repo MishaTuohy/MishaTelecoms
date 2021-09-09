@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Repositories;
+using MishaTelecoms.Application.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -12,7 +13,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
     /// <summary>
     /// 
     /// </summary>
-    public class GetCDRByCallTypeHandler : IRequestHandler<GetCDRByCallTypeQuery, IReadOnlyList<CDRDataDto>>
+    public class GetCDRByCallTypeHandler : IRequestHandler<GetCDRByCallTypeQuery, Response<IReadOnlyList<CDRDataDto>>>
     {
         private readonly ILogger<GetCDRByCallTypeHandler> _logger;
         private readonly ICDRRepository _repository;
@@ -34,7 +35,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<CDRDataDto>> Handle(GetCDRByCallTypeQuery request, CancellationToken cancellationToken)
+        public async Task<Response<IReadOnlyList<CDRDataDto>>> Handle(GetCDRByCallTypeQuery request, CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
@@ -42,9 +43,9 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
             try
             {
                 var result = await _repository.GetByCallTypeAsync(request.CallType);
-                if (result == null)
-                    return null;
-                return result;
+                if (result.Count < 1)
+                    return new Response<IReadOnlyList<CDRDataDto>>("Failed to retrieve Data");
+                return new Response<IReadOnlyList<CDRDataDto>>(result, "Data retrieved successfully");
             }
             catch (Exception ex)
             {

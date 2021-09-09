@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MishaTelecoms.Application.Dtos;
+using MishaTelecoms.Application.Wrappers;
 using System.Collections.Generic;
 
 namespace MishaTelecoms.Application.Features.CDRData.Queries
@@ -7,17 +8,9 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries
     /// <summary>
     /// 
     /// </summary>
-    public class GetCDRByCallTypeQuery : IRequest<IReadOnlyList<CDRDataDto>>
+    public class GetCDRByCallTypeQuery : IRequest<Response<IReadOnlyList<CDRDataDto>>>
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public string CallType { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="callType"></param>
         public GetCDRByCallTypeQuery(string callType)
         {
             CallType = callType;

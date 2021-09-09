@@ -51,7 +51,6 @@ namespace MishaTelecoms.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllCDRQuery());
-
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 
@@ -64,7 +63,7 @@ namespace MishaTelecoms.API.Controllers
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var query = new GetCDRByIdQuery(id);
-            var result = _mapper.Map<CDRDataDto, CDRDataResponse>(await _mediator.Send(query));
+            var result = await _mediator.Send(query);
             return result != null ? (IActionResult) Ok(result) : NotFound();
         }
 
@@ -77,7 +76,7 @@ namespace MishaTelecoms.API.Controllers
         public async Task<IActionResult> GetByCountry([FromRoute] string country)
         {
             var query = new GetCDRByCountryQuery(country);
-            var result = _mapper.Map<IReadOnlyList<CDRDataDto>, IReadOnlyList<CDRDataResponse>>(await _mediator.Send(query));
+            var result = await _mediator.Send(query);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 
@@ -90,7 +89,7 @@ namespace MishaTelecoms.API.Controllers
         public async Task<IActionResult> GetByCallType([FromRoute] string callType)
         {
             var query = new GetCDRByCallTypeQuery(callType);
-            var result = _mapper.Map<IReadOnlyList<CDRDataDto>, IReadOnlyList<CDRDataResponse>>(await _mediator.Send(query));
+            var result = await _mediator.Send(query);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 
