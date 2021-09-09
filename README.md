@@ -14,7 +14,7 @@ as the application evoles along with my skills as a programmer.
 - Cultivate and build upon good practices and habits
 
 ## Concepts learnt/Applied so far
-- Clean/DDD Architecture
+- DDD/Onion Architecture
 - SOLID
 - Patterns
   - Repository
