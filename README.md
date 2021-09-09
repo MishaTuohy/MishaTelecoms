@@ -18,10 +18,10 @@ as the application evoles along with my skills as a programmer.
 - SOLID
 - Patterns
   - Repository
-  - Mediator
-  - CQRS
+  - Mediator | MediatR
+  - CQRS | MediatR
   - Decorator(Wrapper)
-  - Mapping
+  - Mapping | AutoMapper
 
 ## Technologies
 - [Asp.Net](https://dotnet.microsoft.com/apps/aspnet) -  Web Application Framework used
@@ -46,18 +46,18 @@ The **Domain** of the application contains the entities and value objects classe
 The **Application** layer of the program defines the jobs/problems the program is meant to solve
 ### Folders
 - **Dtos**:       Contains Data transfer objects
-- **Features**:   Contains Features for the services in the application
-- **Interfaces**: Contains Interfacs used throughout multiple services in the application
-- **Wrappers**:   Contains Wrappers
+- **Features**:   Contains Features for the services in the application | **CQRS & Mediator patterns applied**
+- **Interfaces**: Contains Interfacs used throughout multiple services in the application | **Repository Pattern applied**
+- **Wrappers**:   Contains Wrappers | **Decorator(Wrapper) pattern applied**
 ## MishaTelecoms.Infrastructure
 Provides support for higher layers in the application. Eg. Data Access
 ### Folders
 - **Data**:        Contains classes that support Data Access
-- **Persistence**: Data Access
+- **Persistence**: Data Access | **Repository Pattern applied**
 - **Utils**:       Utility class that support other classes
 ## MishaTelecoms.API
 This API allows for the access and managing of the database for this application
 ### Folders
-- **Controllers**: Contains controllers for receiving incoming request and defines URL routes
+- **Controllers**: Contains controllers for receiving incoming request and defines URL routes | **Mediator pattern applied**
 - **Mappings**:    Mappers for the transfer of data between layers
-- **Models**:      Contains Data Models
+- **Models**:      Contains Data Models | **Mapping pattern**
