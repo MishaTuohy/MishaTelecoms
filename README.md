@@ -13,6 +13,13 @@ as the application evoles along with my skills as a programmer.
 - Create a scalable and modular application
 - Cultivate and build upon good practices and habits
 
+## Technologies
+- [Asp.Net](https://dotnet.microsoft.com/apps/aspnet) -  Web Application Framework used
+- [Dapper](https://github.com/DapperLib/Dapper) - ORM used for Data Access
+- [AutoMapper](http://automapper.org/) - Mapping objects between layers
+- [MediatR](https://github.com/jbogard/MediatR) - Application of Mediator Pattern
+- [SwashBuckle](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-5.0) - API Documentation
+
 ## Concepts learnt/Applied so far
 - DDD/Onion Architecture
 - SOLID
@@ -22,13 +29,6 @@ as the application evoles along with my skills as a programmer.
   - CQRS | MediatR
   - Decorator(Wrapper)
   - Mapping | AutoMapper
-
-## Technologies
-- [Asp.Net](https://dotnet.microsoft.com/apps/aspnet) -  Web Application Framework used
-- [Dapper](https://github.com/DapperLib/Dapper) - ORM used for Data Access
-- [AutoMapper](http://automapper.org/) - Mapping objects between layers
-- [MediatR](https://github.com/jbogard/MediatR) - Application of Mediator Pattern
-- [SwashBuckle](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-5.0) - API Documentation
 
 # Project Overview
 
