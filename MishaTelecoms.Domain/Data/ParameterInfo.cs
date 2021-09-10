@@ -1,5 +1,6 @@
 ﻿namespace MishaTelecoms.Domain.Data
 {
+    // Dynamically create parameters for sql statements
     public class ParameterInfo
     {
         public int Id { get; set; }

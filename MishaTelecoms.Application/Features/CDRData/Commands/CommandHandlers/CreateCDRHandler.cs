@@ -7,20 +7,11 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.Application.Features.CDRData.Commands.CommandHandlers
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class CreateCDRHandler : IRequestHandler<CreateCDRCommand, bool>
     {
         private readonly ILogger<CreateCDRHandler> _logger;
         private readonly ICDRRepository _repository;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="repository"></param>
-        /// <param name="config"></param>
         public CreateCDRHandler(
             ILogger<CreateCDRHandler> logger,
             ICDRRepository repository)
@@ -28,13 +19,6 @@ namespace MishaTelecoms.Application.Features.CDRData.Commands.CommandHandlers
             _logger = logger;
             _repository = repository;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
         public async Task<bool> Handle(CreateCDRCommand request, CancellationToken cancellationToken)
         {
             try

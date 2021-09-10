@@ -133,28 +133,6 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-
-        public async Task<IReadOnlyList<CDRDataDto>> GetByCountryCallTypeDurationAsync(string Country, string CallType, int Duration)
-        {
-            if (Country == null | CallType == null | Duration < 0)
-                throw new ArgumentNullException("Filter values can't be empty");
-
-            try
-            {
-                List<ParameterInfo> _params = new List<ParameterInfo>
-                {
-                    new ParameterInfo { Name = "Country", Value = Country },
-                    new ParameterInfo { Name = "CallType", Value = CallType },
-                    new ParameterInfo { Name = "Duration", Value = Duration }
-                };
-                return await _sqlHelper.GetRecordsParamAsync<CDRDataDto>(dao.GetFilteredCdrDataSql(), _params, CommandType.Text);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to create CDR Data");
-                throw;
-            }
-        }
         
         public async Task<bool> UpdateAsync(CDRDataDto dto)
         {

@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 namespace MishaTelecoms.Application.Features.CDRData.Queries
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class GetCDRByCallTypeQuery : IRequest<Response<IReadOnlyList<CDRDataDto>>>
     {
         public string CallType { get; set; }

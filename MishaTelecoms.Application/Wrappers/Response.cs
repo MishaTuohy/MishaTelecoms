@@ -2,6 +2,7 @@
 
 namespace MishaTelecoms.Application.Wrappers
 {
+    // Response Wrapper for queries
     public class Response<T>
     {
         public bool Succeeded { get; set; }
@@ -11,6 +12,7 @@ namespace MishaTelecoms.Application.Wrappers
 
         public Response() { }
 
+        // Successfull reponse
         public Response(T data, string message)
         {
             Succeeded = true;
@@ -18,6 +20,7 @@ namespace MishaTelecoms.Application.Wrappers
             Data = data;
         }
 
+        // Failed response
         public Response(string message)
         {
             Succeeded = false;

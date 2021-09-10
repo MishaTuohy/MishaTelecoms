@@ -2,6 +2,7 @@
 
 namespace MishaTelecoms.Domain.Entities
 {
+    // CDR Data | Call Detail Record
     public class CDRData
     {
         public Guid Id { get; set; }

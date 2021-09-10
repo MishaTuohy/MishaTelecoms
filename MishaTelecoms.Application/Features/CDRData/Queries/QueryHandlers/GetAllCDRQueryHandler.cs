@@ -10,19 +10,10 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class GetAllCDRQueryHandler : IRequestHandler<GetAllCDRQuery, Response<IReadOnlyList<CDRDataDto>>>
     {
         private readonly ILogger<GetAllCDRQueryHandler> _logger;
         private readonly ICDRRepository _repository;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="repository"></param>
         public GetAllCDRQueryHandler(
             ILogger<GetAllCDRQueryHandler> logger,
             ICDRRepository repository)
@@ -30,12 +21,6 @@ namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
             _logger = logger;
             _repository = repository;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
         public async Task<Response<IReadOnlyList<CDRDataDto>>> Handle(GetAllCDRQuery request, CancellationToken cancellationToken)
         {
             if (request is null)

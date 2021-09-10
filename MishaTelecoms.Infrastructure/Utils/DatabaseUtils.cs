@@ -5,6 +5,7 @@ using System.Data.Common;
 
 namespace MishaTelecoms.Infrastructure.Utils
 {
+    // Database Utilities Class for creating connection to a database
     public class DatabaseUtils
     { 
         private readonly DbConnectionConfig _config;
@@ -14,16 +15,19 @@ namespace MishaTelecoms.Infrastructure.Utils
             _config = config;
         }
 
+        // Retrieves Connection string to database
         public string ConnectionString()
         {
             return _config.ConnectionString;
         }
 
+        // Creates connection to database
         public DbConnection CreateConnection()
         {
             return CreateConnection(ConnectionString());
         }
 
+        // Creates connection to database
         public DbConnection CreateConnection(string _connection)
         {
             if (_connection is null)
