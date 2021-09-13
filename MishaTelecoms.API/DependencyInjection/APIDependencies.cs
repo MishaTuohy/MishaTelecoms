@@ -19,7 +19,7 @@ namespace MishaTelecoms.API.DependencyInjection
             var dbConnectionConfig = new DbConnectionConfig();
             configuration.GetSection("DbConnectionConfig").Bind(dbConnectionConfig);
             services.AddSingleton(dbConnectionConfig);
-            services.AddSwaggerDependency(configuration);
+            services.AddSwaggerDp();
             // Hook up infrastructure dependancies
             services.AddInfrastructure(configuration);
             
