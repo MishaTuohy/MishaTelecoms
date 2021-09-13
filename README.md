@@ -8,7 +8,7 @@ This application makes use of Domain Driven Design and Microservices Architechtu
 as the application evolves along with my skills as a programmer.
 
 ## High Level View - Control Flow Diagram
-![](images/MishaTelecoms_ControlFlow.png)
+![](master/Images/MishaTelecoms_ControlFlow.png)
 
 ## Objectives
 
