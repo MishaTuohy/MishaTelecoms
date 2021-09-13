@@ -5,7 +5,7 @@ MishaTelecoms is an application that handles/manages [CDR Data](https://en.wikip
 The end goal of the app is to have a Web UI where you can log on and manage your CDR Data and the users associated with it.
 
 This application makes use of Domain Driven Design and Microservices Architechture for handling complexity, allowing for changes to be made easily
-as the application evoles along with my skills as a programmer.
+as the application evolves along with my skills as a programmer.
 
 ## Objectives
 
