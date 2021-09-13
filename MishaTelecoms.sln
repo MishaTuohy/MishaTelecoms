@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MishaTelecoms.Domain", "Mis
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MishaTelecoms.DB", "MishaTelecoms.DB\MishaTelecoms.DB.sqlproj", "{4FCB9F3C-6D6A-4E69-91F2-D1090A531F27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MishaTelecoms.CDRGenerator", "MishaTelecoms.CDRGenerator\MishaTelecoms.CDRGenerator.csproj", "{FD411E91-C390-4FD0-B58E-02518F9AF7A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MishaTelecoms.CDRGenerator", "MishaTelecoms.CDRGenerator\MishaTelecoms.CDRGenerator.csproj", "{FD411E91-C390-4FD0-B58E-02518F9AF7A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

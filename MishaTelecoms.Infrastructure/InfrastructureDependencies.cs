@@ -16,22 +16,16 @@ namespace MishaTelecoms.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            if (services is null)
-                throw new ArgumentNullException(nameof(services));
-
             if (configuration is null)
                 throw new ArgumentNullException(nameof(configuration));
 
             /// Repository
-            /// 
             services.AddScoped<ICDRRepository, CDRRepository>();
 
             /// Dao
-            /// 
             services.AddScoped<ICDRDao, CDRDao>();
 
             /// Helpers
-            /// 
             services.AddScoped<ISqlHelperAsync, SqlHelperAsync>();
             services.AddScoped<ITransaction, Transaction>();
 

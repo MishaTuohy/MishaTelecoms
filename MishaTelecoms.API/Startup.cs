@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MishaTelecoms.API.Config;
+using MishaTelecoms.API.DependencyInjection;
 
 namespace MishaTelecoms.API
 {
@@ -15,6 +17,7 @@ namespace MishaTelecoms.API
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            // Dependency Injection
             services.AddDependencies(Configuration);
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -23,16 +26,15 @@ namespace MishaTelecoms.API
                 app.UseDeveloperExceptionPage();
 
             // Middleware
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.AddMiddleware();
 
+            // Endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
+            // Swagger
             app.UseSwagger();
             app.UseSwaggerUI(options => 
             {

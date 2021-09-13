@@ -4,10 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MishaTelecoms.Infrastructure;
 using MishaTelecoms.Domain.Settings;
 using System;
-using System.IO;
-using System.Reflection;
 
-namespace MishaTelecoms.API
+namespace MishaTelecoms.API.DependencyInjection
 {
     public static class APIDependencies
     {
@@ -21,23 +19,10 @@ namespace MishaTelecoms.API
             var dbConnectionConfig = new DbConnectionConfig();
             configuration.GetSection("DbConnectionConfig").Bind(dbConnectionConfig);
             services.AddSingleton(dbConnectionConfig);
-
+            services.AddSwaggerDp();
             // Hook up infrastructure dependancies
             services.AddInfrastructure(configuration);
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1",
-                    new Microsoft.OpenApi.Models.OpenApiInfo
-                    {
-                        Title = "Swagger Demo API",
-                        Description = "Demo API for showing Swagger",
-                        Version = "v1"
-                    });
-
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                options.IncludeXmlComments(xmlPath);
-            });
+            
             return services;
         }
     }

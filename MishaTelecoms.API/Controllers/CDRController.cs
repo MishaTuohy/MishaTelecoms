@@ -2,18 +2,16 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MishaTelecoms.API.Models.Requests;
-using MishaTelecoms.API.Models.Responses;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Features.CDRData.Commands;
 using MishaTelecoms.Application.Features.CDRData.Queries;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MishaTelecoms.API.Controllers
 {
     /// <summary>
-    /// CDRData Controller responsible for GET/POST/DELETE requests for managing CDRData
+    /// CDRData Controller responsible for GET/POST/DELETE requests for CDRData
     /// </summary>
     [Route("api/cdrdata")]
     [ApiController]
@@ -37,7 +35,8 @@ namespace MishaTelecoms.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CDRDataRequest entity)
         {
-            var query = new CreateCDRCommand(_mapper.Map<CDRDataRequest, CDRDataDto>(entity));
+            var requestObject = _mapper.Map<CDRDataRequest, CDRDataDto>(entity);
+            var query = new CreateCDRCommand(requestObject);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -50,7 +49,8 @@ namespace MishaTelecoms.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllCDRQuery());
+            var query = new GetAllCDRQuery();
+            var result = await _mediator.Send(query);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 
@@ -68,7 +68,7 @@ namespace MishaTelecoms.API.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns CDR Data matching Country
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
@@ -81,7 +81,7 @@ namespace MishaTelecoms.API.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns CDR Data matching Call Type
         /// </summary>
         /// <param name="callType"></param>
         /// <returns></returns>
@@ -93,7 +93,6 @@ namespace MishaTelecoms.API.Controllers
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 
-        /// url = api/CDRData/delete/{id}
         /// <summary>
         /// Deletes CDRData with matching id
         /// </summary>

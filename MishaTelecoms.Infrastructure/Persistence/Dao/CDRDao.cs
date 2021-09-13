@@ -50,14 +50,6 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
             return @"SELECT * FROM dbo.CDRData
                    WHERE Duration = @Duration";
         }
-        public string GetFilteredCdrDataSql()
-        {
-            return @"SELECT * FROM dbo.CDRData
-                   WHERE 
-                        (Country = @Country AND
-                        CallType = @CallType AND
-                        Duration = @Duration)";
-        }
         public string DeleteSql()
         {
             return @"DELETE FROM dbo.CDRData 
