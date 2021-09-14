@@ -1,5 +1,7 @@
 ﻿using AutoMapper.Configuration;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using MishaTelecoms.Application.Behaviours;
 using System;
 
 namespace MishaTelecoms.Application
@@ -13,6 +15,8 @@ namespace MishaTelecoms.Application
 
             if (configuration is null)
                 throw new ArgumentNullException(nameof(configuration));
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             return services;
         }

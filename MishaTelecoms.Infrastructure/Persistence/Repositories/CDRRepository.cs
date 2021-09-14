@@ -26,7 +26,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             _logger = logger;
             this.dao = dao;
             _config = config;
-    }
+        }
 
         public async Task<bool> AddAsync(CDRDataDto dto)
         {
@@ -39,16 +39,17 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 try
                 {
                     List<ParameterInfo> _params = new List<ParameterInfo>
-                {
-                    new ParameterInfo { Name = "Id", Value = dto.Id },
-                    new ParameterInfo { Name = "CallingNumber", Value = dto.CallingNumber } ,
-                    new ParameterInfo { Name = "CalledNumber", Value =  dto.CalledNumber },
-                    new ParameterInfo { Name = "Country", Value =dto.Country },
-                    new ParameterInfo { Name = "CallType", Value = dto.CallType },
-                    new ParameterInfo { Name = "Duration", Value = dto.Duration },
-                    new ParameterInfo { Name = "DateCreated", Value = dto.DateCreated },
-                    new ParameterInfo { Name = "Cost", Value =  dto.Cost },
-                };
+                    {
+                        new ParameterInfo { Name = "Id", Value = dto.Id },
+                        new ParameterInfo { Name = "CallingNumber", Value = dto.CallingNumber } ,
+                        new ParameterInfo { Name = "CalledNumber", Value =  dto.CalledNumber },
+                        new ParameterInfo { Name = "Country", Value =dto.Country },
+                        new ParameterInfo { Name = "CallType", Value = dto.CallType },
+                        new ParameterInfo { Name = "Duration", Value = dto.Duration },
+                        new ParameterInfo { Name = "DateCreated", Value = dto.DateCreated },
+                        new ParameterInfo { Name = "Cost", Value =  dto.Cost },
+                    };
+
                     result = await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.Text) > 0;
                 }
                 catch (Exception ex)
@@ -77,7 +78,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
         }
         public async Task<CDRDataDto> GetByIdAsync(Guid Id)
         {
-            if(Id == null)
+            if (Id == null)
                 throw new ArgumentNullException("Id value can't be empty");
 
             try
@@ -133,7 +134,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
-        
+
         public async Task<bool> UpdateAsync(CDRDataDto dto)
         {
             if (dto == null)

@@ -13,7 +13,7 @@ namespace MishaTelecoms.Application.Wrappers
         public Response() { }
 
         // Successfull reponse
-        public Response(T data, string message)
+        public Response(T data, string message = null)
         {
             Succeeded = true;
             Message = message;

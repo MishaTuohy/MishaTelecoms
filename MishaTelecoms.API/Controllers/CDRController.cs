@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MishaTelecoms.API.Models.Requests;
 using MishaTelecoms.Application.Dtos;
-using MishaTelecoms.Application.Features.CDRData.Commands;
+using MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR;
 using MishaTelecoms.Application.Features.CDRData.Queries;
 using System;
 using System.Threading.Tasks;
@@ -33,12 +33,9 @@ namespace MishaTelecoms.API.Controllers
         /// <response code="400">Unable to create the tag due to validation error</response>
         /// <returns>Boolean</returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CDRDataRequest entity)
-        {
-            var requestObject = _mapper.Map<CDRDataRequest, CDRDataDto>(entity);
-            var query = new CreateCDRCommand(requestObject);
-            var result = await _mediator.Send(query);
-            return Ok(result);
+        public async Task<IActionResult> Post([FromBody] CreateCDRCommand request)
+        {                                   
+            return Ok(await _mediator.Send(request));
         }
 
         /// <summary>
@@ -100,9 +97,9 @@ namespace MishaTelecoms.API.Controllers
         [HttpDelete("delete/id={Id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid Id)
         {
-            var query = new DeleteCDRCommand(Id);
-            var result = await _mediator.Send(query);
-            return Ok(result);
+            //var query = new DeleteCDRCommand(Id);
+            //var result = await _mediator.Send(query);
+            return Ok();
         }
     }
 }
