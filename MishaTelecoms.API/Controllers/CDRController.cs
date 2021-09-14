@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MishaTelecoms.API.Models.Requests;
-using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR;
-using MishaTelecoms.Application.Features.CDRData.Queries;
+using MishaTelecoms.Application.Features.CDRData.Queries.GetAllCDR;
+using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByCallType;
+using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByCountry;
+using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRById;
 using System;
 using System.Threading.Tasks;
 
@@ -28,7 +29,6 @@ namespace MishaTelecoms.API.Controllers
         /// <summary>
         /// Action: Creates CDR Data entry in the database
         /// </summary>
-        /// <param name="entity">CDR Data Object</param>
         /// <response code="200">Creates CDR Data entry in the database</response>
         /// <response code="400">Unable to create the tag due to validation error</response>
         /// <returns>Boolean</returns>

@@ -2,9 +2,9 @@
 using MishaTelecoms.Application.Wrappers;
 using System;
 
-namespace MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR
+namespace MishaTelecoms.Application.Features.CDRData.Commands.UpdateCDR
 {
-    public class CreateCDRCommand : IRequest<Response<bool>>
+    public class UpdateCDRCommand : IRequest<Response<bool>>
     {
         public Guid Id { get; set; }
         public string CallingNumber { get; set; }

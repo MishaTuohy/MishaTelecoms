@@ -3,7 +3,7 @@ using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Wrappers;
 using System;
 
-namespace MishaTelecoms.Application.Features.CDRData.Queries
+namespace MishaTelecoms.Application.Features.CDRData.Queries.GetCDRById
 {
     public class GetCDRByIdQuery : IRequest<Response<CDRDataDto>>
     {

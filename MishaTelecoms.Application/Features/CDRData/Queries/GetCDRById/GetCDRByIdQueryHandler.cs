@@ -7,15 +7,15 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
+namespace MishaTelecoms.Application.Features.CDRData.Queries.GetCDRById
 {
-    public class GetCDRByIdHandler : IRequestHandler<GetCDRByIdQuery, Response<CDRDataDto>>
+    public class GetCDRByIdQueryHandler : IRequestHandler<GetCDRByIdQuery, Response<CDRDataDto>>
     {
-        private readonly ILogger<GetCDRByIdHandler> _logger;
+        private readonly ILogger<GetCDRByIdQueryHandler> _logger;
         private readonly ICDRRepository _repository;
 
-        public GetCDRByIdHandler(
-            ILogger<GetCDRByIdHandler> logger,
+        public GetCDRByIdQueryHandler(
+            ILogger<GetCDRByIdQueryHandler> logger,
             ICDRRepository repository)
         {
             _logger = logger;

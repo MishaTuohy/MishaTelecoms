@@ -8,14 +8,14 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.Application.Features.CDRData.Queries.QueryHandlers
+namespace MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByCallType
 {
-    public class GetCDRByCallTypeHandler : IRequestHandler<GetCDRByCallTypeQuery, Response<IReadOnlyList<CDRDataDto>>>
+    public class GetCDRByCallTypeQueryHandler : IRequestHandler<GetCDRByCallTypeQuery, Response<IReadOnlyList<CDRDataDto>>>
     {
-        private readonly ILogger<GetCDRByCallTypeHandler> _logger;
+        private readonly ILogger<GetCDRByCallTypeQueryHandler> _logger;
         private readonly ICDRRepository _repository;
 
-        public GetCDRByCallTypeHandler(ILogger<GetCDRByCallTypeHandler> logger, ICDRRepository repository)
+        public GetCDRByCallTypeQueryHandler(ILogger<GetCDRByCallTypeQueryHandler> logger, ICDRRepository repository)
         {
             _logger = logger;
             _repository = repository;

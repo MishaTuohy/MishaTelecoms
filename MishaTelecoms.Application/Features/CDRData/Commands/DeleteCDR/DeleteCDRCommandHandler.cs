@@ -5,16 +5,16 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.Application.Features.CDRData.Commands.CommandHandlers
+namespace MishaTelecoms.Application.Features.CDRData.Commands.DeleteCDR
 {
-    public class DeleteCDRHandler : IRequestHandler<DeleteCDRCommand, bool>
+    public class DeleteCDRCommandHandler : IRequestHandler<DeleteCDRCommand, bool>
     {
-        private readonly ILogger<DeleteCDRHandler> _logger;
+        private readonly ILogger<DeleteCDRCommandHandler> _logger;
         private readonly ICDRRepository _repository;
-        public DeleteCDRHandler(ILogger<DeleteCDRHandler> logger, ICDRRepository repository)
+        public DeleteCDRCommandHandler(ILogger<DeleteCDRCommandHandler> logger, ICDRRepository repository)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger;
+            _repository = repository;
         }
 
         public async Task<bool> Handle(DeleteCDRCommand request, CancellationToken cancellationToken)

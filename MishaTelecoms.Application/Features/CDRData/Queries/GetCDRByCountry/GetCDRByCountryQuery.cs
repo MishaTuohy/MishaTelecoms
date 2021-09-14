@@ -3,7 +3,7 @@ using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Wrappers;
 using System.Collections.Generic;
 
-namespace MishaTelecoms.Application.Features.CDRData.Queries
+namespace MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByCountry
 {
     public class GetCDRByCountryQuery : IRequest<Response<IReadOnlyList<CDRDataDto>>>
     {
