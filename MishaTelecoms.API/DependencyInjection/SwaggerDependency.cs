@@ -8,7 +8,7 @@ namespace MishaTelecoms.API.DependencyInjection
 {
     public static class SwaggerDependency
     {
-        public static IServiceCollection AddSwaggerDp(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddSwaggerDependency(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSwaggerGen(options =>
             {

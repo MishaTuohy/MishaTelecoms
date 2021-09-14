@@ -3,6 +3,7 @@ using MishaTelecoms.Application.Interfaces.Data;
 using MishaTelecoms.Domain.Data;
 using MishaTelecoms.Domain.Settings;
 using MishaTelecoms.Infrastructure.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -36,8 +37,12 @@ namespace MishaTelecoms.Infrastructure.Data
                 foreach (var param in parameters)
                     _params.Add("@" + param.Name, param.Value);
             }
+            // foreach (var param in parameters)
+            //     Console.WriteLine(param.Name + " " +param.Value);
+            // Console.WriteLine(sql);
 
-            return await _connection.ExecuteScalarAsync<int>(sql, _params, transaction: _transaction, commandType: _commandType);
+            var result = await _connection.ExecuteScalarAsync<int>(sql, _params, transaction: _transaction, commandType: _commandType);
+            return result;
         }
 
         public async Task<T> GetRecordAsync<T>(string sql, List<ParameterInfo> parameters, CommandType _commandType)
