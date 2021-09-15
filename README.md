@@ -10,6 +10,23 @@ as the application evolves along with my skills as a programmer.
 ## High Level View - Control Flow Diagram
 ![](/Images/MishaTelecoms_ControlFlow.png)
 
+## Roadmap
+
+1. API - In Progress
+	To Do
+	- Fix CDR Data Commands
+	- Implement Auth & OAuth
+	- Implement Stored Procedures (unsure)
+2. Database - In Progress
+	To Do
+	- Fix CDR Data monolithic table
+3. CDRDataGenerator - In Progress
+	To Do
+	- Fix dependency issue (IMapper)
+	- Make it conform to overall Architecture
+4. SMTP Relay - Not Started
+5. Web UI - Not Started
+
 ## Objectives
 
 - Apply newly learnt concepts
