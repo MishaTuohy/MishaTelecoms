@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
-using MishaTelecoms.Application.Interfaces.Repositories;
+using MishaTelecoms.Application.Interfaces.Repositories.CDRData;
 using MishaTelecoms.Application.Wrappers;
 using System;
 using System.Threading;

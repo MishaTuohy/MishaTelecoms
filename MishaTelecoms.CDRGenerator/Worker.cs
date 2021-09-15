@@ -2,7 +2,8 @@ using AutoMapper;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
-using MishaTelecoms.Application.Interfaces.Services;
+using MishaTelecoms.Application.Interfaces.Services.CDRGenerator;
+using MishaTelecoms.Application.Interfaces.Services.CDRImporter;
 using MishaTelecoms.CDRGenerator.Models;
 using System;
 using System.Collections.Generic;
@@ -40,10 +41,8 @@ namespace MishaTelecoms.CDRGenerator
                         CDRDataList.Add(data);
                     }
 
-                    int rowsAffected = _importer.SendToDB(CDRDataList);
-
+                    await _importer.SendToDB(CDRDataList);
                     _logger.LogInformation("Generated new CDR Data at: {time}", DateTimeOffset.Now);
-                    _logger.LogInformation("Number of rows affected: {rows}", rowsAffected);
                 }
                 catch (Exception ex)
                 {

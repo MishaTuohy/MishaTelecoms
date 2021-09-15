@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.Application.Interfaces.Repositories
+namespace MishaTelecoms.Application.Interfaces.Repositories.CDRData
 {
     public interface ICDRRepository : IRepository<CDRDataDto>
     {

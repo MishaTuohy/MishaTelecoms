@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using MishaTelecoms.Domain.Settings;
-using MishaTelecoms.Application.Interfaces.Services;
+using MishaTelecoms.Application.Interfaces.Services.CDRGenerator;
 
 namespace MishaTelecoms.CDRGenerator.Generators
 {

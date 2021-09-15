@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.Application.Interfaces.Services
+namespace MishaTelecoms.Application.Interfaces.Services.CDRData
 {
     public interface ICDRService
     {

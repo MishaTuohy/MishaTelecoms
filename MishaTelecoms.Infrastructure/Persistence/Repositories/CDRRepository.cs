@@ -2,7 +2,7 @@
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Dao;
 using MishaTelecoms.Application.Interfaces.Data;
-using MishaTelecoms.Application.Interfaces.Repositories;
+using MishaTelecoms.Application.Interfaces.Repositories.CDRData;
 using MishaTelecoms.Domain.Data;
 using MishaTelecoms.Domain.Settings;
 using MishaTelecoms.Infrastructure.Data;

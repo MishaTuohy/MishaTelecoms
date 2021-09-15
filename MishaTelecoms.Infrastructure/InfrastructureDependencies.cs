@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using MishaTelecoms.Application.Interfaces.Dao;
 using MishaTelecoms.Application.Interfaces.Data;
-using MishaTelecoms.Application.Interfaces.Repositories;
+using MishaTelecoms.Application.Interfaces.Repositories.CDRData;
 using MishaTelecoms.Infrastructure.Data;
 using MishaTelecoms.Infrastructure.Persistence.Dao;
 using MishaTelecoms.Infrastructure.Persistence.Repositories;

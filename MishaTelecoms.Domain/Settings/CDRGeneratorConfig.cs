@@ -4,8 +4,8 @@ namespace MishaTelecoms.Domain.Settings
 {
     public class CDRGeneratorConfig
     {
-        public List<string> Countries { get; }
-        public List<string> CallType { get; }
-        public string Filepath { get; }
+        public string Countries { get; set; }
+        public string CallTypes { get; set; }
+        public string Filepath { get; set; }
     }
 }
