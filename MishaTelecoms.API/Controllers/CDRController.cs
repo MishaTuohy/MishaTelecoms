@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MishaTelecoms.Application.Common.Routes.ApiRoutes;
 using MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR;
+using MishaTelecoms.Application.Features.CDRData.Commands.DeleteCDR;
 using MishaTelecoms.Application.Features.CDRData.Queries.GetAllCDR;
 using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByCallType;
 using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByCountry;
+using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByDateCreated;
 using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRById;
 using System;
 using System.Threading.Tasks;
@@ -14,7 +17,9 @@ namespace MishaTelecoms.API.Controllers
     /// <summary>
     /// CDRData Controller responsible for GET/POST/DELETE requests for CDRData
     /// </summary>
-    [Route("api/cdrdata")]
+    
+    // [Authorize]
+    [Route(ApiRoutes.CDRData.Base)]
     [ApiController]
     public class CDRController : BaseController
     {
@@ -34,8 +39,9 @@ namespace MishaTelecoms.API.Controllers
         /// <returns>Boolean</returns>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateCDRCommand request)
-        {                                   
-            return Ok(await _mediator.Send(request));
+        {
+            var result = await _mediator.Send(request);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 
         /// <summary>
@@ -43,6 +49,8 @@ namespace MishaTelecoms.API.Controllers
         /// </summary>
         /// <response code="200">Returns all the CDR Data  entries in the database</response>
         /// <returns>ReadOnlyList of CDRData Objects</returns>
+
+        // [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -56,7 +64,7 @@ namespace MishaTelecoms.API.Controllers
         /// Returns CDRData with matching id
         /// </summary>
         /// <returns>CDRData Object</returns>
-        [HttpGet("id={id}")]
+        [HttpGet(ApiRoutes.CDRData.GetById)]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var query = new GetCDRByIdQuery(id);
@@ -69,7 +77,7 @@ namespace MishaTelecoms.API.Controllers
         /// </summary>
         /// <param name="country"></param>
         /// <returns></returns>
-        [HttpGet("country={country}")]
+        [HttpGet(ApiRoutes.CDRData.GetByCountry)]
         public async Task<IActionResult> GetByCountry([FromRoute] string country)
         {
             var query = new GetCDRByCountryQuery(country);
@@ -80,12 +88,25 @@ namespace MishaTelecoms.API.Controllers
         /// <summary>
         /// Returns CDR Data matching Call Type
         /// </summary>
-        /// <param name="callType"></param>
+        /// <param name="calltype"></param>
         /// <returns></returns>
-        [HttpGet("calltype={callType}")]
-        public async Task<IActionResult> GetByCallType([FromRoute] string callType)
+        [HttpGet(ApiRoutes.CDRData.GetByCallType)]
+        public async Task<IActionResult> GetByCallType([FromRoute] string calltype)
         {
-            var query = new GetCDRByCallTypeQuery(callType);
+            var query = new GetCDRByCallTypeQuery(calltype);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// Returns CDR Data matching Call Type
+        /// </summary>
+        /// <param name="datecreated"></param>
+        /// <returns></returns>
+        [HttpGet(ApiRoutes.CDRData.GetByDateCreated)]
+        public async Task<IActionResult> GetByDateCreated([FromRoute] string datecreated)
+        {
+            var query = new GetCDRByDateCreatedQuery(datecreated);
             var result = await _mediator.Send(query);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
@@ -94,12 +115,12 @@ namespace MishaTelecoms.API.Controllers
         /// Deletes CDRData with matching id
         /// </summary>
         /// <returns>Boolean</returns>
-        [HttpDelete("delete/id={Id}")]
+        [HttpDelete(ApiRoutes.CDRData.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid Id)
         {
-            //var query = new DeleteCDRCommand(Id);
-            //var result = await _mediator.Send(query);
-            return Ok();
+            var query = new DeleteCDRCommand(Id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }
