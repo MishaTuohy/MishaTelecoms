@@ -18,7 +18,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
         private readonly ISqlHelperAsync _sqlHelper;
         private readonly ILogger<CDRRepository> _logger;
         private readonly ICDRDao dao;
-        private DbConnectionConfig _config;
+        private readonly DbConnectionConfig _config;
 
         public CDRRepository(ICDRDao dao, ILogger<CDRRepository> logger, ISqlHelperAsync sqlHelper, DbConnectionConfig config)
         {
@@ -50,10 +50,13 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Cost", Value =  dto.Cost },
                     };
 
-                    result = await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.Text) > 0;
+                    if(result)
+                        trans.Commit();
                 }
                 catch (Exception ex)
                 {
+                    trans.Rollback();
                     _logger.LogError(ex, "Failed to create CDR Data");
                     throw;
                 }
@@ -134,6 +137,25 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
+        public async Task<IReadOnlyList<CDRDataDto>> GetByDateCreatedAsync(string DateCreated)
+        {
+            if (DateCreated == null)
+                throw new ArgumentNullException("DateCreated value can't be empty");
+
+            try
+            {
+                List<ParameterInfo> _params = new List<ParameterInfo>
+                {
+                    new ParameterInfo { Name = "DateCreated", Value = DateCreated }
+                };
+                return await _sqlHelper.GetRecordsAsync<CDRDataDto>(dao.GetByDateCreated(), _params, CommandType.Text);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve CDR Data");
+                throw;
+            }
+        }
 
         public async Task<bool> UpdateAsync(CDRDataDto dto)
         {
@@ -179,10 +201,14 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     new ParameterInfo { Name = "Id", Value = Id }
                 };
-                    return await _sqlHelper.ExecuteScalarAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
+                    var result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
+                    if (result)
+                        trans.Commit();
+                    return result;
                 }
                 catch (Exception ex)
                 {
+                    trans.Rollback();
                     _logger.LogError(ex, "Failed to create CDR Data");
                     return false;
                     throw;

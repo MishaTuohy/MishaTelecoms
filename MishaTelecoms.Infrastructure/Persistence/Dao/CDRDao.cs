@@ -21,7 +21,8 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
                         @Country, 
                         @CallType, 
                         @Duration, 
-                        @Cost)";
+                        @Cost);
+                    SELECT SCOPE_IDENTITY()";
         }
 
         public string GetAllSql()
@@ -44,6 +45,11 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
         {
             return @"SELECT * FROM dbo.CDRData
                    WHERE CallType = @CallType";
+        }
+        public string GetByDateCreated()
+        {
+            return @"SELECT * FROM dbo.CDRData
+                   WHERE DateCreated = @DateCreated";
         }
         public string GetByDuration()
         {

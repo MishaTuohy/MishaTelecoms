@@ -26,5 +26,13 @@ namespace MishaTelecoms.Application.Wrappers
             Succeeded = false;
             Message = message;
         }
+
+        // Error Response
+        public Response(string message, List<string> errors)
+        {
+            Succeeded = false;
+            Message = message;
+            Errors = errors;
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace MishaTelecoms.Application.Interfaces.Dao
         string GetByCountry();
         // Get CDR Data by CallType
         string GetByCallType();
+        // Get by Date Created
+        string GetByDateCreated();
         // Get CDR Data by Duration
         string GetByDuration();
         // Update CDR Data entry

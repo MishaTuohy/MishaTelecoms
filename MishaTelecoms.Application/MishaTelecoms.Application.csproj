@@ -10,6 +10,7 @@
     <PackageReference Include="FluentValidation" Version="10.3.3" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
@@ -20,10 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="Features\Users\" />
+    <Folder Include="Common\Routes\UIRoutes\" />
+    <Folder Include="Features\User\Commands\CreateUser\" />
+    <Folder Include="Features\User\Commands\DeleteUser\" />
+    <Folder Include="Features\User\Commands\UpdateUser\" />
+    <Folder Include="Features\User\Queries\GetAllUsers\" />
+    <Folder Include="Features\User\Queries\GetUserById\" />
     <Folder Include="Interfaces\Repositories\Users\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

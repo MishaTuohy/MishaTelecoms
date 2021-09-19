@@ -8,5 +8,6 @@ namespace MishaTelecoms.Application.Interfaces.Repositories.CDRData
     {
         Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string country);
         Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string callType);
+        Task<IReadOnlyList<CDRDataDto>> GetByDateCreatedAsync(string dateCreated);
     }
 }
