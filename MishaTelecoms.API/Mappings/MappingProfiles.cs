@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using MishaTelecoms.API.Models;
 using MishaTelecoms.API.Models.Requests;
 using MishaTelecoms.API.Models.Responses;
 using MishaTelecoms.Application.Dtos;
+using MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR;
 
 namespace MishaTelecoms.API.Mappings
 {
@@ -14,7 +14,9 @@ namespace MishaTelecoms.API.Mappings
         public MappingProfiles()
         {
             CreateMap<CDRDataDto, CDRDataResponse>().ReverseMap();
-            CreateMap<CDRDataDto, CDRDataRequest>().ReverseMap();
+            CreateMap<CDRDataDto, CreateCDRRequest>().ReverseMap();
+            CreateMap<CDRDataDto, CreateCDRCommand>().ReverseMap();
+            CreateMap<CreateCDRCommand, CDRDataDto>().ReverseMap();
         }
     }
 }

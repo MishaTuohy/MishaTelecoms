@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,7 +23,7 @@ namespace MishaTelecoms.Application.Behaviours
         {
             if (_validators.Any())
             {
-                var context = new FluentValidation.ValidationContext<TRequest>(request);
+                var context = new ValidationContext<TRequest>(request);
                 var results = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, token)));
                 var failures = results.SelectMany(e => e.Errors).Where(e => e != null).ToList();
 
