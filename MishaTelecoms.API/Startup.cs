@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MishaTelecoms.API.Config;
-using MishaTelecoms.API.DependencyInjection;
+using MishaTelecoms.API.Dependencies;
+using MishaTelecoms.API.Middleware;
 
 namespace MishaTelecoms.API
 {
