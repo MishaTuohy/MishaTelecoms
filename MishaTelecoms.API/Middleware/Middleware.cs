@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace MishaTelecoms.API.Config
+namespace MishaTelecoms.API.Middleware
 {
     public static class Middleware
     {

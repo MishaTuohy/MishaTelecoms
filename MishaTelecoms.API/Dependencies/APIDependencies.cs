@@ -2,10 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MishaTelecoms.Infrastructure;
-using MishaTelecoms.Domain.Settings;
 using System;
+using MishaTelecoms.API.Dependencies.ConfigDependencies;
+using MishaTelecoms.Application;
 
-namespace MishaTelecoms.API.DependencyInjection
+namespace MishaTelecoms.API.Dependencies
 {
     public static class APIDependencies
     {
@@ -14,15 +15,22 @@ namespace MishaTelecoms.API.DependencyInjection
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
+            services.AddApplication(configuration);
 
             // Assign your config so you can reuse it in Data layer
-            var dbConnectionConfig = new DbConnectionConfig();
-            configuration.GetSection("DbConnectionConfig").Bind(dbConnectionConfig);
-            services.AddSingleton(dbConnectionConfig);
-            services.AddSwaggerDependency(configuration);
+            services.AddDbConnectionConfiguration(configuration);
+
+            // Authorized Application Details
+
+            // Jwt Authentication set up
+            services.AddJwtDependencies(configuration);
+
+            services.AddSwaggerDependency();
             // Hook up infrastructure dependancies
             services.AddInfrastructure(configuration);
-            
+
+
             return services;
         }
     }
