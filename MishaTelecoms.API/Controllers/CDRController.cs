@@ -1,9 +1,18 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MishaTelecoms.API.Models.Requests.CDRData.Post.Create;
+using MishaTelecoms.API.Models.Requests.CDRData.Post.Update;
 using MishaTelecoms.Application.Common.Routes.ApiRoutes;
-using MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR;
-using MishaTelecoms.Application.Features.CDRData.Commands.DeleteCDR;
+using MishaTelecoms.Application.Features.CDRData.Commands.Create;
+using MishaTelecoms.Application.Features.CDRData.Commands.Delete;
+using MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateAll;
+using MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateCalledNumber;
+using MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateCallingNumber;
+using MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateCallType;
+using MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateCost;
+using MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateCountry;
+using MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateDuration;
 using MishaTelecoms.Application.Features.CDRData.Queries.GetAllCDR;
 using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByCallType;
 using MishaTelecoms.Application.Features.CDRData.Queries.GetCDRByCountry;
@@ -17,7 +26,7 @@ namespace MishaTelecoms.API.Controllers
     /// <summary>
     /// CDRData Controller responsible for GET/POST/DELETE requests for CDRData
     /// </summary>
-    
+
     // [Authorize]
     [Route(ApiRoutes.CDRData.Base)]
     [ApiController]
@@ -38,9 +47,10 @@ namespace MishaTelecoms.API.Controllers
         /// <response code="400">Unable to create the tag due to validation error</response>
         /// <returns>Boolean</returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateCDRCommand request)
+        public async Task<IActionResult> Post([FromBody] CreateCDRRequest request)
         {
-            var result = await _mediator.Send(request);
+            var query = _mapper.Map<CreateCDRRequest, CreateCDRCommand>(request);
+            var result = await _mediator.Send(query);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
 
@@ -112,6 +122,97 @@ namespace MishaTelecoms.API.Controllers
         }
 
         /// <summary>
+        /// Updates All properties of a CDRData record
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Boolean</returns>
+        [HttpPatch(ApiRoutes.CDRData.UpdateAll)]
+        public async Task<IActionResult> Update([FromBody]UpdateCDRAllRequest request)
+        {
+            var query = _mapper.Map<UpdateCDRAllRequest, UpdateCDRAllCommand>(request);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// Updates the CallingNumber of a CDRData record
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Boolean</returns>
+        [HttpPatch(ApiRoutes.CDRData.UpdateCallingNumber)]
+        public async Task<IActionResult> UpdateCallingNumber([FromBody] UpdateCDRCallingNumberRequest request)
+        {
+            var query = _mapper.Map<UpdateCDRCallingNumberRequest, UpdateCDRCallingNumberCommand>(request);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// Updates the CalledNumber of a CDRData record
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Boolean</returns>
+        [HttpPatch(ApiRoutes.CDRData.UpdateCalledNumber)]
+        public async Task<IActionResult> UpdateCalledNumber([FromBody] UpdateCDRCalledNumberRequest request)
+        {
+            var query = _mapper.Map<UpdateCDRCalledNumberRequest, UpdateCDRCalledNumberCommand>(request);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// Updates the Country of a CDRData record
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Boolean</returns>
+        [HttpPatch(ApiRoutes.CDRData.UpdateCountry)]
+        public async Task<IActionResult> UpdateCountry([FromBody] UpdateCDRCountryRequest request)
+        {
+            var query = _mapper.Map<UpdateCDRCountryRequest, UpdateCDRCountryCommand>(request);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// Updates the CallType of a CDRData record
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Boolean</returns>
+        [HttpPatch(ApiRoutes.CDRData.UpdateCallType)]
+        public async Task<IActionResult> UpdateCallType([FromBody] UpdateCDRCallTypeRequest request)
+        {
+            var query = _mapper.Map<UpdateCDRCallTypeRequest, UpdateCDRCallTypeCommand>(request);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// Updates the Duration of a CDRData record
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Boolean</returns>
+        [HttpPatch(ApiRoutes.CDRData.UpdateDuration)]
+        public async Task<IActionResult> Updateduration([FromBody] UpdateCDRDurationRequest request)
+        {
+            var query = _mapper.Map<UpdateCDRDurationRequest, UpdateCDRDurationCommand>(request);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// Updates the Cost of a CDRData record
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Boolean</returns>
+        [HttpPatch(ApiRoutes.CDRData.UpdateCost)]
+        public async Task<IActionResult> UpdateCost([FromBody] UpdateCDRCostRequest request)
+        {
+            var query = _mapper.Map<UpdateCDRCostRequest, UpdateCDRCostCommand>(request);
+            var result = await _mediator.Send(query);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
         /// Deletes CDRData with matching id
         /// </summary>
         /// <returns>Boolean</returns>
@@ -120,7 +221,7 @@ namespace MishaTelecoms.API.Controllers
         {
             var query = new DeleteCDRCommand(Id);
             var result = await _mediator.Send(query);
-            return Ok(result);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
         }
     }
 }

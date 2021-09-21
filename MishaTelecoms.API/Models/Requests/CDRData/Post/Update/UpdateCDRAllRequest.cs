@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.API.Models.Requests
+namespace MishaTelecoms.API.Models.Requests.CDRData.Post.Update
 {
     /// <summary>
-    /// CDR Data Model for Command Requests
+    /// CDR Data Model for Update Command Requests
     /// </summary>
-    public class CreateCDRRequest
+    public class UpdateCDRAllRequest
     {
         /// <summary>
         /// Unique Id for CDRData Object

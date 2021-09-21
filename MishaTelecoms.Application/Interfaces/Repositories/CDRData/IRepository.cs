@@ -13,7 +13,7 @@ namespace MishaTelecoms.Application.Interfaces.Repositories.CDRData
         // Add a data entry in database asynchronously 
         Task<bool> AddAsync(T entity);
         // Update a data entry in database asynchronously
-        Task<bool> UpdateAsync(T entity);
+        Task<bool> UpdateAllAsync(T entity);
         // Delete a data entry in database asynchronously
         Task<bool> DeleteAsync(Guid Id);
     }

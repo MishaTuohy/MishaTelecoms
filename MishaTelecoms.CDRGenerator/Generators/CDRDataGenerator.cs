@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.Domain.Settings;
 using MishaTelecoms.CDRGenerator.Models;
-using MishaTelecoms.Infrastructure.Utils;
 using MishaTelecoms.Application.Interfaces.Services.CDRGenerator;
+using MishaTelecoms.Infrastructure.Utils.CDRData;
 
 namespace MishaTelecoms.CDRGenerator.Generators
 {

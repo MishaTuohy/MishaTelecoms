@@ -2,7 +2,7 @@
 using MishaTelecoms.Application.Wrappers;
 using System;
 
-namespace MishaTelecoms.Application.Features.CDRData.Commands.DeleteCDR
+namespace MishaTelecoms.Application.Features.CDRData.Commands.Delete
 {
     public class DeleteCDRCommand : IRequest<Response<bool>>
     {

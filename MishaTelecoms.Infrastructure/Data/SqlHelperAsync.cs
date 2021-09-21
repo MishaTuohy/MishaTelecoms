@@ -36,12 +36,8 @@ namespace MishaTelecoms.Infrastructure.Data
                 foreach (var param in parameters)
                     _params.Add("@" + param.Name, param.Value);
             }
-            // foreach (var param in parameters)
-            //     Console.WriteLine(param.Name + " " +param.Value);
-            // Console.WriteLine(sql);
 
-            var result = await _connection.ExecuteScalarAsync<int>(sql, _params, transaction: _transaction, commandType: _commandType);
-            return result;
+            return await _connection.ExecuteScalarAsync<int>(sql, _params, transaction: _transaction, commandType: _commandType); ;
         }
 
         public async Task<T> GetRecordAsync<T>(string sql, List<ParameterInfo> parameters, CommandType _commandType)

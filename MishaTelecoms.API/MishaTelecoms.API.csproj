@@ -19,6 +19,12 @@
     <ProjectReference Include="..\MishaTelecoms.Infrastructure\MishaTelecoms.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Requests\CDRData\Get\" />
+    <Folder Include="Models\Responses\Get\" />
+    <Folder Include="Models\Responses\Post\" />
+  </ItemGroup>
+
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>

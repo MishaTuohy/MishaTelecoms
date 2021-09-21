@@ -8,17 +8,17 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR
+namespace MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateAll
 {
-    public class CreateCDRCommandHandler : IRequestHandler<CreateCDRCommand, Response<bool>>
+    public class UpdateCDRAllCommandHandler : IRequestHandler<UpdateCDRAllCommand, Response<bool>>
     {
-        private readonly ILogger<CreateCDRCommandHandler> _logger;
+        private readonly ILogger<UpdateCDRAllCommandHandler> _logger;
         private readonly ICDRRepository _repository;
         private readonly IMapper _mapper;
 
-        public CreateCDRCommandHandler(
-            ILogger<CreateCDRCommandHandler> logger,
-            ICDRRepository repository, 
+        public UpdateCDRAllCommandHandler(
+            ILogger<UpdateCDRAllCommandHandler> logger,
+            ICDRRepository repository,
             IMapper mapper)
         {
             _logger = logger;
@@ -26,15 +26,15 @@ namespace MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR
             _mapper = mapper;
         }
 
-        public async Task<Response<bool>> Handle(CreateCDRCommand request, CancellationToken cancellationToken)
+        public async Task<Response<bool>> Handle(UpdateCDRAllCommand request, CancellationToken cancellationToken)
         {
-            if (request == null)
-                throw new ArgumentNullException("Create CDR Request cannot be null");
+            if (request is null)
+                throw new ArgumentNullException(nameof(request));
 
             try
             {
-                var dto = _mapper.Map<CreateCDRCommand, CDRDataDto>(request);
-                var result  = await _repository.AddAsync(dto);
+                var dto = _mapper.Map<UpdateCDRAllCommand, CDRDataDto>(request);
+                var result = await _repository.UpdateAllAsync(dto);
                 return new Response<bool>(result);
             }
             catch (Exception ex)
@@ -42,6 +42,6 @@ namespace MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR
                 _logger.LogError(ex.Message);
                 throw;
             }
-        } 
+        }
     }
 }

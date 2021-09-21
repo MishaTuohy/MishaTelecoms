@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace MishaTelecoms.Application.Features.CDRData.Commands.UpdateCDR
+namespace MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateAll
 {
-    public class UpdateCDRCommandValidator : AbstractValidator<UpdateCDRCommand>
+    public class UpdateCDRAllCommandValidator : AbstractValidator<UpdateCDRAllCommand>
     {
-        public UpdateCDRCommandValidator()
+        public UpdateCDRAllCommandValidator()
         {
             RuleFor(r => r.Id).NotNull()
                 .WithMessage("Guid cannot be null");

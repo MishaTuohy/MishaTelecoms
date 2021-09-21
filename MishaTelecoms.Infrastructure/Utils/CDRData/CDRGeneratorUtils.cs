@@ -1,7 +1,7 @@
 ﻿using MishaTelecoms.Domain.Settings;
 using System;
 
-namespace MishaTelecoms.Infrastructure.Utils
+namespace MishaTelecoms.Infrastructure.Utils.CDRData
 {
     public class CDRGeneratorUtils
     {

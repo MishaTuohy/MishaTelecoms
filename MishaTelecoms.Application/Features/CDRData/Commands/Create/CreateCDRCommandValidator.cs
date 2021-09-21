@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace MishaTelecoms.Application.Features.CDRData.Commands.CreateCDR
+namespace MishaTelecoms.Application.Features.CDRData.Commands.Create
 {
     public class CreateCDRCommandValidator : AbstractValidator<CreateCDRCommand>
     {

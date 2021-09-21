@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.Application.Features.CDRData.Commands.DeleteCDR
+namespace MishaTelecoms.Application.Features.CDRData.Commands.Delete
 {
     public class DeleteCDRCommandHandler : IRequestHandler<DeleteCDRCommand, Response<bool>>
     {
