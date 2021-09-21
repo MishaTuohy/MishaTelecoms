@@ -47,6 +47,7 @@ as the application evolves along with my skills as a programmer.
   - CQRS ~ Uses MediatR
   - Decorator(Wrapper)
   - Mapping ~ Uses AutoMapper
+  - Validation (fluentvalidation)
 
 # Project Overview
 
