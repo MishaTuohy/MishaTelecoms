@@ -13,17 +13,17 @@ as the application evolves along with my skills as a programmer.
 ## Roadmap
 
 1. **API - In Progress**
-	- Fix CDR Data Commands
-	- Implement Auth & OAuth
-	- Implement Stored Procedures (unsure)
-	- Build User Controller
+	- Fix CDR Data Commands (done)
+	- Fix Update Commands
+	- Implement Auth & OAuth (In-progress)
+	- Build User Controller (In-progress)
 2. **Database - In Progress**
 	- Fix CDR Data monolithic table
 3. **CDRDataGenerator - In Progress**
 	- Fix dependency issue (IMapper)
 	- Make it conform to overall Architecture
 4. **SMTP Relay - Not Started**
-5. **Web UI - Not Started**
+5. **Web UI - In Progress**
 
 ## Objectives
 
