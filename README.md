@@ -37,7 +37,7 @@ as the application evolves along with my skills as a programmer.
 - [AutoMapper](http://automapper.org/) - Mapping objects between layers
 - [MediatR](https://github.com/jbogard/MediatR) - Application of Mediator Pattern
 - [SwashBuckle](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-5.0) - API Documentation
-- [Validation](https://docs.fluentvalidation.net/en/latest/custom-validators.html) - Validating Requests to the API
+- [fluentvalidation](https://docs.fluentvalidation.net/en/latest/custom-validators.html) - Validating Requests to the API
   
 
 ## Concepts learnt/Applied so far
