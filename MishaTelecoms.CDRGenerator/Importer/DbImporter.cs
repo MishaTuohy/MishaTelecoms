@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
+using MishaTelecoms.Application.Interfaces.Repositories.CDRData;
 using MishaTelecoms.Application.Interfaces.Services.CDRImporter;
 using Newtonsoft.Json;
 using System;
@@ -14,10 +16,12 @@ namespace MishaTelecoms.CDRGenerator.Importer
     public class DbImporter : ICDRImporter<CDRDataDto>
     {
         private readonly ILogger<DbImporter> _logger;
+        private readonly ICDRRepository _repository;
 
-        public DbImporter(ILogger<DbImporter> logger)
+        public DbImporter(ILogger<DbImporter> logger, ICDRRepository repository)
         {
             _logger = logger;
+            _repository = repository;
         }
 
         public async Task SendToDB(List<CDRDataDto> CDRDataList)
@@ -27,32 +31,12 @@ namespace MishaTelecoms.CDRGenerator.Importer
             try
             {
                 foreach (var CDR in CDRDataList)
-                    await PostCDRData(CDR);
+                    await _repository.AddAsync(CDR);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 throw;
-            }
-        }
-
-        public async Task PostCDRData(CDRDataDto CDRData)
-        {
-            using (var client = new HttpClient())
-            using (var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/api/cdrdata"))
-            {
-                var json = JsonConvert.SerializeObject(CDRData);
-                using (var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
-                {
-                    request.Content = stringContent;
-
-                    using (var response = await client
-                        .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
-                        .ConfigureAwait(false))
-                    {
-                        response.EnsureSuccessStatusCode();
-                    }
-                }
             }
         }
     }

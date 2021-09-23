@@ -8,6 +8,7 @@ using MishaTelecoms.CDRGenerator.Generators;
 using MishaTelecoms.CDRGenerator.Importer;
 using MishaTelecoms.CDRGenerator.Models;
 using MishaTelecoms.Domain.Settings;
+using MishaTelecoms.Infrastructure;
 
 namespace MishaTelecoms.CDRGenerator
 {
@@ -29,6 +30,7 @@ namespace MishaTelecoms.CDRGenerator
                     services.AddSingleton(CDRGeneratorConfig);
                     services.AddTransient<ICDRGenerator<CDRDataModel>, CDRDataGenerator>();
                     services.AddTransient<ICDRImporter<CDRDataDto>, DbImporter>();
+                    services.AddInfrastructure(configuration);
                 });
     }
 }

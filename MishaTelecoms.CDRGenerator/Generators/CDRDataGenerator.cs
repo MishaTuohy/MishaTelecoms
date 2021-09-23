@@ -4,6 +4,7 @@ using MishaTelecoms.Domain.Settings;
 using MishaTelecoms.CDRGenerator.Models;
 using MishaTelecoms.Application.Interfaces.Services.CDRGenerator;
 using MishaTelecoms.Infrastructure.Utils.CDRData;
+using MishaTelecoms.Application.Interfaces.Repositories.CDRData;
 
 namespace MishaTelecoms.CDRGenerator.Generators
 {
