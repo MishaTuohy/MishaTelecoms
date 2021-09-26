@@ -28,7 +28,7 @@ namespace MishaTelecoms.Application.Features.CDRData.Commands.Create
 
         public async Task<Response<bool>> Handle(CreateCDRCommand request, CancellationToken cancellationToken)
         {
-            if (request == null)
+            if (request is null)
                 throw new ArgumentNullException("Create CDR Request cannot be null");
 
             try

@@ -51,6 +51,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                     };
 
                     result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.InsertSql(), _params, CommandType.Text) > 0;
+
                     if(result)
                         trans.Commit();
                 }
@@ -168,22 +169,15 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     List<ParameterInfo> _params = new List<ParameterInfo>
                     {
-                        new ParameterInfo { Name = "Id", Value = dto.Id }
+                        new ParameterInfo { Name = "Id", Value = dto.Id },
+                        new ParameterInfo { Name = "CallingNumber", Value = dto.CallingNumber } ,
+                        new ParameterInfo { Name = "CalledNumber", Value =  dto.CalledNumber },
+                        new ParameterInfo { Name = "Country", Value =dto.Country },
+                        new ParameterInfo { Name = "CallType", Value = dto.CallType },
+                        new ParameterInfo { Name = "Duration", Value = dto.Duration },
+                        new ParameterInfo { Name = "DateCreated", Value = dto.DateCreated },
+                        new ParameterInfo { Name = "Cost", Value =  dto.Cost },
                     };
-                    if (dto.CallingNumber != null)
-                        _params.Add(new ParameterInfo { Name = "CallingNumber", Value = dto.CallingNumber });
-                    if (dto.CalledNumber != null)
-                        _params.Add(new ParameterInfo { Name = "CalledNumber", Value = dto.CalledNumber });
-                    if (dto.Country != null)
-                        _params.Add(new ParameterInfo { Name = "Country", Value = dto.Country });
-                    if (dto.CallType != null)
-                        _params.Add(new ParameterInfo { Name = "CallType", Value = dto.CallType });
-                    if (dto.Duration <= 0)
-                        _params.Add(new ParameterInfo { Name = "Duration", Value = dto.Duration });
-                    if (dto.DateCreated != null)
-                        _params.Add(new ParameterInfo { Name = "DateCreated", Value = dto.DateCreated });
-                    if (dto.Cost <= 0)
-                        _params.Add(new ParameterInfo { Name = "Cost", Value = dto.Cost });
 
                     return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateAllSql(), _params, CommandType.Text) > 0;
                 }
