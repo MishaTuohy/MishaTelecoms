@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MishaTelecoms.API.Filters;
 using MishaTelecoms.API.Models.Requests.CDRData.Post.Create;
 using MishaTelecoms.API.Models.Requests.CDRData.Post.Update;
 using MishaTelecoms.Application.Common.Routes.ApiRoutes;
@@ -27,7 +28,7 @@ namespace MishaTelecoms.API.Controllers
     /// CDRData Controller responsible for GET/POST/DELETE requests for CDRData
     /// </summary>
 
-    // [Authorize]
+    [ApiKeyAuth]
     [Route(ApiRoutes.CDRData.Base)]
     [ApiController]
     public class CDRController : BaseController
