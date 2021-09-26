@@ -15,6 +15,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
                         Country, 
                         CallType, 
                         Duration, 
+                        DateCreated,
                         Cost)
                    VALUES 
                         (@Id, 
@@ -22,7 +23,8 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
                         @CalledNumber, 
                         @Country, 
                         @CallType, 
-                        @Duration, 
+                        @Duration,
+                        @DateCreated,
                         @Cost);
                     SELECT SCOPE_IDENTITY()";
         }

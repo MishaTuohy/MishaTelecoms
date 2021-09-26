@@ -1,19 +1,15 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Repositories.CDRData;
 using MishaTelecoms.Application.Interfaces.Services.CDRImporter;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MishaTelecoms.CDRGenerator.Importer
 {
-    public class DbImporter : ICDRImporter<CDRDataDto>
+    public class DbImporter : ICDRImporter
     {
         private readonly ILogger<DbImporter> _logger;
         private readonly ICDRRepository _repository;

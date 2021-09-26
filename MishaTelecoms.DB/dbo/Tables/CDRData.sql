@@ -6,6 +6,6 @@
     [CallType]      NVARCHAR (MAX)   NOT NULL,
     [Duration]      INT              NOT NULL,
     [DateCreated]   NVARCHAR (MAX)   NOT NULL,
-    [Cost]          MONEY       NOT NULL,
+    [Cost]          FLOAT            NOT NULL,
     CONSTRAINT [PK_CDRData] PRIMARY KEY CLUSTERED ([Id] ASC)
 );

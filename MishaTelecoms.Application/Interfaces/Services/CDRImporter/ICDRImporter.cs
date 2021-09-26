@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.Application.Interfaces.Services.CDRImporter
 {
-    public interface ICDRImporter<T> where T : class
+    public interface ICDRImporter
     {
-        Task SendToDB(List<T> entity);
+        Task SendToDB(List<CDRDataDto> entity);
     }
 }

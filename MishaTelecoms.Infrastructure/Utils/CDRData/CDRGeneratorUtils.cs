@@ -15,6 +15,9 @@ namespace MishaTelecoms.Infrastructure.Utils.CDRData
 
         public string[] CreateStringArray(string str)
         {
+            if (string.IsNullOrEmpty(str))
+                throw new ArgumentException($"'{nameof(str)}' cannot be null or empty.", nameof(str));
+
             return str.Split(",");
         }
 
@@ -29,13 +32,13 @@ namespace MishaTelecoms.Infrastructure.Utils.CDRData
         public string GenerateCountry()
         {
             string[] result = CreateStringArray(_config.Countries);
-            return result[_rnd.Next(0, result.Length)];
+            return result[_rnd.Next(0, result.Length)].Trim();
         }
 
         public string GenerateCallType()
         {
             string[] result = CreateStringArray(_config.CallTypes);
-            return result[_rnd.Next(0, result.Length)];
+            return result[_rnd.Next(0, result.Length)].Trim();
         }
 
         public int GenerateDuration()
@@ -43,14 +46,22 @@ namespace MishaTelecoms.Infrastructure.Utils.CDRData
             return _rnd.Next(1, 30);
         }
 
-        public string GenerateDate()
-        {
-            return DateTimeOffset.Now.ToString("yyyyMMdd");
-        }
-
         public string GetFilepath()
         {
             return _config.Filepath;
+        }
+
+        public double CalculateCost(string country, int duration)
+        {
+            return country switch
+            {
+                "Ireland" => Math.Round(0.66 * duration, 5),
+                "England" => Math.Round(0.85 * duration, 10),
+                "Scotland" => Math.Round(1.10 * duration, 1),
+                "Wales" => Math.Round(0.77 * duration, 0),
+                "NorthernIreland" => Math.Round(0.89 * duration, 2),
+                _ => 0.0,
+            };
         }
     }
 }

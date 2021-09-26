@@ -20,14 +20,14 @@ namespace MishaTelecoms.Infrastructure
                 throw new ArgumentNullException(nameof(configuration));
 
             /// Repository
-            services.AddScoped<ICDRRepository, CDRRepository>();
+            services.AddTransient<ICDRRepository, CDRRepository>();
 
             /// Dao
-            services.AddScoped<ICDRDao, CDRDao>();
+            services.AddTransient<ICDRDao, CDRDao>();
 
             /// Helpers
-            services.AddScoped<ISqlHelperAsync, SqlHelperAsync>();
-            services.AddScoped<ITransaction, Transaction>();
+            services.AddTransient<ISqlHelperAsync, SqlHelperAsync>();
+            services.AddTransient<ITransaction, Transaction>();
 
             // ** Register this once at startup
             DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);

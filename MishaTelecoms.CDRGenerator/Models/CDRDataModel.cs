@@ -21,17 +21,6 @@ namespace MishaTelecoms.CDRGenerator.Models
         {
             return $"{Id},{CalledNumber},{CallingNumber},{Country},{CallType},{Duration},{DateCreated}";
         }
-        public double CalculateCost(string country, int duration)
-        {
-            return country switch
-            {
-                "Ireland" => 0.66 * duration,
-                "England" => 0.85 * duration,
-                "Scotland" => 1.10 * duration,
-                "Wales" => 0.77 * duration,
-                "Northern Ireland" => 0.89 * duration,
-                _ => 0.0,
-            };
-        }
+        
     }
 }

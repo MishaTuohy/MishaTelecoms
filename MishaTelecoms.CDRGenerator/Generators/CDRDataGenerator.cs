@@ -1,14 +1,13 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 using MishaTelecoms.Domain.Settings;
-using MishaTelecoms.CDRGenerator.Models;
 using MishaTelecoms.Application.Interfaces.Services.CDRGenerator;
 using MishaTelecoms.Infrastructure.Utils.CDRData;
-using MishaTelecoms.Application.Interfaces.Repositories.CDRData;
+using MishaTelecoms.Application.Dtos;
 
 namespace MishaTelecoms.CDRGenerator.Generators
 {
-    public class CDRDataGenerator : CDRGeneratorUtils, ICDRGenerator<CDRDataModel>
+    public class CDRDataGenerator : CDRGeneratorUtils, ICDRGenerator
     {
         private readonly ILogger<CDRDataGenerator> _logger;
 
@@ -17,21 +16,22 @@ namespace MishaTelecoms.CDRGenerator.Generators
             _logger = logger;
         }
 
-        public CDRDataModel GetCDRData()
+        public CDRDataDto GetCDRData()
         {
             try
             {
-                CDRDataModel cdr = new CDRDataModel
+                CDRDataDto cdr = new CDRDataDto
                 {
                     Id = Guid.NewGuid(),
                     CallingNumber = GeneratePhoneNumber(),
                     CalledNumber = GeneratePhoneNumber(),
                     Country = GenerateCountry(),
                     CallType = GenerateCallType(),
+                    DateCreated = DateTime.Now.ToString("yyyyMMdd"),
                     Duration = GenerateDuration(),
-                    DateCreated = GenerateDate(),
                 };
-                cdr.Cost = cdr.CalculateCost(cdr.Country, cdr.Duration);
+
+                cdr.Cost = CalculateCost(cdr.Country, cdr.Duration);
                 return cdr;
             }
             catch (Exception ex)

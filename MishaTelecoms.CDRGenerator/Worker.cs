@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Interfaces.Services.CDRGenerator;
 using MishaTelecoms.Application.Interfaces.Services.CDRImporter;
-using MishaTelecoms.CDRGenerator.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,11 +14,11 @@ namespace MishaTelecoms.CDRGenerator
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly ICDRImporter<CDRDataDto> _importer;
-        private readonly ICDRGenerator<CDRDataModel> _dataGenerator;
+        private readonly ICDRImporter _importer;
+        private readonly ICDRGenerator _dataGenerator;
         private readonly IMapper _mapper;
 
-        public Worker(ILogger<Worker> logger, ICDRGenerator<CDRDataModel> dataGenerator, ICDRImporter<CDRDataDto> importer,
+        public Worker(ILogger<Worker> logger, ICDRGenerator dataGenerator, ICDRImporter importer,
             IMapper mapper)
         {
             _logger = logger;
@@ -37,7 +36,7 @@ namespace MishaTelecoms.CDRGenerator
                 {
                     for (int i = 0; i < 1000; i++)
                     {
-                        var data = _mapper.Map<CDRDataModel, CDRDataDto>(_dataGenerator.GetCDRData());
+                        var data = _dataGenerator.GetCDRData();
                         CDRDataList.Add(data);
                     }
 
