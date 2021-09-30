@@ -5,8 +5,13 @@ using System.Threading.Tasks;
 
 namespace MishaTelecoms.Application.Interfaces.Repositories.CDRData
 {
-    public interface ICDRRepository : IRepository<CDRDataDto>
+    public interface ICDRRepository
     {
+
+        Task<bool> AddAsync(CDRDataDto entity);
+        Task<bool> UpdateAllAsync(CDRDataDto entity);
+        Task<IReadOnlyList<CDRDataDto>> GetAllAsync();
+        Task<CDRDataDto> GetByIdAsync(Guid Id);
         Task<IReadOnlyList<CDRDataDto>> GetByCountryAsync(string country);
         Task<IReadOnlyList<CDRDataDto>> GetByCallTypeAsync(string callType);
         Task<IReadOnlyList<CDRDataDto>> GetByDateCreatedAsync(string dateCreated);
@@ -16,5 +21,6 @@ namespace MishaTelecoms.Application.Interfaces.Repositories.CDRData
         Task<bool> UpdateCallTypeAsync(Guid Id, string CallType);
         Task<bool> UpdateDurationAsync(Guid Id, int Duration);
         Task<bool> UpdateCostAsync(Guid Id, double Cost);
+        Task<bool> DeleteAsync(Guid Id);
     }
 }

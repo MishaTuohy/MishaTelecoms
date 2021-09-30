@@ -163,6 +163,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
             if (dto == null)
                 throw new ArgumentNullException("CDR Data cannot be null");
 
+            bool result;
             using (Transaction trans = new Transaction(_config))
             {
                 try
@@ -179,20 +180,27 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Cost", Value =  dto.Cost },
                     };
 
-                    return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateAllSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateAllSql(), _params, CommandType.Text) > 0;
+
+                    if (result)
+                        trans.Commit();
                 }
                 catch (Exception ex)
                 {
+                    trans.Rollback();
                     _logger.LogError(ex, "Failed to update CDR Data");
                     throw;
                 }
             }
+            return result;
         }
 
         public async Task<bool> UpdateCallingNumberAsync(Guid Id, string CallingNumber)
         {
             if (CallingNumber is null)
                 throw new ArgumentNullException(nameof(CallingNumber));
+
+            bool result;
 
             using (Transaction trans = new Transaction(_config))
             {
@@ -204,20 +212,28 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "CallingNumber", Value = CallingNumber }
                     };
-                    return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+
+                    if (result)
+                        trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Failed to retrieve CDR Data");
+                    trans.Rollback();
+                    _logger.LogError(ex, "Failed to update CDR Data");
                     throw;
                 }
             }
+            return result;
         }
 
         public async Task<bool> UpdateCalledNumberAsync(Guid Id, string CalledNumber)
         {
             if (CalledNumber is null)
                 throw new ArgumentNullException(nameof(CalledNumber));
+
+            bool result;
 
             using (Transaction trans = new Transaction(_config))
             {
@@ -229,21 +245,26 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "CalledNumber", Value = CalledNumber}
                     };
-                    return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCalledNumberSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+
+                    if (result)
+                        trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Failed to retrieve CDR Data");
+                    trans.Rollback();
+                    _logger.LogError(ex, "Failed to update CDR Data");
                     throw;
                 }
             }
+            return result;
         }
 
         public async Task<bool> UpdateCountryAsync(Guid Id, string Country)
         {
             if (Country is null)
                 throw new ArgumentNullException(nameof(Country));
-
+            bool result;
             using (Transaction trans = new Transaction(_config))
             {
 
@@ -254,21 +275,26 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "Country", Value = Country}
                     };
-                    return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCountrySql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+
+                    if (result)
+                        trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Failed to retrieve CDR Data");
+                    trans.Rollback();
+                    _logger.LogError(ex, "Failed to update CDR Data");
                     throw;
                 }
             }
+            return result;
         }
 
         public async Task<bool> UpdateCallTypeAsync(Guid Id, string CallType)
         {
             if (CallType is null)
                 throw new ArgumentNullException(nameof(CallType));
-
+            bool result;
             using (Transaction trans = new Transaction(_config))
             {
 
@@ -279,21 +305,26 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "CallType", Value = CallType}
                     };
-                    return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallTypeSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+
+                    if (result)
+                        trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Failed to retrieve CDR Data");
+                    trans.Rollback();
+                    _logger.LogError(ex, "Failed to update CDR Data");
                     throw;
                 }
             }
+            return result;
         }
 
         public async Task<bool> UpdateDurationAsync(Guid Id, int Duration)
         {
             if (Duration <= 0)
                 throw new ArgumentException(nameof(Duration));
-
+            bool result;
             using (Transaction trans = new Transaction(_config))
             {
 
@@ -304,21 +335,26 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "Duration", Value = Duration}
                     };
-                    return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateDurationSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+
+                    if (result)
+                        trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Failed to retrieve CDR Data");
+                    trans.Rollback();
+                    _logger.LogError(ex, "Failed to update CDR Data");
                     throw;
                 }
             }
+            return result;
         }
 
         public async Task<bool> UpdateCostAsync(Guid Id, double Cost)
         {
             if (Cost <= 0.0)
                 throw new ArgumentNullException(nameof(Cost));
-
+            bool result;
             using (Transaction trans = new Transaction(_config))
             {
 
@@ -329,21 +365,26 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "Cost", Value = Cost}
                     };
-                    return await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCostSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+
+                    if (result)
+                        trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Failed to retrieve CDR Data");
+                    trans.Rollback();
+                    _logger.LogError(ex, "Failed to update CDR Data");
                     throw;
                 }
             }
+            return result;
         }
 
         public async Task<bool> DeleteAsync(Guid Id)
         {
             if (Id == null)
                 throw new ArgumentNullException("Id cannot be null");
-
+            bool result;
             using (Transaction trans = new Transaction(_config))
             {
                 try
@@ -352,19 +393,18 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 {
                     new ParameterInfo { Name = "Id", Value = Id }
                 };
-                    var result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
                     if (result)
                         trans.Commit();
-                    return result;
                 }
                 catch (Exception ex)
                 {
                     trans.Rollback();
-                    _logger.LogError(ex, "Failed to create CDR Data");
-                    return false;
+                    _logger.LogError(ex, "Failed to delete CDR Data");
                     throw;
                 }
             }
+            return result;
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using MishaTelecoms.Application.Interfaces.Dao;
-using MishaTelecoms.Domain.Data;
-using System.Collections.Generic;
 
 namespace MishaTelecoms.Infrastructure.Persistence.Dao
 {
