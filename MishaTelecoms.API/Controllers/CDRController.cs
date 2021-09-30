@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MishaTelecoms.API.Filters;
+using MishaTelecoms.API.Middleware;
 using MishaTelecoms.API.Models.Requests.CDRData.Post.Create;
 using MishaTelecoms.API.Models.Requests.CDRData.Post.Update;
 using MishaTelecoms.Application.Common.Routes.ApiRoutes;
@@ -29,7 +29,6 @@ namespace MishaTelecoms.API.Controllers
     /// </summary>
 
     [ApiKeyAuth]
-    [Route(ApiRoutes.CDRData.Base)]
     [ApiController]
     public class CDRController : BaseController
     {
@@ -48,6 +47,7 @@ namespace MishaTelecoms.API.Controllers
         /// <response code="400">Unable to create the tag due to validation error</response>
         /// <returns>Boolean</returns>
         [HttpPost]
+        [Route(ApiRoutes.CDRData.Base)]
         public async Task<IActionResult> Post([FromBody] CreateCDRRequest request)
         {
             var query = _mapper.Map<CreateCDRRequest, CreateCDRCommand>(request);
@@ -63,6 +63,7 @@ namespace MishaTelecoms.API.Controllers
 
         // [Authorize]
         [HttpGet]
+        [Route(ApiRoutes.CDRData.Base)]
         public async Task<IActionResult> GetAll()
         {
             var query = new GetAllCDRQuery();

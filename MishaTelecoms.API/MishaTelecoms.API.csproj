@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Requests\CDRData\Get\" />
+    <Folder Include="Models\Requests\UserData\Get\" />
     <Folder Include="Models\Responses\Get\" />
     <Folder Include="Models\Responses\Post\" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MishaTelecoms.API.Models.Requests.CDRData.Post.Create;
 using MishaTelecoms.API.Models.Requests.CDRData.Post.Update;
+using MishaTelecoms.API.Models.Requests.UserData.Post;
 using MishaTelecoms.Application.Dtos;
 using MishaTelecoms.Application.Features.CDRData.Commands.Create;
 using MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateAll;
@@ -33,6 +34,9 @@ namespace MishaTelecoms.API.Mappings
             CreateMap<UpdateCDRCallTypeRequest, UpdateCDRCallTypeCommand>().ReverseMap();
             CreateMap<UpdateCDRDurationRequest, UpdateCDRDurationCommand>().ReverseMap();
             CreateMap<UpdateCDRCostRequest, UpdateCDRCostCommand>().ReverseMap();
+
+            // Create User Request
+            CreateMap<CreateUserRequest, UserDataDto>().ReverseMap();
         }
     }
 }

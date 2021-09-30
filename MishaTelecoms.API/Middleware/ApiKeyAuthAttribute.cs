@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 
-namespace MishaTelecoms.API.Filters
+namespace MishaTelecoms.API.Middleware
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class ApiKeyAuthAttribute : Attribute, IAsyncActionFilter

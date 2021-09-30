@@ -35,7 +35,9 @@ namespace MishaTelecoms.Application.Features.CDRData.Commands.Updates.UpdateAll
             {
                 var dto = _mapper.Map<UpdateCDRAllCommand, CDRDataDto>(request);
                 var result = await _repository.UpdateAllAsync(dto);
-                return new Response<bool>(result);
+                if (result)
+                    return new Response<bool>(result);
+                return new Response<bool>(result, "Fucky wucky happened");
             }
             catch (Exception ex)
             {

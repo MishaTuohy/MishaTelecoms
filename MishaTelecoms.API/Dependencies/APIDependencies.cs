@@ -24,7 +24,7 @@ namespace MishaTelecoms.API.Dependencies
             // Authorized Application Details
 
             // Jwt Authentication set up
-            services.AddJwtDependencies(configuration);
+            // services.AddJwtDependencies(configuration);
 
             services.AddSwaggerDependency();
             // Hook up infrastructure dependancies
