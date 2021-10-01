@@ -245,7 +245,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "CalledNumber", Value = CalledNumber}
                     };
-                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCalledNumberSql(), _params, CommandType.Text) > 0;
 
                     if (result)
                         trans.Commit();
@@ -275,7 +275,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "Country", Value = Country}
                     };
-                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCountrySql(), _params, CommandType.Text) > 0;
 
                     if (result)
                         trans.Commit();
@@ -305,7 +305,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "CallType", Value = CallType}
                     };
-                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallTypeSql(), _params, CommandType.Text) > 0;
 
                     if (result)
                         trans.Commit();
@@ -335,7 +335,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "Duration", Value = Duration}
                     };
-                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateDurationSql(), _params, CommandType.Text) > 0;
 
                     if (result)
                         trans.Commit();
@@ -365,7 +365,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                         new ParameterInfo { Name = "Id", Value = Id },
                         new ParameterInfo { Name = "Cost", Value = Cost}
                     };
-                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCallingNumberSql(), _params, CommandType.Text) > 0;
+                    result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.UpdateCostSql(), _params, CommandType.Text) > 0;
 
                     if (result)
                         trans.Commit();
@@ -390,9 +390,9 @@ namespace MishaTelecoms.Infrastructure.Persistence.Repositories
                 try
                 {
                     List<ParameterInfo> _params = new List<ParameterInfo>
-                {
-                    new ParameterInfo { Name = "Id", Value = Id }
-                };
+                    {
+                        new ParameterInfo { Name = "Id", Value = Id }
+                    };
                     result = await _sqlHelper.ExecuteQueryAsync(trans.GetConnection(), trans.GetTransaction(), dao.DeleteSql(), _params, CommandType.Text) > 0;
                     if (result)
                         trans.Commit();

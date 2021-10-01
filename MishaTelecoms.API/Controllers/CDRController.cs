@@ -28,14 +28,10 @@ namespace MishaTelecoms.API.Controllers
     /// CDRData Controller responsible for GET/POST/DELETE requests for CDRData
     /// </summary>
 
-    [ApiKeyAuth]
+    //[ApiKeyAuth]
     [ApiController]
     public class CDRController : BaseController
     {
-        /// <summary>
-        /// Inherits from BaseController Class
-        ///     - Contains IMediator and IMapper Intefaces using Dependency Injection
-        /// </summary>
         public CDRController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
         {
         }
@@ -46,8 +42,8 @@ namespace MishaTelecoms.API.Controllers
         /// <response code="200">Creates CDR Data entry in the database</response>
         /// <response code="400">Unable to create the tag due to validation error</response>
         /// <returns>Boolean</returns>
-        [HttpPost]
-        [Route(ApiRoutes.CDRData.Base)]
+
+        [HttpPost(ApiRoutes.CDRData.Base)]
         public async Task<IActionResult> Post([FromBody] CreateCDRRequest request)
         {
             var query = _mapper.Map<CreateCDRRequest, CreateCDRCommand>(request);
@@ -62,8 +58,7 @@ namespace MishaTelecoms.API.Controllers
         /// <returns>ReadOnlyList of CDRData Objects</returns>
 
         // [Authorize]
-        [HttpGet]
-        [Route(ApiRoutes.CDRData.Base)]
+        [HttpGet(ApiRoutes.CDRData.Base)]
         public async Task<IActionResult> GetAll()
         {
             var query = new GetAllCDRQuery();

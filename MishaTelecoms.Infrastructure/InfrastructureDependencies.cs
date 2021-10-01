@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MishaTelecoms.Application.Interfaces.Dao;
 using MishaTelecoms.Application.Interfaces.Data;
 using MishaTelecoms.Application.Interfaces.Repositories.CDRData;
+using MishaTelecoms.Application.Interfaces.Repositories.Users;
 using MishaTelecoms.Infrastructure.Data;
 using MishaTelecoms.Infrastructure.Persistence.Dao;
 using MishaTelecoms.Infrastructure.Persistence.Repositories;
@@ -21,9 +22,11 @@ namespace MishaTelecoms.Infrastructure
 
             /// Repository
             services.AddTransient<ICDRRepository, CDRRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             /// Dao
             services.AddTransient<ICDRDao, CDRDao>();
+            services.AddTransient<IUserDao, UserDao>();
 
             /// Helpers
             services.AddTransient<ISqlHelperAsync, SqlHelperAsync>();
