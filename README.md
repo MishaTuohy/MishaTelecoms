@@ -14,14 +14,13 @@ as the application evolves along with my skills as a programmer.
 
 1. **API - In Progress**
 	- Fix CDR Data Commands (done)
-	- Fix Update Commands
+	- Fix Update Commands (done)
 	- Implement Auth & OAuth (In-progress)
-	- Build User Controller (In-progress)
+	- Build User Controller (done)
 2. **Database - In Progress**
-	- Fix CDR Data monolithic table
 3. **CDRDataGenerator - In Progress**
-	- Fix dependency issue (IMapper)
-	- Make it conform to overall Architecture
+	- Fix dependency issue (IMapper) (done)
+	- Make it conform to overall Architecture (done)
 4. **SMTP Relay - Not Started**
 5. **Web UI - In Progress**
 
