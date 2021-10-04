@@ -40,7 +40,7 @@ namespace MishaTelecoms.Infrastructure.Persistence.Dao
 
         public string GetByCountry()
         {
-            return @"SELECT * [dbo].[CDRData] 
+            return @"SELECT * FROM [dbo].[CDRData] 
                    WHERE (Country = @Country OR @Country = '')";
         }
         public string GetByCallType()
